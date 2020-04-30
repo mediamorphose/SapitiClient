@@ -1,0 +1,22 @@
+{
+    "name": "mediamorphosebe/sapiti-client",
+    "description": "PHP Client for the Sapiti.net api",
+    "type": "library",
+    "license": "GPL V3",
+    "authors": [
+        {
+            "name": "MediaMorphose",
+            "email": "contact@mediamorphose.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Sapiti\\": "src/"
+        }
+    },
+    "minimum-stability": "stable",
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "^9.1"
+    }
+}

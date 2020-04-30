@@ -2,7 +2,7 @@
     "name": "mediamorphosebe/sapiti-client",
     "description": "PHP Client for the Sapiti.net api",
     "type": "library",
-    "license": "GPL V3",
+    "license": "GPL-3.0-or-later",
     "authors": [
         {
             "name": "MediaMorphose",

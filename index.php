@@ -20,7 +20,7 @@ echo '\''.$client->System()->ping().'\' from our '. $client->getLastApiResponse(
 /*Ouput your authentication label */
 echo 'Hello to '.$client->System()->authenticate()->getLabel()."\n";
 
-/*Take the first 10 events the published events */
+/*Take the first 10 published events */
 $events = $client->Agenda()->getEvents(10);
 
 $i=1;

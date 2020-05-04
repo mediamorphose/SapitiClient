@@ -5,7 +5,7 @@ namespace Sapiti\Exceptions;
 
 class JsonException extends \Exception
 {
-	CONST CODE=12;
+	CONST CODE=1020;
 
     /**
      * CurlException constructor.

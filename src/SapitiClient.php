@@ -5,12 +5,13 @@ use Sapiti\Exceptions\CurlException;
 use Sapiti\Exceptions\InvalidHTTPMethodException;
 use Sapiti\Exceptions\JsonException;
 use Sapiti\Objects\System\ApiResponse;
+use Sapiti\Repositories\Agenda;
 use Sapiti\Repositories\System;
 
 class SapitiClient
 {
 	const API_PROD_SERVER_URL = 'https://sapiti.net/';
-	const API_TEST_SERVER_URL = 'http://sapiti.local/';
+	const API_TEST_SERVER_URL = 'https://sapiti.ovh/';
 
 	protected $apiVersion = 'v1';
 	protected $testMode = false;
@@ -20,11 +21,47 @@ class SapitiClient
 	/** @var APIResponse */
 	protected $lastResponse= null;
 
-	public function __construct($publicKey, $privateKey='')	{
+	/**
+	 * SapitiClient constructor.
+	 * @param $publicKey
+	 * @param $privateKey
+	 * @param $testMode
+	 */
+	public function __construct($publicKey, $privateKey, $testMode)	{
 		$this->publicKey=$publicKey;
 		$this->privateKey=$privateKey;
 
 		$this->systemRepository= new System($this);
+		$this->agendaRepository= new Agenda($this);
+		$this->setTestMode($testMode);
+	}
+
+	public function getAuthenticationParams() {
+		$timeStamp= date('c');
+		$publicKey = $this->publicKey;
+		$privateKey = $this->privateKey;
+		$stringToEncore=$publicKey.$timeStamp;
+
+		$signature = hash_hmac("sha256", $stringToEncore, $privateKey);
+
+		$params= [
+			'publickey'=>$publicKey,
+			'timestamp'=>$timeStamp,
+			'signature'=>$signature
+		];
+
+		return $params;
+	}
+
+	public function addListLimitParams(array $data=null,$size=0, $startPosition=0) {
+		if($size>0) {
+			$data['entry_count']=$size;
+			$data['entry_start']=$startPosition;
+		}
+		if($startPosition>0) {
+			$data['entry_start']=$startPosition;
+		}
+		return $data;
 	}
 
 	/**
@@ -51,7 +88,7 @@ class SapitiClient
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
 		curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 
-		if($this->testMode) {
+		if(true) {
 			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 		}
@@ -89,6 +126,19 @@ class SapitiClient
 	public function System()
 	{
 		return $this->systemRepository;
+	}
+
+	/**
+	 * @var Agenda
+	 */
+	protected $agendaRepository=null;
+
+	/**
+	 * @return Agenda
+	 */
+	public function Agenda()
+	{
+		return $this->agendaRepository;
 	}
 
 

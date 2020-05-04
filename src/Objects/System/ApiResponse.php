@@ -89,8 +89,8 @@ class ApiResponse {
 		if (!is_array($this->error)) return null;
 		$code='';
 		$message='';
-		if(isset($this->error['code'])) $code = $this->error['code'];
-		if(isset($this->error['message'])) $code = $this->error['message'];
+		if(isset($this->error['code'])) $code = intval($this->error['code']);
+		if(isset($this->error['message'])) $message = $this->error['message'];
 		return new ApiError($code,$message);
 	}
 

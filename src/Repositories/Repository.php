@@ -16,12 +16,10 @@ class Repository
 	/**
 	 * @return SapitiClient
 	 */
-	public function getClient(): SapitiClient
+	protected function getClient(): SapitiClient
 	{
 		return $this->client;
 	}
-
-
 
 
 }

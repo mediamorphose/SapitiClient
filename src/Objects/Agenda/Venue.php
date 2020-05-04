@@ -30,7 +30,7 @@ class Venue extends ApiObject
 		if(isset($data['postalcode'])) $result->setAddressPostalCode($data['postalcode']);
 		if(isset($data['city'])) $result->setAddressCity($data['city']);
 		if(isset($data['country'])) $result->setAddressCountry($data['country']);
-		if(isset($data['mapurl'])) $result->setMapURL($data['mapurl']);
+		if(isset($data['map_url'])) $result->setMapURL($data['map_url']);
 		return $result;
 	}
 

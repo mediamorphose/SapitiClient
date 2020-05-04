@@ -23,8 +23,8 @@ class Attraction extends ApiObject
 		/** @var Attraction $result */
 		$result = parent::getFromArray($data, $existingObject);
 		if(isset($data['description'])) $result->setDescription($data['description']);
-		if(isset($data['imageurl'])) $result->setImageURL($data['imageurl']);
-		if(isset($data['imageurl_small'])) $result->setSmallImageURL($data['imageurl_small']);
+		if(isset($data['image_url'])) $result->setImageURL($data['image_url']);
+		if(isset($data['image_url_small'])) $result->setSmallImageURL($data['image_url_small']);
 		if(isset($data['categories']))
 			$result->setCategories(Category::getMultipleFromArray($data['categories']));
 

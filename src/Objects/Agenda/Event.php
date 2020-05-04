@@ -25,9 +25,11 @@ class Event extends ApiObject
 
 	protected $startTime = false;
 	protected $endTime = false;
-	protected $serieId = '';
 
-	/** @var Status||null  */
+	/** @var Serie|null  */
+	protected $serie = null;
+
+	/** @var Status|null  */
 	protected $status =null;
 
 
@@ -36,6 +38,8 @@ class Event extends ApiObject
 
 	/** @var Attraction  */
 	protected $attraction=null;
+
+	protected $shopUrl='';
 
 	/**
 	 * @param array $data
@@ -46,7 +50,8 @@ class Event extends ApiObject
 		/** @var Event $result */
 		$result = parent::getFromArray($data, $existingObject);
 
-		if(isset($data['serieid'])) $result->setSerieId($data['serieid']);
+		if(isset($data['serie'])) $result->setSerie(Serie::getFromArray($data['serie']));
+		if(isset($data['shop_url'])) $result->setShopUrl($data['shop_url']);
 		if(isset($data['starttime']))  {
 			$date = \DateTime::createFromFormat(\DateTime::ISO8601, $data['starttime']);
 			$result->setStartTime($date);
@@ -102,22 +107,6 @@ class Event extends ApiObject
 	}
 
 	/**
-	 * @return string
-	 */
-	public function getSerieId(): string
-	{
-		return $this->serieId;
-	}
-
-	/**
-	 * @param string $serieId
-	 */
-	public function setSerieId(string $serieId)
-	{
-		$this->serieId = $serieId;
-	}
-
-	/**
 	 * @return Venue|null
 	 */
 	public function getVenue()
@@ -163,6 +152,39 @@ class Event extends ApiObject
 	public function setStatus(Status $status=null)
 	{
 		$this->status = $status;
+	}
+
+	/**
+	 * @return Serie|null
+	 */
+	public function getSerie()
+	{
+		return $this->serie;
+	}
+
+	/**
+	 * @param Serie|null $serie
+	 */
+	public function setSerie(Serie $serie)
+	{
+		$this->serie = $serie;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getShopUrl(): string
+	{
+		return $this->shopUrl;
+	}
+
+	/**
+	 * @param string $shopurl
+	 */
+	public function setShopUrl(string $shopurl)
+	{
+		$this->shopUrl = $shopurl;
 	}
 
 

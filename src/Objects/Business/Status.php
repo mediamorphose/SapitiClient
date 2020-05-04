@@ -16,4 +16,11 @@ class Status extends ApiObject
 	static function getFromArray($data = null, ApiObject $existingObject=null) {
 		return parent::getFromArray($data,$existingObject);
 	}
+
+	public function __toString()
+	{
+		return $this->getId().' '.$this->getLabel();
+	}
+
+
 }

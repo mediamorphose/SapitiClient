@@ -21,7 +21,7 @@ echo '\''.$client->System()->ping().'\' from our '. $client->getLastApiResponse(
 echo 'Hello to '.$client->System()->authenticate()->getLabel()."\n";
 
 /*Take the first 10 events the published events */
-$events = $client->Agenda()->getEvents(0);
+$events = $client->Agenda()->getEvents(10);
 
 $i=1;
 /** @var Event $event */

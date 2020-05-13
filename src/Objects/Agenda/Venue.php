@@ -26,7 +26,7 @@ class Venue extends ApiObject
 		/** @var Venue $result */
 		$result = parent::getFromArray($data, $existingObject);
 		if(isset($data['addressl1'])) $result->setAddressL1($data['addressl1']);
-		if(isset($data['address2'])) $result->setAddressL2($data['address2']);
+		if(isset($data['addressl2'])) $result->setAddressL2($data['addressl2']);
 		if(isset($data['postalcode'])) $result->setAddressPostalCode($data['postalcode']);
 		if(isset($data['city'])) $result->setAddressCity($data['city']);
 		if(isset($data['country'])) $result->setAddressCountry($data['country']);

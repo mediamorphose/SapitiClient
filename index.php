@@ -8,8 +8,8 @@ ini_set('log_errors', 0);
 require_once 'vendor/autoload.php';
 
 /** Replace with the provided keys */
-$publicKey='XXXXXXXXXXX';
-$privateKey='XXXXXXXXXXXX';
+$publicKey='31D884A4-4B0C-4844-8A76-C384E12E0AC5';
+$privateKey='a1385a18-ace7-11ea-9316-e3560410452c';
 
 /*Create the Sapiti API Client in test mode */
 $client = new SapitiClient($publicKey,$privateKey, false);

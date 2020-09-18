@@ -12,9 +12,14 @@ class SapitiClient
 {
 	const API_PROD_SERVER_URL = 'https://sapiti.net/';
 	const API_TEST_SERVER_URL = 'https://sapiti.ovh/';
+	const API_DEV_SERVER_URL = 'http://sapiti.local/';
+
+	const MODE_DEV = -1;
+	const MODE_PROD = 0;
+	const MODE_TEST = 1;
 
 	protected $apiVersion = 'v1';
-	protected $testMode = false;
+	protected $mode = self::MODE_TEST;
 	protected $publicKey='';
 	protected $privateKey='';
 
@@ -25,15 +30,15 @@ class SapitiClient
 	 * SapitiClient constructor.
 	 * @param $publicKey
 	 * @param $privateKey
-	 * @param $testMode
+	 * @param $mode
 	 */
-	public function __construct($publicKey, $privateKey, $testMode)	{
+	public function __construct($publicKey, $privateKey, $mode=self::MODE_TEST)	{
 		$this->publicKey=$publicKey;
 		$this->privateKey=$privateKey;
 
 		$this->systemRepository= new System($this);
 		$this->agendaRepository= new Agenda($this);
-		$this->setTestMode($testMode);
+		$this->setMode($mode);
 	}
 
 	public function getAuthenticationParams() {
@@ -142,18 +147,27 @@ class SapitiClient
 	}
 
 
-
 	/**
-	 * Set to true if you want to use the test server
-	 *
-	 * @param $bool
+	 * @param $value
 	 */
-	public function setTestMode($bool) {
-		$this->testMode=$bool;
+	public function setMode($value) {
+		$this->mode=$value;
 	}
 
+	/**
+	 * @return string
+	 */
 	protected function getGeneralApiURL() {
-		return ($this->testMode?self::API_TEST_SERVER_URL:self::API_PROD_SERVER_URL).$this->apiVersion.'';
+		switch ($this->mode) {
+			case self::MODE_TEST:
+				return self::API_TEST_SERVER_URL.$this->apiVersion.'';
+			case self::MODE_DEV:
+				return self::API_DEV_SERVER_URL.$this->apiVersion.'';
+			case self::MODE_PROD:
+				return self::API_PROD_SERVER_URL.$this->apiVersion.'';
+			default:
+				return self::API_TEST_SERVER_URL.$this->apiVersion.'';
+		}
 	}
 
 	/**

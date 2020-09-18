@@ -5,28 +5,65 @@ use Sapiti\Exceptions\ApiException;
 use Sapiti\Exceptions\CurlException;
 use Sapiti\Exceptions\InvalidHTTPMethodException;
 use Sapiti\Exceptions\JsonException;
+use Sapiti\Objects\Agenda\Attraction;
+use Sapiti\Objects\Agenda\Category;
 use Sapiti\Objects\Agenda\Event;
+use Sapiti\Objects\Agenda\Venue;
 
 class Agenda extends Repository
 {
 	/**
-	 * @param int $size
-	 * @param int $startPosition
+	 * @param array $params
 	 * @return array
 	 * @throws ApiException
 	 * @throws CurlException
 	 * @throws InvalidHTTPMethodException
 	 * @throws JsonException
 	 */
-	public function getEvents($size=0, $startPosition=0) {
-		$data = $this->getClient()->getAuthenticationParams();
-		$data = $this->getClient()->addListLimitParams($data, $size, $startPosition);
-
-		$apiResponse = $this->getClient()->callAPI('agenda/events','GET',$data);
-		$apiError = $apiResponse->getApiError();
-		if ($apiError) throw new ApiException($apiError, null);
+	public function getEvents(array $params=[]) {
+		$apiResponse = $this->getAPIResponse('agenda/events',$params,'GET');
 		return Event::getMultipleFromArray($apiResponse->getResponse());
 	}
+
+	/**
+	 * @param array $params
+	 * @return array
+	 * @throws ApiException
+	 * @throws CurlException
+	 * @throws InvalidHTTPMethodException
+	 * @throws JsonException
+	 */
+	public function getVenues(array $params=[]) {
+		$apiResponse = $this->getAPIResponse('agenda/venues',$params,'GET');
+		return Venue::getMultipleFromArray($apiResponse->getResponse());
+	}
+
+	/**
+	 * @param array $params
+	 * @return array
+	 * @throws ApiException
+	 * @throws CurlException
+	 * @throws InvalidHTTPMethodException
+	 * @throws JsonException
+	 */
+	public function getAttractions(array $params=[]) {
+		$apiResponse = $this->getAPIResponse('agenda/attractions',$params,'GET');
+		return Attraction::getMultipleFromArray($apiResponse->getResponse());
+	}
+
+	/**
+	 * @param array $params
+	 * @return array
+	 * @throws ApiException
+	 * @throws CurlException
+	 * @throws InvalidHTTPMethodException
+	 * @throws JsonException
+	 */
+	public function getCategories(array $params=[]) {
+		$apiResponse = $this->getAPIResponse('agenda/attractions/categories',$params,'GET');
+		return Category::getMultipleFromArray($apiResponse->getResponse());
+	}
+
 
 
 }

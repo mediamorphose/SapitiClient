@@ -27,6 +27,13 @@ class ApiObject
 		return $existingObject;
 	}
 
+	static function toArray(ApiObject $existingObject) {
+		$data=[];
+		$data['id']=$existingObject->getId();
+		$data['label']=$existingObject->getLabel();
+		return $data;
+	}
+
 	static function getMultipleFromArray($data = null) {
 		$result= [];
 

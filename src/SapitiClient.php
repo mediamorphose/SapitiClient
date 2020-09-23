@@ -6,6 +6,8 @@ use Sapiti\Exceptions\InvalidHTTPMethodException;
 use Sapiti\Exceptions\JsonException;
 use Sapiti\Objects\System\ApiResponse;
 use Sapiti\Repositories\Agenda;
+use Sapiti\Repositories\Contact;
+use Sapiti\Repositories\Newsletter;
 use Sapiti\Repositories\System;
 
 class SapitiClient
@@ -38,6 +40,8 @@ class SapitiClient
 
 		$this->systemRepository= new System($this);
 		$this->agendaRepository= new Agenda($this);
+		$this->contactRepository= new Contact($this);
+		$this->newsletterRepository= new Newsletter($this);
 		$this->setMode($mode);
 	}
 
@@ -113,7 +117,11 @@ class SapitiClient
 		curl_close($ch);
 
 		$data = @json_decode($json, true);
-		if (is_null($data)) throw new JsonException();
+		if (is_null($data)) {
+			$jsonException = new JsonException();
+			$jsonException->setJsonCode($json);
+			throw $jsonException;
+		}
 
 		$result = new APIResponse($data, $json);
 		$this->lastResponse=$result;
@@ -144,6 +152,32 @@ class SapitiClient
 	public function Agenda()
 	{
 		return $this->agendaRepository;
+	}
+
+	/**
+	 * @var Contact
+	 */
+	protected $contactRepository=null;
+
+	/**
+	 * @return Contact
+	 */
+	public function Contact()
+	{
+		return $this->contactRepository;
+	}
+
+	/**
+	 * @var Newsletter
+	 */
+	protected $newsletterRepository=null;
+
+	/**
+	 * @return Newsletter
+	 */
+	public function Newsletter()
+	{
+		return $this->newsletterRepository;
 	}
 
 

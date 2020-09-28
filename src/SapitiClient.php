@@ -8,6 +8,7 @@ use Sapiti\Objects\System\ApiResponse;
 use Sapiti\Repositories\Agenda;
 use Sapiti\Repositories\Contact;
 use Sapiti\Repositories\Newsletter;
+use Sapiti\Repositories\Order;
 use Sapiti\Repositories\System;
 
 class SapitiClient
@@ -42,6 +43,7 @@ class SapitiClient
 		$this->agendaRepository= new Agenda($this);
 		$this->contactRepository= new Contact($this);
 		$this->newsletterRepository= new Newsletter($this);
+		$this->orderRepository= new Order($this);
 		$this->setMode($mode);
 	}
 
@@ -178,6 +180,20 @@ class SapitiClient
 	public function Newsletter()
 	{
 		return $this->newsletterRepository;
+	}
+
+
+	/**
+	 * @var Order
+	 */
+	protected $orderRepository=null;
+
+	/**
+	 * @return Order
+	 */
+	public function Order()
+	{
+		return $this->orderRepository;
 	}
 
 

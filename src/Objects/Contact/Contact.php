@@ -12,6 +12,7 @@ class Contact extends ApiObject
 	protected $firstName='';
 	protected $lastName='';
 	protected $email='';
+	protected $mobilePhone='';
 	protected $addressL1='';
 	protected $addressL2='';
 	protected $addressPostalCode='';
@@ -25,6 +26,7 @@ class Contact extends ApiObject
 		if(isset($data['firstname'])) $result->setFirstName($data['firstname']);
 		if(isset($data['lastname'])) $result->setLastName($data['lastname']);
 		if(isset($data['email'])) $result->setEmail($data['email']);
+		if(isset($data['mobilephone'])) $result->setMobilePhone($data['mobilephone']);
 		if(isset($data['addressl1'])) $result->setAddressL1($data['addressl1']);
 		if(isset($data['addressl2'])) $result->setAddressL2($data['addressl2']);
 		if(isset($data['postalcode'])) $result->setAddressPostalCode($data['postalcode']);
@@ -39,6 +41,7 @@ class Contact extends ApiObject
 		$data['firstname']=$existingObject->getFirstName();
 		$data['lastname']=$existingObject->getLastName();
 		$data['email']=$existingObject->getEmail();
+		$data['mobilephone']=$existingObject->getMobilePhone();
 		$data['addressl1']=$existingObject->getAddressL1();
 		$data['addressl2']=$existingObject->getAddressL2();
 		$data['postalcode']=$existingObject->getAddressPostalCode();
@@ -174,6 +177,23 @@ class Contact extends ApiObject
 	{
 		$this->addressCountry = $addressCountry;
 	}
+
+	/**
+	 * @return string
+	 */
+	public function getMobilePhone(): string
+	{
+		return $this->mobilePhone;
+	}
+
+	/**
+	 * @param string $mobilePhone
+	 */
+	public function setMobilePhone(string $mobilePhone): void
+	{
+		$this->mobilePhone = $mobilePhone;
+	}
+
 
 
 

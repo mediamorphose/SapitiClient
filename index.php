@@ -1,6 +1,7 @@
 <?php
 
 
+use Sapiti\Objects\Contact\Contact;
 use Sapiti\SapitiClient;
 
 ini_set('log_errors', 0);
@@ -21,4 +22,5 @@ echo '\''.$client->System()->ping().'\' from our '. $client->getLastApiResponse(
 echo 'Welcome to '.$client->System()->authenticate()->getLabel()."\n";
 
 include 'examples/agenda.php';
+include 'examples/order.php';
 include 'examples/contact.php';

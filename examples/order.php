@@ -6,7 +6,7 @@ use Sapiti\SapitiClient;
 /** @var SapitiClient $client */
 global $client;
 
-readline('getting the list for a contact id...');
+readline('getting order list for a contact id...');
 
 $orders = $client->Order()->getOrders(['contactid'=>'77B8994B-D521-A2C2-FA06-982B5F1DAFD2']);
 $i=1;$lastId='';

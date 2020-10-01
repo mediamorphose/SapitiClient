@@ -29,7 +29,8 @@ foreach($events as $event) {
 	echo 'The event description is : '.substr($event->getAttraction()->getDescription(),0,255)."...\n";
 	$i++;
 }
-if($lastId) echo 'The last one is  : '.$client->Agenda()->getEvent($lastId)->getId()."\n";
+if($lastId) echo 'The last event is  : '.$client->Agenda()->getEvent($lastId)->getId()."\n";
+$lastEventId=$lastId;
 //endregion
 
 readline('Let s list the attractions ... (enter key)');

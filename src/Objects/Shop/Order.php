@@ -23,7 +23,7 @@ class Order extends ApiObject
 		/** @var Order $result */
 		$result = parent::getFromArray($data, $existingObject);
 		if (isset($data['contactid'])) $result->setContactId($data['contactid']);
-		if (isset($data['infourl'])) $result->setInfoUrl($data['infourl']);
+		if (isset($data['info_url'])) $result->setInfoUrl($data['info_url']);
 
 		if(isset($data['created']))  {
 			$date = \DateTime::createFromFormat(\DateTime::ISO8601, $data['created']);

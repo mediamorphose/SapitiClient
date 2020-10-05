@@ -43,7 +43,7 @@ $i=1;$lastId='';
 foreach($attractions as $attraction) {
 	$lastId = $attraction->getId();
 	echo "----------------\n";
-	echo $i.') '.$attraction->getLabel()."\n";
+	echo $i.') '.$attraction->getLabel().' | '.$attraction->getNbEvents()." events\n";
 	$i++;
 }
 if($lastId) echo 'The last one is  : '.$client->Agenda()->getAttraction($lastId)->getLabel()."...\n";

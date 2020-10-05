@@ -14,6 +14,10 @@ class Attraction extends ApiObject
 	protected $imageURL='';
 	protected $smallImageURL='';
 
+	protected $firstEvent_date = false;
+	protected $lastEvent_date = false;
+	protected $nbEvents = 0;
+
 	/**
 	 * @param array $data
 	 * @param ApiObject|null $existingObject
@@ -27,6 +31,17 @@ class Attraction extends ApiObject
 		if(isset($data['image_url_small'])) $result->setSmallImageURL($data['image_url_small']);
 		if(isset($data['categories']))
 			$result->setCategories(Category::getMultipleFromArray($data['categories']));
+
+		if(isset($data['firstevent_date']))  {
+			$date = \DateTime::createFromFormat(\DateTime::ISO8601, $data['firstevent_date']);
+			$result->setFirstEventDate($date);
+		}
+
+		if(isset($data['lastevent_date']))  {
+			$date = \DateTime::createFromFormat(\DateTime::ISO8601, $data['lastevent_date']);
+			$result->setLastEventDate($date);
+		}
+		if(isset($data['nb_events'])) $result->setNbEvents($data['nb_events']);
 
 		return $result;
 	}
@@ -94,6 +109,56 @@ class Attraction extends ApiObject
 	{
 		$this->smallImageURL = $smallImageURL;
 	}
+
+	/**
+	 * @return \DateTime|false
+	 */
+	public function getFirstEventDate()
+	{
+		return $this->firstEvent_date;
+	}
+
+	/**
+	 * @param \DateTime|null $endTime
+	 */
+	public function setFirstEventDate(\DateTime $endTime=null)
+	{
+		$this->firstEvent_date = $endTime;
+	}
+
+	/**
+	 * @return \DateTime|false
+	 */
+	public function getLastEventDate()
+	{
+		return $this->lastEvent_date;
+	}
+
+	/**
+	 * @param \DateTime|null $endTime
+	 */
+	public function setLastEventDate (\DateTime $endTime=null)
+	{
+		$this->lastEvent_date = $endTime;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getNbEvents(): int
+	{
+		return $this->nbEvents;
+	}
+
+	/**
+	 * @param int $nbEvents
+	 */
+	public function setNbEvents(int $nbEvents): void
+	{
+		$this->nbEvents = $nbEvents;
+	}
+
+
 
 
 

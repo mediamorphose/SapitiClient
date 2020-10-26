@@ -35,6 +35,18 @@ class Order extends Repository
 		return \Sapiti\Objects\Shop\Order::getFromArray($apiResponse->getResponse());
 	}
 
+	public function confirmOrder(string $orderId, string $contactId) {
+		$apiResponse = $this->getAPIResponse('orders/'.$orderId,['contactid'=>$contactId,'statusid'=>1],'PATCH');
+		return \Sapiti\Objects\Shop\Order::getFromArray($apiResponse->getResponse());
+	}
+
+	public function setMolliePaymentId(string $orderId, string $paymentId) {
+		$apiResponse = $this->getAPIResponse('orders/'.$orderId,['molliepaymentid'=>$paymentId],'PATCH');
+		return \Sapiti\Objects\Shop\Order::getFromArray($apiResponse->getResponse());
+	}
+
+
+
 
 
 

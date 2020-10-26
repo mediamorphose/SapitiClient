@@ -13,16 +13,16 @@ readline('getting stock from last listed event...');
 if (!isset($lastEventId)) $lastEventId='xxx';
 
 $stocks = $client->Stock()->getStocks(['eventid'=>$lastEventId]);
-$i=1;$lastId='';
+$i=1;$lastStockId='';
 /** @var Stock $stock */
 foreach($stocks as $stock) {
-	$lastId = $stock->getId();
+	$lastStockId = $stock->getId();
 	echo "----------------\n";
 	echo $i.') '.$stock->getLabel().' '.$stock->getShopUrl()."\n";
 	echo "Categories : \n";
 	/** @var ProductCategory $productCategory */
 	foreach($stock->getProductCategories() as $productCategory) {
-		echo '* '.$productCategory->getLabel().' '.$productCategory->getCapacityTotal()."\n";
+		echo '* '.$productCategory->getLabel().' '.$productCategory->getCapacityFree()."\n";
 		/** @var Price $price */
 		foreach($productCategory->getPrices() as $price) {
 			echo '*** '.$price->getLabel().' '.$price->getPrice()."\n";
@@ -30,4 +30,4 @@ foreach($stocks as $stock) {
 	}
 	$i++;
 }
-if($lastId) echo 'The last one is  : '.$client->Stock()->getStock($lastId)->getLabel()."\n";
+if($lastStockId) echo 'The last one is  : '.$client->Stock()->getStock($lastStockId)->getLabel()."\n";

@@ -5,6 +5,7 @@ use Sapiti\Exceptions\ApiException;
 use Sapiti\Exceptions\CurlException;
 use Sapiti\Exceptions\InvalidHTTPMethodException;
 use Sapiti\Exceptions\JsonException;
+use Sapiti\Objects\Shop\StockRequest;
 
 
 class Stock extends Repository
@@ -34,6 +35,13 @@ class Stock extends Repository
 		$apiResponse = $this->getAPIResponse('products/stocks/'.$id,[],'GET');
 		return \Sapiti\Objects\Shop\Stock::getFromArray($apiResponse->getResponse());
 	}
+
+	public function requestStock(array $requests=[]) {
+		$apiResponse = $this->getAPIResponse('products/',['requests'=>StockRequest::getMultipleToArray($requests)],'POST');
+		return \Sapiti\Objects\Shop\Product::getMultipleFromArray($apiResponse->getResponse());
+	}
+
+
 
 
 

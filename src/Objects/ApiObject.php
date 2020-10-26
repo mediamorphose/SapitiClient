@@ -44,6 +44,17 @@ class ApiObject
 		return $result;
 	}
 
+	static function getMultipleToArray($objectArray=[]) {
+		$result= [];
+
+		/** @var ApiObject $object */
+		foreach($objectArray as $object) {
+			$result[] = static::toArray($object);
+		}
+
+		return $result;
+	}
+
 	/**
 	 * @return string
 	 */

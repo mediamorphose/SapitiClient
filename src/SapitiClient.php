@@ -9,6 +9,7 @@ use Sapiti\Repositories\Agenda;
 use Sapiti\Repositories\Contact;
 use Sapiti\Repositories\Newsletter;
 use Sapiti\Repositories\Order;
+use Sapiti\Repositories\Product;
 use Sapiti\Repositories\Stock;
 use Sapiti\Repositories\System;
 
@@ -45,6 +46,7 @@ class SapitiClient
 		$this->contactRepository= new Contact($this);
 		$this->newsletterRepository= new Newsletter($this);
 		$this->orderRepository= new Order($this);
+		$this->productRepository= new Product($this);
 		$this->stockRepository= new Stock($this);
 		$this->setMode($mode);
 	}
@@ -196,6 +198,19 @@ class SapitiClient
 	public function Order()
 	{
 		return $this->orderRepository;
+	}
+
+	/**
+	 * @var Product
+	 */
+	protected $productRepository=null;
+
+	/**
+	 * @return Product
+	 */
+	public function Product()
+	{
+		return $this->productRepository;
 	}
 
 	/**

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7c904b4a03f09df55f2e749c01ee4af6",
+    "content-hash": "4081707ac91c96ba0d9277631dc38851",
     "packages": [
         {
             "name": "inouet/file-cache",
@@ -54,7 +54,7 @@
     ],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
         "inouet/file-cache": 20
     },

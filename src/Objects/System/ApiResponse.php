@@ -66,6 +66,16 @@ class ApiResponse {
 	}
 
 	/**
+	 * @param bool $cached
+	 */
+	public function setCached(bool $cached): void
+	{
+		$this->cached = $cached;
+	}
+
+
+
+	/**
 	 * @return bool
 	 */
 	public function isCached(): bool
@@ -109,6 +119,7 @@ class ApiResponse {
 	{
 		return $this->rawJson;
 	}
+
 
 
 

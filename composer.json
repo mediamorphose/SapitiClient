@@ -1,5 +1,5 @@
 {
-    "name": "mediamorphosebe/sapiti-client",
+    "name": "mediamorphose/sapiti-client",
     "description": "PHP Client for the Sapiti.net api",
     "type": "library",
     "license": "GPL-3.0-or-later",

@@ -35,8 +35,17 @@ class Stream extends Repository
 		return \Sapiti\Objects\Streaming\Stream::getFromArray($apiResponse->getResponse());
 	}
 
-	public function getControlStreamAccess(string $id, $email, $orderid) {
-		$apiResponse = $this->getAPIResponse('streams/'.$id.'/control',['email'=>$email,'orderid'=>$orderid ],'GET');
+	/**
+	 * @param string $id
+	 * @param $contactId
+	 * @return \Sapiti\Objects\ApiObject|\Sapiti\Objects\Contact\Contact|null
+	 * @throws ApiException
+	 * @throws CurlException
+	 * @throws InvalidHTTPMethodException
+	 * @throws JsonException
+	 */
+	public function getControlStreamAccess(string $id, string $contactId) {
+		$apiResponse = $this->getAPIResponse('streams/'.$id.'/control',['contactid'=>$contactId],'GET');
 		return\Sapiti\Objects\Contact\Contact::getFromArray($apiResponse->getResponse());
 	}
 

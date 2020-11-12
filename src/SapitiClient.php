@@ -11,6 +11,7 @@ use Sapiti\Repositories\Newsletter;
 use Sapiti\Repositories\Order;
 use Sapiti\Repositories\Product;
 use Sapiti\Repositories\Stock;
+use Sapiti\Repositories\Stream;
 use Sapiti\Repositories\System;
 
 class SapitiClient
@@ -48,6 +49,7 @@ class SapitiClient
 		$this->orderRepository= new Order($this);
 		$this->productRepository= new Product($this);
 		$this->stockRepository= new Stock($this);
+		$this->streamRepository= new Stream($this);
 		$this->setMode($mode);
 	}
 
@@ -225,6 +227,19 @@ class SapitiClient
 	{
 		return $this->stockRepository;
 	}
+	/**
+	 * @var Stream
+	 */
+	protected $streamRepository=null;
+
+	/**
+	 * @return Stream
+	 */
+	public function Stream()
+	{
+		return $this->streamRepository;
+	}
+
 
 
 	/**

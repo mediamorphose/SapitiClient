@@ -20,6 +20,7 @@ class Stream extends ApiObject
 	const STATUS_PUBLISHED = 10;
 
 
+
 	protected $startTime = false;
 	protected $endTime = false;
 
@@ -36,6 +37,7 @@ class Stream extends ApiObject
 	/** @var Attraction  */
 	protected $attraction=null;
 
+	protected $description='';
 	protected $url='';
 	protected $shopUrl='';
 	protected $accessDuration='';
@@ -51,6 +53,8 @@ class Stream extends ApiObject
 		/** @var Stream $result */
 		$result = parent::getFromArray($data, $existingObject);
 
+		if(isset($data['label'])) $result->setLabel($data['label']);
+		if(isset($data['description'])) $result->setDescription($data['description']);
 		if(isset($data['url'])) $result->setUrl($data['url']);
 		if(isset($data['shop_url'])) $result->setShopUrl($data['shop_url']);
 		if(isset($data['access_duration'])) $result->setAccessDuration($data['access_duration']);
@@ -255,6 +259,23 @@ class Stream extends ApiObject
 	{
 		$this->freeAccessToSeats = $freeAccessToSeats;
 	}
+
+	/**
+	 * @return string
+	 */
+	public function getDescription(): string
+	{
+		return $this->description;
+	}
+
+	/**
+	 * @param string $description
+	 */
+	public function setDescription(string $description): void
+	{
+		$this->description = $description;
+	}
+
 
 
 

@@ -37,6 +37,10 @@ class Stream extends ApiObject
 	protected $attraction=null;
 
 	protected $url='';
+	protected $shopUrl='';
+	protected $accessDuration='';
+	protected $freeAccessToPacks=false;
+	protected $freeAccessToSeats=false;
 
 	/**
 	 * @param array $data
@@ -48,6 +52,10 @@ class Stream extends ApiObject
 		$result = parent::getFromArray($data, $existingObject);
 
 		if(isset($data['url'])) $result->setUrl($data['url']);
+		if(isset($data['shop_url'])) $result->setShopUrl($data['shop_url']);
+		if(isset($data['access_duration'])) $result->setAccessDuration($data['access_duration']);
+		if(isset($data['freeaccess_packs'])) $result->setFreeAccessToPacks($data['freeaccess_packs']);
+		if(isset($data['freeaccess_seats'])) $result->setFreeAccessToSeats($data['freeaccess_seats']);
 		if(isset($data['starttime']))  {
 			$date = \DateTime::createFromFormat(\DateTime::ISO8601, $data['starttime']);
 			$result->setStartTime($date);
@@ -183,6 +191,71 @@ class Stream extends ApiObject
 	{
 		$this->url = $url;
 	}
+
+	/**
+	 * @return string
+	 */
+	public function getShopUrl(): string
+	{
+		return $this->shopUrl;
+	}
+
+	/**
+	 * @param string $shopUrl
+	 */
+	public function setShopUrl(string $shopUrl): void
+	{
+		$this->shopUrl = $shopUrl;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getAccessDuration(): string
+	{
+		return $this->accessDuration;
+	}
+
+	/**
+	 * @param string $accessDuration
+	 */
+	public function setAccessDuration(string $accessDuration): void
+	{
+		$this->accessDuration = $accessDuration;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isFreeAccessToPacks(): bool
+	{
+		return $this->freeAccessToPacks;
+	}
+
+	/**
+	 * @param bool $freeAccessToPacks
+	 */
+	public function setFreeAccessToPacks(bool $freeAccessToPacks): void
+	{
+		$this->freeAccessToPacks = $freeAccessToPacks;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isFreeAccessToSeats(): bool
+	{
+		return $this->freeAccessToSeats;
+	}
+
+	/**
+	 * @param bool $freeAccessToSeats
+	 */
+	public function setFreeAccessToSeats(bool $freeAccessToSeats): void
+	{
+		$this->freeAccessToSeats = $freeAccessToSeats;
+	}
+
 
 
 

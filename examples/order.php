@@ -8,7 +8,7 @@ global $client;
 
 readline('getting order list for a contact id...');
 
-$orders = $client->Order()->getOrders(['contactid'=>'77B8994B-D521-A2C2-FA06-982B5F1DAFD2']);
+$orders = $client->Shop()->getOrders(['contactid'=>'77B8994B-D521-A2C2-FA06-982B5F1DAFD2']);
 $i=1;$lastId='';
 /** @var Order $order */
 foreach($orders as $order) {
@@ -17,4 +17,4 @@ foreach($orders as $order) {
 	echo $i.') '.$order->getLabel().' '.$order->getInfoUrl()."\n";
 	$i++;
 }
-if($lastId) echo 'The last one is  : '.$client->Order()->getOrder($lastId)->getLabel()."\n";
+if($lastId) echo 'The last one is  : '.$client->Shop()->getOrder($lastId)->getLabel()."\n";

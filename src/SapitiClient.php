@@ -6,10 +6,12 @@ use Sapiti\Exceptions\InvalidHTTPMethodException;
 use Sapiti\Exceptions\JsonException;
 use Sapiti\Objects\System\ApiResponse;
 use Sapiti\Repositories\Agenda;
+use Sapiti\Repositories\Catalogue;
 use Sapiti\Repositories\Contact;
 use Sapiti\Repositories\Newsletter;
 use Sapiti\Repositories\Order;
 use Sapiti\Repositories\Product;
+use Sapiti\Repositories\Shop;
 use Sapiti\Repositories\Stock;
 use Sapiti\Repositories\Stream;
 use Sapiti\Repositories\System;
@@ -46,10 +48,8 @@ class SapitiClient
 		$this->agendaRepository= new Agenda($this);
 		$this->contactRepository= new Contact($this);
 		$this->newsletterRepository= new Newsletter($this);
-		$this->orderRepository= new Order($this);
-		$this->productRepository= new Product($this);
-		$this->stockRepository= new Stock($this);
-		$this->streamRepository= new Stream($this);
+		$this->catalogueRepository= new Catalogue($this);
+		$this->shopRepository= new Shop($this);
 		$this->setMode($mode);
 	}
 
@@ -190,55 +190,32 @@ class SapitiClient
 
 
 	/**
-	 * @var Order
+	 * @var Shop
 	 */
-	protected $orderRepository=null;
+	protected $shopRepository=null;
 
 	/**
-	 * @return Order
+	 * @return Shop
 	 */
-	public function Order()
+	public function Shop()
 	{
-		return $this->orderRepository;
+		return $this->shopRepository;
 	}
 
 	/**
-	 * @var Product
+	 * @var Catalogue
 	 */
-	protected $productRepository=null;
+	protected $catalogueRepository=null;
 
 	/**
-	 * @return Product
+	 * @return Catalogue
 	 */
-	public function Product()
+	public function Catalogue()
 	{
-		return $this->productRepository;
+		return $this->catalogueRepository;
 	}
 
-	/**
-	 * @var Stock
-	 */
-	protected $stockRepository=null;
 
-	/**
-	 * @return Stock
-	 */
-	public function Stock()
-	{
-		return $this->stockRepository;
-	}
-	/**
-	 * @var Stream
-	 */
-	protected $streamRepository=null;
-
-	/**
-	 * @return Stream
-	 */
-	public function Stream()
-	{
-		return $this->streamRepository;
-	}
 
 
 

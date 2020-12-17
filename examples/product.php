@@ -8,7 +8,7 @@ global $client;
 
 readline('getting product list for a orderid id...');
 
-$products = $client->Product()->getProducts(['orderid'=>'6F0591E1-6B65-F2A3-B837-631150FF3C6E']);
+$products = $client->Shop()->getProducts(['orderid'=>'6F0591E1-6B65-F2A3-B837-631150FF3C6E']);
 $i=1;$lastId='';
 /** @var Product $product */
 foreach($products as $product) {
@@ -17,4 +17,4 @@ foreach($products as $product) {
 	echo $i.') '.$product->getTicket()->getPositionLabel().' '.$product->getCategory()->getLabel()."\n";
 	$i++;
 }
-if($lastId) echo 'The last one is  : '.$client->Product()->getProduct($lastId)->getLabel()."\n";
+if($lastId) echo 'The last one is  : '.$client->Shop()->getProduct($lastId)->getLabel()."\n";

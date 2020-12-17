@@ -26,7 +26,7 @@ $events = $client->Agenda()->getEvents(['limit'=>100]);
 /** @var Event $event */
 foreach($events as $event) {
 	$eventId = $event->getId();
-	$stocks = $client->Stock()->getStocks(['eventid'=>$eventId]);
+	$stocks = $client->Shop()->getStocks(['eventid'=>$eventId]);
 	/** @var Stock $stock */
 	foreach($stocks as $stock) {
 		/** @var ProductCategory $productCategory */
@@ -54,7 +54,7 @@ if($selectedPrice) {
 	$stockRequest->setStockId($selectedStock->getId());
 
 
-	$products = $client->Stock()->requestStock([$stockRequest]);
+	$products = $client->Shop()->requestStock([$stockRequest]);
 
 	if(sizeof($products)!=$quantityToOrder) {
 		die('no enough stock');
@@ -72,7 +72,7 @@ if($selectedPrice) {
 	}
 
 
-	$order = $client->Order()->getOrder($orderId);
+	$order = $client->Shop()->getOrder($orderId);
 
 	$newContact = new Contact();
 	$lastName = 'Do'.microtime(true);
@@ -84,8 +84,8 @@ if($selectedPrice) {
 
 	echo 'new order :'.$order->getId()."\n";
 
-	$client->Order()->confirmOrder($order->getId(),$newContact->getId());
-	$client->Order()->setMolliePaymentId($order->getId(),'xxxx-xxx-xxxx');
+	$client->Shop()->confirmOrder($order->getId(),$newContact->getId());
+	$client->Shop()->setMolliePaymentId($order->getId(),'xxxx-xxx-xxxx');
 
 
 

@@ -1,6 +1,5 @@
 <?php
 
-
 use Sapiti\SapitiClient;
 
 ini_set('log_errors', 0);
@@ -10,7 +9,6 @@ require_once 'vendor/autoload.php';
 /** Replace with the provided keys */
 $publicKey='XXXXXX';
 $privateKey='XXXXXX';
-
 
 /*Create the Sapiti API Client in test mode */
 $client = new SapitiClient($publicKey,$privateKey, SapitiClient::MODE_TEST);
@@ -27,8 +25,8 @@ include 'examples/agenda.php';
 include 'examples/stock.php';
 include 'examples/order.php';
 include 'examples/contact.php';
-include 'examples/orderProcess.php';
-
+//include 'examples/orderProcess.php';
+include 'examples/streams.php';
 
 
 

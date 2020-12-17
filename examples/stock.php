@@ -12,7 +12,7 @@ global $client;
 readline('getting stock from last listed event...');
 if (!isset($lastEventId)) $lastEventId='xxx';
 
-$stocks = $client->Stock()->getStocks(['eventid'=>$lastEventId]);
+$stocks = $client->Shop()->getStocks(['eventid'=>$lastEventId]);
 $i=1;$lastStockId='';
 /** @var Stock $stock */
 foreach($stocks as $stock) {
@@ -30,4 +30,4 @@ foreach($stocks as $stock) {
 	}
 	$i++;
 }
-if($lastStockId) echo 'The last one is  : '.$client->Stock()->getStock($lastStockId)->getLabel()."\n";
+if($lastStockId) echo 'The last one is  : '.$client->Shop()->getStock($lastStockId)->getLabel()."\n";

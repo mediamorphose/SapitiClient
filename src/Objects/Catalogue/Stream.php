@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Sapiti\Objects\Streaming;
+namespace Sapiti\Objects\Catalogue;
 
 
 use Sapiti\Objects\Agenda\Attraction;
@@ -20,64 +20,64 @@ class Stream extends ApiObject
 	const STATUS_PUBLISHED = 10;
 
 
-
 	protected $startTime = false;
 	protected $endTime = false;
 
-	/** @var Client|null  */
+	/** @var Client|null */
 	protected $client = null;
 
-	/** @var Status|null  */
-	protected $status =null;
+	/** @var Status|null */
+	protected $status = null;
 
 
-	/** @var Venue  */
-	protected $venue=null;
+	/** @var Venue */
+	protected $venue = null;
 
-	/** @var Attraction  */
-	protected $attraction=null;
+	/** @var Attraction */
+	protected $attraction = null;
 
-	protected $description='';
-	protected $url='';
-	protected $shopUrl='';
-	protected $accessDuration='';
-	protected $freeAccessToPacks=false;
-	protected $freeAccessToSeats=false;
+	protected $description = '';
+	protected $url = '';
+	protected $shopUrl = '';
+	protected $accessDuration = '';
+	protected $freeAccessToPacks = false;
+	protected $freeAccessToSeats = false;
 
 	/**
 	 * @param array $data
 	 * @param ApiObject|null $existingObject
 	 * @return Stream|null
 	 */
-	static function getFromArray($data = null, ApiObject $existingObject=null) {
+	static function getFromArray($data = null, ApiObject $existingObject = null)
+	{
 		/** @var Stream $result */
 		$result = parent::getFromArray($data, $existingObject);
 
-		if(isset($data['label'])) $result->setLabel($data['label']);
-		if(isset($data['description'])) $result->setDescription($data['description']);
-		if(isset($data['url'])) $result->setUrl($data['url']);
-		if(isset($data['shop_url'])) $result->setShopUrl($data['shop_url']);
-		if(isset($data['access_duration'])) $result->setAccessDuration($data['access_duration']);
-		if(isset($data['freeaccess_packs'])) $result->setFreeAccessToPacks($data['freeaccess_packs']);
-		if(isset($data['freeaccess_seats'])) $result->setFreeAccessToSeats($data['freeaccess_seats']);
-		if(isset($data['starttime']))  {
+		if (isset($data['label'])) $result->setLabel($data['label']);
+		if (isset($data['description'])) $result->setDescription($data['description']);
+		if (isset($data['url'])) $result->setUrl($data['url']);
+		if (isset($data['shop_url'])) $result->setShopUrl($data['shop_url']);
+		if (isset($data['access_duration'])) $result->setAccessDuration($data['access_duration']);
+		if (isset($data['freeaccess_packs'])) $result->setFreeAccessToPacks($data['freeaccess_packs']);
+		if (isset($data['freeaccess_seats'])) $result->setFreeAccessToSeats($data['freeaccess_seats']);
+		if (isset($data['starttime'])) {
 			$date = \DateTime::createFromFormat(\DateTime::ISO8601, $data['starttime']);
 			$result->setStartTime($date);
 		}
-		if(isset($data['endtime']))  {
+		if (isset($data['endtime'])) {
 			$date = \DateTime::createFromFormat(\DateTime::ISO8601, $data['endtime']);
 			$result->setEndTime($date);
 		}
 
-		if(isset($data['status'])) {
+		if (isset($data['status'])) {
 			$result->setStatus(Status::getFromArray($data['status']));
 		}
 
-		if(isset($data['venue']))
+		if (isset($data['venue']))
 			$result->setVenue(Venue::getFromArray($data['venue']));
-		if(isset($data['attraction']))
+		if (isset($data['attraction']))
 			$result->setAttraction(Attraction::getFromArray($data['attraction']));
-		if(isset($data['client']))
+		if (isset($data['client']))
 			$result->setClient(Client::getFromArray($data['client']));
 
 
@@ -95,7 +95,7 @@ class Stream extends ApiObject
 	/**
 	 * @param \DateTime $startTime
 	 */
-	public function setStartTime(\DateTime $startTime=null)
+	public function setStartTime(\DateTime $startTime = null)
 	{
 		$this->startTime = $startTime;
 	}
@@ -111,7 +111,7 @@ class Stream extends ApiObject
 	/**
 	 * @param \DateTime $endTime
 	 */
-	public function setEndTime(\DateTime $endTime=null)
+	public function setEndTime(\DateTime $endTime = null)
 	{
 		$this->endTime = $endTime;
 	}
@@ -159,7 +159,7 @@ class Stream extends ApiObject
 	/**
 	 * @param Status $status
 	 */
-	public function setStatus(Status $status=null)
+	public function setStatus(Status $status = null)
 	{
 		$this->status = $status;
 	}
@@ -275,13 +275,5 @@ class Stream extends ApiObject
 	{
 		$this->description = $description;
 	}
-
-
-
-
-
-
-
-
 
 }

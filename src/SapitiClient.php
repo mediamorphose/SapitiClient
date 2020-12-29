@@ -280,6 +280,23 @@ class SapitiClient
 		return $this->lastResponse;
 	}
 
+	/**
+	 * @return string
+	 */
+	public function getPublicKey(): string
+	{
+		return $this->publicKey;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getPrivateKey(): string
+	{
+		return $this->privateKey;
+	}
+
+
 
 
 

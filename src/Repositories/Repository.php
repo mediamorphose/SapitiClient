@@ -40,7 +40,7 @@ class Repository
 
 		$cache = new \FileCache();
 
-		$stringId=$url.$method.json_encode($params);
+		$stringId=$url.$method.json_encode($params).$this->getClient()->getPublicKey();
 		$key = hash('sha256',$stringId);
 
 		/** @var ApiResponse $cacheInfo */

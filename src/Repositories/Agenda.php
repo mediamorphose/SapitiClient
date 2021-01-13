@@ -8,6 +8,7 @@ use Sapiti\Exceptions\JsonException;
 use Sapiti\Objects\Agenda\Attraction;
 use Sapiti\Objects\Agenda\Category;
 use Sapiti\Objects\Agenda\Event;
+use Sapiti\Objects\Agenda\TimeSlot;
 use Sapiti\Objects\Agenda\Venue;
 
 class Agenda extends Repository
@@ -36,6 +37,32 @@ class Agenda extends Repository
 	public function getEvent(string $id) {
 		$apiResponse = $this->getAPIResponse('agenda/events/'.$id,[],'GET');
 		return Event::getFromArray($apiResponse->getResponse());
+	}
+
+	/**
+	 * @param array $params
+	 * @return array
+	 * @throws ApiException
+	 * @throws CurlException
+	 * @throws InvalidHTTPMethodException
+	 * @throws JsonException
+	 */
+	public function getTimeSlots(array $params=[]) {
+		$apiResponse = $this->getAPIResponse('agenda/timeslots',$params,'GET');
+		return TimeSlot::getMultipleFromArray($apiResponse->getResponse());
+	}
+
+	/**
+	 * @param string $id
+	 * @return TimeSlot|null
+	 * @throws ApiException
+	 * @throws CurlException
+	 * @throws InvalidHTTPMethodException
+	 * @throws JsonException
+	 */
+	public function getTimeSlot(string $id) {
+		$apiResponse = $this->getAPIResponse('agenda/timeslots/'.$id,[],'GET');
+		return TimeSlot::getFromArray($apiResponse->getResponse());
 	}
 
 	/**

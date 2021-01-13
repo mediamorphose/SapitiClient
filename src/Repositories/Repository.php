@@ -12,6 +12,9 @@ class Repository
 
 	protected $cacheDuration=60;
 
+	/** @var null|ApiResponse */
+	protected $lastAPIResponse=null;
+
 
 	public function __construct(SapitiClient $client)
 	{
@@ -30,7 +33,7 @@ class Repository
 	 * @param string $url
 	 * @param array $params
 	 * @param string $method
-	 * @return \Sapiti\Objects\System\ApiResponse
+	 * @return ApiResponse
 	 * @throws ApiException
 	 * @throws \Sapiti\Exceptions\CurlException
 	 * @throws \Sapiti\Exceptions\InvalidHTTPMethodException
@@ -38,15 +41,18 @@ class Repository
 	 */
 	protected function getAPIResponse(string $url, array $params=[], $method='GET') {
 
-		$cache = new \FileCache();
+		$cache = $this->getClient()->getCachePool();
 
 		$stringId=$url.$method.json_encode($params).$this->getClient()->getPublicKey();
-		$key = hash('sha256',$stringId);
+		$key = hash('crc32c',$stringId);
+
+		$cacheItem = $cache->getItem($key);
 
 		/** @var ApiResponse $cacheInfo */
-		$cacheInfo = $cache->get($key);
-		if($cacheInfo) {
+		$cacheInfo = $cacheItem->get();
+		if($cacheItem->isHit() && $cacheInfo) {
 			$cacheInfo->setCached(true);
+			$this->lastAPIResponse=$cacheInfo;
 			return $cacheInfo;
 		}
 
@@ -59,8 +65,10 @@ class Repository
 		$apiError = $apiResponse->getApiError();
 		if ($apiError) throw new ApiException($apiError, null);
 		if($this->cacheDuration>0 && $method=='GET') {
-			$cache->save($key, $apiResponse, $this->cacheDuration);
+			$cacheItem->expiresAfter($this->getCacheDuration());
+			$cache->save($cacheItem->set($apiResponse));
 		}
+		$this->lastAPIResponse=$apiResponse;
 		return $apiResponse;
 	}
 
@@ -80,6 +88,13 @@ class Repository
 		$this->cacheDuration = $cacheDuration;
 	}
 
+	/**
+	 * @return ApiResponse|null
+	 */
+	public function getLastAPIResponse(): ?ApiResponse
+	{
+		return $this->lastAPIResponse;
+	}
 
 
 

@@ -1,6 +1,7 @@
 <?php
 namespace Sapiti;
 
+use Psr\Cache\CacheItemPoolInterface;
 use Sapiti\Exceptions\CurlException;
 use Sapiti\Exceptions\InvalidHTTPMethodException;
 use Sapiti\Exceptions\JsonException;
@@ -9,12 +10,10 @@ use Sapiti\Repositories\Agenda;
 use Sapiti\Repositories\Catalogue;
 use Sapiti\Repositories\Contact;
 use Sapiti\Repositories\Newsletter;
-use Sapiti\Repositories\Order;
-use Sapiti\Repositories\Product;
 use Sapiti\Repositories\Shop;
-use Sapiti\Repositories\Stock;
-use Sapiti\Repositories\Stream;
 use Sapiti\Repositories\System;
+use Stash\Driver\FileSystem;
+use Stash\Pool;
 
 class SapitiClient
 {
@@ -33,6 +32,10 @@ class SapitiClient
 
 	/** @var APIResponse */
 	protected $lastResponse= null;
+
+
+	/** @var CacheItemPoolInterface|null $cachePool  */
+	protected $cachePool = null;
 
 	/**
 	 * SapitiClient constructor.
@@ -294,6 +297,27 @@ class SapitiClient
 	public function getPrivateKey(): string
 	{
 		return $this->privateKey;
+	}
+
+	/**
+	 * @return CacheItemPoolInterface
+	 */
+	public function getCachePool(): ?CacheItemPoolInterface
+	{
+		if(is_null($this->cachePool)) {
+			$driver = new FileSystem(array());
+			$pool = new Pool($driver);
+			$this->setCachePool($pool);
+		}
+		return $this->cachePool;
+	}
+
+	/**
+	 * @param CacheItemPoolInterface|null $cachePool
+	 */
+	public function setCachePool(?CacheItemPoolInterface $cachePool): void
+	{
+		$this->cachePool = $cachePool;
 	}
 
 

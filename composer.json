@@ -14,11 +14,10 @@
             "Sapiti\\": "src/"
         }
     },
-    "minimum-stability": "dev",
     "require": {
-        "inouet/file-cache":"dev-master",
       "ext-curl": "*",
       "ext-readline": "*",
-        "ext-json": "*"
+        "ext-json": "*",
+        "tedivm/stash": "v0.15.*"
     }
 }

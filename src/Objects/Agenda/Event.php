@@ -41,6 +41,8 @@ class Event extends ApiObject
 
 	protected $shopUrl='';
 
+	protected $hasTimeSlots=false;
+
 	/**
 	 * @param array $data
 	 * @param ApiObject|null $existingObject
@@ -52,6 +54,7 @@ class Event extends ApiObject
 
 		if(isset($data['serie'])) $result->setSerie(Serie::getFromArray($data['serie']));
 		if(isset($data['shop_url'])) $result->setShopUrl($data['shop_url']);
+		if(isset($data['hastimeslots'])) $result->setHasTimeSlots($data['hastimeslots']);
 		if(isset($data['starttime']))  {
 			$date = \DateTime::createFromFormat(\DateTime::ISO8601, $data['starttime']);
 			$result->setStartTime($date);
@@ -185,6 +188,22 @@ class Event extends ApiObject
 	public function setShopUrl(string $shopurl)
 	{
 		$this->shopUrl = $shopurl;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isHasTimeSlots(): bool
+	{
+		return $this->hasTimeSlots;
+	}
+
+	/**
+	 * @param bool $hasTimeSlots
+	 */
+	public function setHasTimeSlots(bool $hasTimeSlots): void
+	{
+		$this->hasTimeSlots = $hasTimeSlots;
 	}
 
 

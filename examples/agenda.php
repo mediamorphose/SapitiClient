@@ -13,7 +13,7 @@ readline('Let s list the first 100 events... (enter key)');
 //region LIST EVENTS
 $events = $client->Agenda()->getEvents(['limit'=>100]);
 
-$i=1;$lastId='';
+$i=1;$lastId='';$lastEventIdWithTimeSlots='';
 /** @var Event $event */
 foreach($events as $event) {
 	$lastId = $event->getId();
@@ -21,6 +21,7 @@ foreach($events as $event) {
 	echo $i.') '.$event->getAttraction()->getLabel()."\n";
 	echo "----------------\n";
 	echo 'This event date is : '.$event->getStartTime()->format('c')."\n";
+	echo 'This event has time slots : '.$event->isHasTimeSlots()."\n";
 	echo 'This event as the following status : '.$event->getStatus()->getLabel().'('.$event->getStatus()->getId().")\n";
 	echo 'The venue is : '.$event->getVenue()->getLabel().' with address : '.$event->getVenue()->getAddressL1().' '.$event->getVenue()->getAddressPostalCode().' '.$event->getVenue()->getAddressCity()."\n";
 	echo 'The serie shopping link is : '.$event->getSerie()->getShopUrl()."\n";
@@ -28,9 +29,12 @@ foreach($events as $event) {
 	echo 'The event image url is : '.$event->getAttraction()->getImageURL()."\n";
 	echo 'The event description is : '.substr($event->getAttraction()->getDescription(),0,255)."...\n";
 	$i++;
+
+	if($event->isHasTimeSlots()) $lastEventIdWithTimeSlots=$lastId;
 }
 if($lastId) echo 'The last event is  : '.$client->Agenda()->getEvent($lastId)->getId()."\n";
 $lastEventId=$lastId;
+
 //endregion
 
 readline('Let s list the attractions ... (enter key)');

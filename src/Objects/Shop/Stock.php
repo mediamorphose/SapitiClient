@@ -15,7 +15,7 @@ class Stock extends ApiObject
 	protected $eventId='';
 	protected $productCategories=[];
 
-
+	protected $hasPromoCodes=false;
 
 	static function getFromArray($data = null, ApiObject $existingObject = null)
 	{
@@ -26,6 +26,7 @@ class Stock extends ApiObject
 		if (isset($data['capacity_total'])) $result->setCapacityTotal($data['capacity_total']);
 		if (isset($data['capacity_free'])) $result->setCapacityFree($data['capacity_free']);
 		if (isset($data['shop_url'])) $result->setShopUrl($data['shop_url']);
+		if (isset($data['haspromocodes'])) $result->setHasPromoCodes($data['haspromocodes']);
 		if (isset($data['categories'])) {
 			$result->setProductCategories(ProductCategory::getMultipleFromArray($data['categories']));
 		}
@@ -95,6 +96,22 @@ class Stock extends ApiObject
 	public function setProductCategories(array $productCategories): void
 	{
 		$this->productCategories = $productCategories;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isHasPromoCodes(): bool
+	{
+		return $this->hasPromoCodes;
+	}
+
+	/**
+	 * @param bool $hasPromoCodes
+	 */
+	public function setHasPromoCodes(bool $hasPromoCodes): void
+	{
+		$this->hasPromoCodes = $hasPromoCodes;
 	}
 
 

@@ -6,6 +6,8 @@ use Sapiti\Exceptions\CurlException;
 use Sapiti\Exceptions\InvalidHTTPMethodException;
 use Sapiti\Exceptions\JsonException;
 use Sapiti\Objects\Catalogue\Stream;
+use Sapiti\Objects\Shop\PromoCode;
+use Sapiti\Objects\Shop\Stock;
 use Sapiti\Objects\Shop\StockRequest;
 
 class Shop extends Repository
@@ -157,6 +159,48 @@ class Shop extends Repository
 	}
 
 
+	/**
+	 * @param array $params
+	 * @return array
+	 * @throws ApiException
+	 * @throws CurlException
+	 * @throws InvalidHTTPMethodException
+	 * @throws JsonException
+	 */
+	public function getPromoCodes(array $params=[]) {
+		$apiResponse = $this->getAPIResponse('shop/promocodes',$params,'GET');
+		return PromoCode::getMultipleFromArray($apiResponse->getResponse());
+	}
+
+	/**
+	 * @param string $id
+	 * @return PromoCode|null
+	 * @throws ApiException
+	 * @throws CurlException
+	 * @throws InvalidHTTPMethodException
+	 * @throws JsonException
+	 */
+	public function getPromoCode(string $id) {
+		$apiResponse = $this->getAPIResponse('shop/promocodes/'.$id,[],'GET');
+		return PromoCode::getFromArray($apiResponse->getResponse());
+	}
+
+	/**
+	 * @param $label
+	 * @param Stock $stock
+	 * @return Stock|null
+	 * @throws ApiException
+	 * @throws CurlException
+	 * @throws InvalidHTTPMethodException
+	 * @throws JsonException
+	 */
+	public function testPromoCodeLabelForStock($label, Stock $stock) {
+		$this->setCacheDuration(0);
+		$promoCodes = $this->getPromoCodes(['label'=>$label,"stockid"=>$stock->getId()]);
+		if(is_array($promoCodes) && sizeof($promoCodes)>0)
+			return $promoCodes[0];
+		return null;
+	}
 
 
 }

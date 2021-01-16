@@ -29,9 +29,13 @@ class SapitiClient
 	protected $mode = self::MODE_TEST;
 	protected $publicKey='';
 	protected $privateKey='';
+	protected $language='fr';
 
 	/** @var APIResponse */
 	protected $lastResponse= null;
+
+	protected $lastRequestJSONParam= '';
+	protected $lastRequestURL= '';
 
 
 	/** @var CacheItemPoolInterface|null $cachePool  */
@@ -67,7 +71,8 @@ class SapitiClient
 		$params= [
 			'publickey'=>$publicKey,
 			'timestamp'=>$timeStamp,
-			'signature'=>$signature
+			'signature'=>$signature,
+			'language'=>strtolower($this->language)
 		];
 
 		return $params;
@@ -114,9 +119,12 @@ class SapitiClient
 		}
 
 		if (!is_array($body)) $body = [];
-		//todo add authentication
 
 		$json = json_encode($body);
+
+		$this->lastRequestJSONParam=$json;
+		$this->lastRequestURL=$full_url;
+
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 			'Content-Type: application/json',
 			'Content-Length: ' . strlen($json)
@@ -219,9 +227,6 @@ class SapitiClient
 	}
 
 
-
-
-
 	/**
 	 * @param $value
 	 */
@@ -320,13 +325,37 @@ class SapitiClient
 		$this->cachePool = $cachePool;
 	}
 
+	/**
+	 * @return string
+	 */
+	public function getLanguage(): string
+	{
+		return $this->language;
+	}
 
+	/**
+	 * @param string $language
+	 */
+	public function setLanguage(string $language): void
+	{
+		$this->language = $language;
+	}
 
+	/**
+	 * @return string
+	 */
+	public function getLastRequestJSONParam(): string
+	{
+		return $this->lastRequestJSONParam;
+	}
 
-
-
-
-
+	/**
+	 * @return string
+	 */
+	public function getLastRequestURL(): string
+	{
+		return $this->lastRequestURL;
+	}
 
 
 }

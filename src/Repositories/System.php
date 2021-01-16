@@ -18,7 +18,7 @@ class System extends Repository
 	 * @throws JsonException
 	 */
 	public function ping() {
-		$apiResponse = $this->getClient()->callAPI('ping','GET');
+		$apiResponse = $this->getClient()->callAPI('ping','GET', ['language'=>$this->getClient()->getLanguage()]);
 		$responseArray = $apiResponse->getResponse();
 		if(isset($responseArray['message']))
 			return $responseArray['message'];

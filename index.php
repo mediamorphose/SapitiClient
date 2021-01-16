@@ -14,6 +14,7 @@ $privateKey='XXXXXX';
 
 /*Create the Sapiti API Client in test mode */
 $client = new SapitiClient($publicKey,$privateKey, SapitiClient::MODE_TEST);
+$client->setLanguage('en'); //supports fr, nl, de, en
 
 /* Optional : Define you own  PSR-6 caching system : https://www.php-fig.org/psr/psr-6/*/
 //$driver = new FileSystem(array());
@@ -26,6 +27,7 @@ echo '\''.$client->System()->ping().'\' from our '. $client->getLastApiResponse(
 /*Ouput your authentication label */
 echo 'Welcome to '.$client->System()->authenticate()->getLabel()."\n";
 
+
 include 'examples/agenda.php';
 include 'examples/timeslots.php';
 include 'examples/stock.php';
@@ -33,3 +35,4 @@ include 'examples/order.php';
 include 'examples/contact.php';
 //include 'examples/streams.php';
 //include 'examples/orderProcess.php';
+

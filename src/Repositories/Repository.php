@@ -43,7 +43,7 @@ class Repository
 
 		$cache = $this->getClient()->getCachePool();
 
-		$stringId=$url.$method.json_encode($params).$this->getClient()->getPublicKey();
+		$stringId=$url.$method.json_encode($params).$this->getClient()->getPublicKey().$this->getClient()->getLanguage();
 		$key = hash('crc32c',$stringId);
 
 		$cacheItem = $cache->getItem($key);

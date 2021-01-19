@@ -12,6 +12,9 @@ class Ticket extends ApiObject
 	protected $positionLabel='';
 	protected $categoryLabel='';
 	protected $entryCount=1;
+	protected $pricelabel='';
+	protected $orderreference='';
+	protected $qrcode='';
 
 
 	static function getFromArray($data = null, ApiObject $existingObject = null)
@@ -22,6 +25,10 @@ class Ticket extends ApiObject
 		if (isset($data['positionlabel'])) $result->setPositionLabel($data['positionlabel']);
 		if (isset($data['categorylabel'])) $result->setCategoryLabel($data['categorylabel']);
 		if (isset($data['entrycount'])) $result->setEntryCount($data['entrycount']);
+		if (isset($data['pricelabel'])) $result->setPricelabel($data['pricelabel']);
+		if (isset($data['orderreference'])) $result->setOrderreference($data['orderreference']);
+		if (isset($data['qrcode'])) $result->setQrcode($data['qrcode']);
+
 		return $result;
 	}
 
@@ -88,6 +95,55 @@ class Ticket extends ApiObject
 	{
 		$this->entryCount = $entryCount;
 	}
+
+	/**
+	 * @return string
+	 */
+	public function getPricelabel(): string
+	{
+		return $this->pricelabel;
+	}
+
+	/**
+	 * @param string $pricelabel
+	 */
+	public function setPricelabel(string $pricelabel): void
+	{
+		$this->pricelabel = $pricelabel;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getOrderreference(): string
+	{
+		return $this->orderreference;
+	}
+
+	/**
+	 * @param string $orderreference
+	 */
+	public function setOrderreference(string $orderreference): void
+	{
+		$this->orderreference = $orderreference;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getQrcode(): string
+	{
+		return $this->qrcode;
+	}
+
+	/**
+	 * @param string $qrcode
+	 */
+	public function setQrcode(string $qrcode): void
+	{
+		$this->qrcode = $qrcode;
+	}
+
 
 
 

@@ -9,35 +9,10 @@ use Sapiti\Objects\Catalogue\Stream;
 use Sapiti\Objects\Shop\PromoCode;
 use Sapiti\Objects\Shop\Stock;
 use Sapiti\Objects\Shop\StockRequest;
+use Sapiti\Objects\Shop\TicketSet;
 
 class Shop extends Repository
 {
-	/**
-	 * @param array $params
-	 * @return array
-	 * @throws ApiException
-	 * @throws CurlException
-	 * @throws InvalidHTTPMethodException
-	 * @throws JsonException
-	 */
-	public function getStreams(array $params=[]) {
-		$apiResponse = $this->getAPIResponse('catalogue/streams',$params,'GET');
-		return Stream::getMultipleFromArray($apiResponse->getResponse());
-	}
-
-	/**
-	 * @param string $id
-	 * @return Stream|null
-	 * @throws ApiException
-	 * @throws CurlException
-	 * @throws InvalidHTTPMethodException
-	 * @throws JsonException
-	 */
-	public function getStream(string $id) {
-		$apiResponse = $this->getAPIResponse('agenda/Streams/'.$id,[],'GET');
-		return Stream::getFromArray($apiResponse->getResponse());
-	}
-
 
 	/**
 	 * @param array $params
@@ -200,6 +175,19 @@ class Shop extends Repository
 		if(is_array($promoCodes) && sizeof($promoCodes)>0)
 			return $promoCodes[0];
 		return null;
+	}
+
+	/**
+	 * @param array $params
+	 * @return array
+	 * @throws ApiException
+	 * @throws CurlException
+	 * @throws InvalidHTTPMethodException
+	 * @throws JsonException
+	 */
+	public function getTicketSets(array $params=[]) {
+		$apiResponse = $this->getAPIResponse('shop/orders/tickets/',$params,'GET');
+		return TicketSet::getMultipleFromArray($apiResponse->getResponse());
 	}
 
 

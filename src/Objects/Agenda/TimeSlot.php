@@ -5,7 +5,6 @@ namespace Sapiti\Objects\Agenda;
 
 
 use Sapiti\Objects\ApiObject;
-use Sapiti\Objects\TCapacity;
 
 class TimeSlot extends ApiObject
 {
@@ -20,6 +19,7 @@ class TimeSlot extends ApiObject
 		$result = parent::getFromArray($data, $existingObject);
 
 		if(isset($data['capacity'])) $result->setCapacity($data['capacity']);
+		if(isset($data['eventid'])) $result->setEventId($data['eventid']);
 		if(isset($data['starttime']))  {
 			$date = \DateTime::createFromFormat(\DateTime::ISO8601, $data['starttime']);
 			$result->setStartTime($date);
@@ -45,21 +45,6 @@ class TimeSlot extends ApiObject
 		$this->startTime = $startTime;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getTimeSlotId(): string
-	{
-		return $this->eventId;
-	}
-
-	/**
-	 * @param string $eventId
-	 */
-	public function setTimeSlotId(string $eventId): void
-	{
-		$this->eventId = $eventId;
-	}
 
 	/**
 	 * @return int
@@ -76,6 +61,23 @@ class TimeSlot extends ApiObject
 	{
 		$this->capacity = $capacity;
 	}
+
+	/**
+	 * @return string
+	 */
+	public function getEventId(): string
+	{
+		return $this->eventId;
+	}
+
+	/**
+	 * @param string $eventId
+	 */
+	public function setEventId(string $eventId): void
+	{
+		$this->eventId = $eventId;
+	}
+
 
 
 

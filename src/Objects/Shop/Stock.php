@@ -13,6 +13,7 @@ class Stock extends ApiObject
 	protected $shopUrl='';
 	protected $typeId=1;
 	protected $eventId='';
+	protected $timeSlotId='';
 	protected $productCategories=[];
 
 	protected $hasPromoCodes=false;
@@ -23,6 +24,7 @@ class Stock extends ApiObject
 		$result = parent::getFromArray($data, $existingObject);
 		if (isset($data['typeid'])) $result->setTypeId($data['typeid']);
 		if (isset($data['eventid'])) $result->setEventId($data['eventid']);
+		if (isset($data['timeslotid'])) $result->setTimeSlotId($data['timeslotid']);
 		if (isset($data['capacity_total'])) $result->setCapacityTotal($data['capacity_total']);
 		if (isset($data['capacity_free'])) $result->setCapacityFree($data['capacity_free']);
 		if (isset($data['shop_url'])) $result->setShopUrl($data['shop_url']);
@@ -112,6 +114,22 @@ class Stock extends ApiObject
 	public function setHasPromoCodes(bool $hasPromoCodes): void
 	{
 		$this->hasPromoCodes = $hasPromoCodes;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getTimeSlotId(): string
+	{
+		return $this->timeSlotId;
+	}
+
+	/**
+	 * @param string $timeSlotId
+	 */
+	public function setTimeSlotId(string $timeSlotId): void
+	{
+		$this->timeSlotId = $timeSlotId;
 	}
 
 

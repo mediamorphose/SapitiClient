@@ -46,14 +46,17 @@ class Repository
 		$stringId=$url.$method.json_encode($params).$this->getClient()->getPublicKey().$this->getClient()->getLanguage();
 		$key = hash('crc32c',$stringId);
 
-		$cacheItem = $cache->getItem($key);
+		if($this->getCacheDuration()>0) {
 
-		/** @var ApiResponse $cacheInfo */
-		$cacheInfo = $cacheItem->get();
-		if($cacheItem->isHit() && $cacheInfo) {
-			$cacheInfo->setCached(true);
-			$this->lastAPIResponse=$cacheInfo;
-			return $cacheInfo;
+			$cacheItem = $cache->getItem($key);
+
+			/** @var ApiResponse $cacheInfo */
+			$cacheInfo = $cacheItem->get();
+			if ($cacheItem->isHit() && $cacheInfo) {
+				$cacheInfo->setCached(true);
+				$this->lastAPIResponse = $cacheInfo;
+				return $cacheInfo;
+			}
 		}
 
 		$data = $this->getClient()->getAuthenticationParams();

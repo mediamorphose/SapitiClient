@@ -6,6 +6,7 @@ use Sapiti\Exceptions\CurlException;
 use Sapiti\Exceptions\InvalidHTTPMethodException;
 use Sapiti\Exceptions\JsonException;
 use Sapiti\Objects\Catalogue\Stream;
+use Sapiti\Objects\Shop\Payment;
 use Sapiti\Objects\Shop\PromoCode;
 use Sapiti\Objects\Shop\Stock;
 use Sapiti\Objects\Shop\StockRequest;
@@ -42,6 +43,12 @@ class Shop extends Repository
 
 	public function confirmOrder(string $orderId, string $contactId) {
 		$apiResponse = $this->getAPIResponse('shop/orders/'.$orderId,['contactid'=>$contactId,'statusid'=>1],'PATCH');
+		return \Sapiti\Objects\Shop\Order::getFromArray($apiResponse->getResponse());
+	}
+
+
+	public function clearOrder(string $orderId) {
+		$apiResponse = $this->getAPIResponse('shop/orders/'.$orderId,[],'DELETE');
 		return \Sapiti\Objects\Shop\Order::getFromArray($apiResponse->getResponse());
 	}
 
@@ -188,6 +195,48 @@ class Shop extends Repository
 	public function getTicketSets(array $params=[]) {
 		$apiResponse = $this->getAPIResponse('shop/orders/tickets/',$params,'GET');
 		return TicketSet::getMultipleFromArray($apiResponse->getResponse());
+	}
+
+	/**
+	 * @param array $params
+	 * @return array
+	 * @throws ApiException
+	 * @throws CurlException
+	 * @throws InvalidHTTPMethodException
+	 * @throws JsonException
+	 */
+	public function getPayments(array $params=[]): array
+	{
+		$apiResponse = $this->getAPIResponse('shop/orders/payments/',$params,'GET');
+		return Payment::getMultipleFromArray($apiResponse->getResponse());
+	}
+
+	/**
+	 * @param string $id
+	 * @return Payment|null
+	 * @throws ApiException
+	 * @throws CurlException
+	 * @throws InvalidHTTPMethodException
+	 * @throws JsonException
+	 */
+	public function getPayment(string $id) {
+		$apiResponse = $this->getAPIResponse('shop/orders/payments/'.$id,[],'GET');
+		return Payment::getFromArray($apiResponse->getResponse());
+	}
+
+	/**
+	 * @param Payment $payment
+	 * @return Payment|null
+	 * @throws ApiException
+	 * @throws CurlException
+	 * @throws InvalidHTTPMethodException
+	 * @throws JsonException
+	 */
+	public function updatePayment(Payment $payment): ?Payment
+	{
+		$dataArray = Payment::toArray($payment);
+		$apiResponse = $this->getAPIResponse('shop/orders/payments/'.$payment->getId(),$dataArray,'PATCH');
+		return $payment::getFromArray($apiResponse->getResponse());
 	}
 
 

@@ -25,7 +25,7 @@ foreach($stocks as $stock) {
 		echo '* '.$productCategory->getLabel().' '.$productCategory->getCapacityFree()."\n";
 		/** @var Price $price */
 		foreach($productCategory->getPrices() as $price) {
-			echo '*** '.$price->getLabel().' '.$price->getPrice()."\n";
+			echo '*** '.$price->getLabel().' '.$price->getAmount()."\n";
 		}
 	}
 	$i++;

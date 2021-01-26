@@ -10,6 +10,21 @@ use Sapiti\Objects\Business\Status;
 class Order extends ApiObject
 {
 
+	const STATUS_ABANDONED = -20;
+	const STATUS_NOSHOW = -15;
+	const STATUS_CANCELLED = -10;
+	const STATUS_CREATING = 0;
+	const STATUS_CONFIRMED = 1;
+	const STATUS_TOPAY = 10;
+	const STATUS_PARTIALLY_PAID = 12;
+	const STATUS_PAID = 15;
+	const STATUS_OVERPAID = 18;
+	const STATUS_TODELIVER = 20;
+	const STATUS_TOPRINT = 25;
+	const STATUS_COMPLETED = 30;
+	const STATUS_MISSING = 40;
+	const STATUS_ARCHIVED = 99;
+
 	protected $contactId = '';
 	protected $infoUrl = '';
 	/** @var Status|null */

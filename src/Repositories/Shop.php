@@ -196,6 +196,19 @@ class Shop extends Repository
 
 	/**
 	 * @param array $params
+	 * @return bool|mixed
+	 * @throws ApiException
+	 * @throws CurlException
+	 * @throws InvalidHTTPMethodException
+	 * @throws JsonException
+	 */
+	public function getPDFTicket(array $params=[]) {
+		$apiResponse = $this->getAPIResponse('shop/orders/tickets/pdf/',$params,'GET');
+		return $apiResponse->getResponse();
+	}
+
+	/**
+	 * @param array $params
 	 * @return array
 	 * @throws ApiException
 	 * @throws CurlException

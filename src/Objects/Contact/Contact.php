@@ -59,9 +59,9 @@ class Contact extends ApiObject
 	}
 
 	/**
-	 * @param string $firstName
+	 * @param ?string $firstName
 	 */
-	public function setFirstName(string $firstName): void
+	public function setFirstName(?string $firstName): void
 	{
 		$this->firstName = $firstName;
 	}
@@ -75,9 +75,9 @@ class Contact extends ApiObject
 	}
 
 	/**
-	 * @param string $lastName
+	 * @param ?string $lastName
 	 */
-	public function setLastName(string $lastName): void
+	public function setLastName(?string $lastName): void
 	{
 		$this->lastName = $lastName;
 	}
@@ -91,9 +91,9 @@ class Contact extends ApiObject
 	}
 
 	/**
-	 * @param string $email
+	 * @param ?string $email
 	 */
-	public function setEmail(string $email): void
+	public function setEmail(?string $email): void
 	{
 		$this->email = $email;
 	}
@@ -107,9 +107,9 @@ class Contact extends ApiObject
 	}
 
 	/**
-	 * @param string $addressL1
+	 * @param ?string $addressL1
 	 */
-	public function setAddressL1(string $addressL1): void
+	public function setAddressL1(?string $addressL1): void
 	{
 		$this->addressL1 = $addressL1;
 	}
@@ -123,9 +123,9 @@ class Contact extends ApiObject
 	}
 
 	/**
-	 * @param string $addressL2
+	 * @param ?string $addressL2
 	 */
-	public function setAddressL2(string $addressL2): void
+	public function setAddressL2(?string $addressL2): void
 	{
 		$this->addressL2 = $addressL2;
 	}
@@ -139,9 +139,9 @@ class Contact extends ApiObject
 	}
 
 	/**
-	 * @param string $addressPostalCode
+	 * @param ?string $addressPostalCode
 	 */
-	public function setAddressPostalCode(string $addressPostalCode): void
+	public function setAddressPostalCode(?string $addressPostalCode): void
 	{
 		$this->addressPostalCode = $addressPostalCode;
 	}
@@ -155,9 +155,9 @@ class Contact extends ApiObject
 	}
 
 	/**
-	 * @param string $addressCity
+	 * @param ?string $addressCity
 	 */
-	public function setAddressCity(string $addressCity): void
+	public function setAddressCity(?string $addressCity): void
 	{
 		$this->addressCity = $addressCity;
 	}
@@ -171,9 +171,9 @@ class Contact extends ApiObject
 	}
 
 	/**
-	 * @param string $addressCountry
+	 * @param ?string $addressCountry
 	 */
-	public function setAddressCountry(string $addressCountry): void
+	public function setAddressCountry(?string $addressCountry): void
 	{
 		$this->addressCountry = $addressCountry;
 	}
@@ -187,9 +187,9 @@ class Contact extends ApiObject
 	}
 
 	/**
-	 * @param string $mobilePhone
+	 * @param ?string $mobilePhone
 	 */
-	public function setMobilePhone(string $mobilePhone): void
+	public function setMobilePhone(?string $mobilePhone): void
 	{
 		$this->mobilePhone = $mobilePhone;
 	}

@@ -122,6 +122,8 @@ class SapitiClient
 
 		$json = json_encode($body);
 
+		//echo("\n".$full_url.'('.$httpMethod.') : '.$json);
+
 		$this->lastRequestJSONParam=$json;
 		$this->lastRequestURL=$full_url;
 
@@ -132,8 +134,12 @@ class SapitiClient
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
 
 		$json = curl_exec($ch);
+		//echo("\nresponse : ".$json);
+
 		if ($json === false) throw new CurlException($ch);
 		curl_close($ch);
+
+
 
 		$data = @json_decode($json, true);
 		if (is_null($data)) {
@@ -141,6 +147,7 @@ class SapitiClient
 			$jsonException->setJsonCode($json);
 			throw $jsonException;
 		}
+
 
 		$result = new APIResponse($data, $json);
 		$this->lastResponse=$result;
@@ -356,6 +363,16 @@ class SapitiClient
 	{
 		return $this->lastRequestURL;
 	}
+
+	/**
+	 * @return int
+	 */
+	public function getMode(): int
+	{
+		return $this->mode;
+	}
+
+
 
 
 }

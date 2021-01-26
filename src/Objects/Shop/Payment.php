@@ -10,6 +10,11 @@ use Sapiti\Objects\Business\Status;
 class Payment extends ApiObject
 {
 
+	CONST METHOD_UNKNOWN=0;
+	CONST METHOD_MOLLIE=1;
+	CONST METHOD_STRIPE=2;
+	CONST METHOD_CASH=10;
+
 	protected $orderId = '';
 	protected $paymentMethodId = '';
 	protected $externalId = '';

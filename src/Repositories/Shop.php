@@ -52,10 +52,7 @@ class Shop extends Repository
 		return \Sapiti\Objects\Shop\Order::getFromArray($apiResponse->getResponse());
 	}
 
-	public function setMolliePaymentId(string $orderId, string $paymentId) {
-		$apiResponse = $this->getAPIResponse('shop/orders/'.$orderId,['molliepaymentid'=>$paymentId],'PATCH');
-		return \Sapiti\Objects\Shop\Order::getFromArray($apiResponse->getResponse());
-	}
+
 
 	/**
 	 * @param array $params
@@ -237,6 +234,11 @@ class Shop extends Repository
 		$dataArray = Payment::toArray($payment);
 		$apiResponse = $this->getAPIResponse('shop/orders/payments/'.$payment->getId(),$dataArray,'PATCH');
 		return $payment::getFromArray($apiResponse->getResponse());
+	}
+
+	public function createOrUpdateMolliePaymentFromId(string $orderId, string $molliePaymentId) {
+		$apiResponse = $this->getAPIResponse('shop/orders/payments/',['orderid'=>$orderId,'molliepaymentid'=>$molliePaymentId],'PATCH');
+		return \Sapiti\Objects\Shop\Payment::getFromArray($apiResponse->getResponse());
 	}
 
 

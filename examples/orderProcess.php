@@ -85,7 +85,10 @@ if($selectedPrice) {
 	echo 'new order :'.$order->getId()."\n";
 
 	$client->Shop()->confirmOrder($order->getId(),$newContact->getId());
-	$client->Shop()->setMolliePaymentId($order->getId(),'xxxx-xxx-xxxx');
+	$payment = $client->Shop()->createOrUpdateMolliePaymentFromId($order->getId(),'external-xxx-xxxx');
+	if($payment && $payment->getId()) {
+		echo 'new paiement '.$payment->getId().' external id :'.$payment->getExternalId()."\n";
+	}
 
 
 

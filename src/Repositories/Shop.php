@@ -121,16 +121,18 @@ class Shop extends Repository
 
 	/**
 	 * @param string $id
-	 * @return \Sapiti\Objects\ApiObject|\Sapiti\Objects\Shop\Stock|null
+	 * @param array $params
+	 * @return Stock
 	 * @throws ApiException
 	 * @throws CurlException
 	 * @throws InvalidHTTPMethodException
 	 * @throws JsonException
 	 */
-	public function getStock(string $id) {
-		$apiResponse = $this->getAPIResponse('shop/products/stocks/'.$id,[],'GET');
+	public function getStock(string $id, array $params=[]) {
+		$apiResponse = $this->getAPIResponse('shop/products/stocks/'.$id,$params,'GET');
 		return \Sapiti\Objects\Shop\Stock::getFromArray($apiResponse->getResponse());
 	}
+
 
 	public function requestStock(array $requests=[]) {
 		$apiResponse = $this->getAPIResponse('shop/products/',['requests'=>StockRequest::getMultipleToArray($requests)],'POST');

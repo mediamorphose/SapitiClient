@@ -118,6 +118,21 @@ class Agenda extends Repository
 	}
 
 	/**
+	 * @param string $id
+	 * @return Attraction|null
+	 * @throws ApiException
+	 * @throws CurlException
+	 * @throws InvalidHTTPMethodException
+	 * @throws JsonException
+	 */
+	public function getAttractionFromExternalId(string $id) {
+		$attractions = $this->getAttractions(['externalid'=>$id]);
+		if(sizeof($attractions)>0)
+			return $attractions[0];
+		return null;
+	}
+
+	/**
 	 * @param array $params
 	 * @return array
 	 * @throws ApiException

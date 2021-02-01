@@ -13,10 +13,11 @@ class StockRequest extends ApiObject
 	protected $categoryId='';
 	protected $priceId='';
 	protected $orderId='';
+	protected $promocodesIds=[];
 
 
 	/**
-	 * @param ApiObject $existingObject
+	 * @param StockRequest $existingObject
 	 * @return array
 	 */
 	static function toArray(ApiObject $existingObject)
@@ -26,6 +27,7 @@ class StockRequest extends ApiObject
 		$data['stockid']=$existingObject->getStockId();
 		$data['categoryid']=$existingObject->getCategoryId();
 		$data['priceid']=$existingObject->getPriceId();
+		$data['promocodeids']=$existingObject->getPromocodesIds();
 		if($existingObject->getOrderId())
 			$data['orderid']=$existingObject->getOrderId();
 		return $data;
@@ -109,6 +111,22 @@ class StockRequest extends ApiObject
 	public function setOrderId(string $orderId): void
 	{
 		$this->orderId = $orderId;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getPromocodesIds(): array
+	{
+		return $this->promocodesIds;
+	}
+
+	/**
+	 * @param array $promocodesIds
+	 */
+	public function setPromocodesIds(array $promocodesIds): void
+	{
+		$this->promocodesIds = $promocodesIds;
 	}
 
 

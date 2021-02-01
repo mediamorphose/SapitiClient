@@ -9,7 +9,7 @@ use Sapiti\Objects\ApiObject;
 class TimeSlot extends ApiObject
 {
 
-	protected $startTime = false;
+	protected $startTime = null;
 	protected $eventId = '';
 	protected $capacity=0;
 
@@ -30,7 +30,7 @@ class TimeSlot extends ApiObject
 	
 
 	/**
-	 * @return \DateTime|false
+	 * @return \DateTime|null
 	 */
 	public function getStartTime()
 	{

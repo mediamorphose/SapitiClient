@@ -23,8 +23,8 @@ class Event extends ApiObject
 	const STATUS_ONSITEONLY = 35;
 	const STATUS_ABOONLY = 40;
 
-	protected $startTime = false;
-	protected $endTime = false;
+	protected $startTime = null;
+	protected $endTime = null;
 
 	/** @var Serie|null  */
 	protected $serie = null;
@@ -78,7 +78,7 @@ class Event extends ApiObject
 	}
 
 	/**
-	 * @return \DateTime|false
+	 * @return \DateTime|null
 	 */
 	public function getStartTime()
 	{
@@ -94,7 +94,7 @@ class Event extends ApiObject
 	}
 
 	/**
-	 * @return \DateTime|false
+	 * @return \DateTime|null
 	 */
 	public function getEndTime()
 	{

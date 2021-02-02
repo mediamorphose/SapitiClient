@@ -14,9 +14,11 @@ class Attraction extends ApiObject
 	protected $imageURL='';
 	protected $smallImageURL='';
 
-	protected $firstEvent_date = false;
-	protected $lastEvent_date = false;
+	protected $firstEvent_date = null;
+	protected $lastEvent_date = null;
 	protected $nbEvents = 0;
+
+	protected $externalId = null;
 
 	/**
 	 * @param array $data
@@ -27,6 +29,7 @@ class Attraction extends ApiObject
 		/** @var Attraction $result */
 		$result = parent::getFromArray($data, $existingObject);
 		if(isset($data['description'])) $result->setDescription($data['description']);
+		if(isset($data['externalid'])) $result->setExternalId($data['externalid']);
 		if(isset($data['image_url'])) $result->setImageURL($data['image_url']);
 		if(isset($data['image_url_small'])) $result->setSmallImageURL($data['image_url_small']);
 		if(isset($data['categories']))
@@ -111,7 +114,7 @@ class Attraction extends ApiObject
 	}
 
 	/**
-	 * @return \DateTime|false
+	 * @return \DateTime|null
 	 */
 	public function getFirstEventDate()
 	{
@@ -127,7 +130,7 @@ class Attraction extends ApiObject
 	}
 
 	/**
-	 * @return \DateTime|false
+	 * @return \DateTime|null
 	 */
 	public function getLastEventDate()
 	{
@@ -157,6 +160,23 @@ class Attraction extends ApiObject
 	{
 		$this->nbEvents = $nbEvents;
 	}
+
+	/**
+	 * @return null
+	 */
+	public function getExternalId()
+	{
+		return $this->externalId;
+	}
+
+	/**
+	 * @param null $externalId
+	 */
+	public function setExternalId($externalId): void
+	{
+		$this->externalId = $externalId;
+	}
+
 
 
 

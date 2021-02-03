@@ -28,6 +28,7 @@ foreach($events as $event) {
 	echo 'The event shopping link is : '.$event->getShopUrl()."\n";
 	echo 'The event image url is : '.$event->getAttraction()->getImageURL()."\n";
 	echo 'The event description is : '.substr($event->getAttraction()->getDescription(),0,255)."...\n";
+	echo 'The event notes are : '.$event->getNotes()."\n";
 	$i++;
 
 	if($event->isHasTimeSlots()) $lastEventIdWithTimeSlots=$lastId;

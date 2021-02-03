@@ -3,9 +3,7 @@
 
 namespace Sapiti\Objects\Agenda;
 
-
 use Sapiti\Objects\ApiObject;
-use Sapiti\Objects\Business\Client;
 use Sapiti\Objects\Business\Status;
 
 class Event extends ApiObject
@@ -31,6 +29,8 @@ class Event extends ApiObject
 
 	/** @var Status|null  */
 	protected $status =null;
+
+	protected $notes = '';
 
 
 	/** @var Venue  */
@@ -66,6 +66,10 @@ class Event extends ApiObject
 
 		if(isset($data['status'])) {
 			$result->setStatus(Status::getFromArray($data['status']));
+		}
+
+		if(isset($data['notes'])) {
+			$result->setNotes($data['notes']);
 		}
 
 		if(isset($data['venue']))
@@ -204,7 +208,19 @@ class Event extends ApiObject
 	public function setHasTimeSlots(bool $hasTimeSlots): void
 	{
 		$this->hasTimeSlots = $hasTimeSlots;
-	}
+	}/**
+ * @return string
+ */
+public function getNotes(): string
+{
+	return $this->notes;
+}/**
+ * @param string $notes
+ */
+public function setNotes(string $notes): void
+{
+	$this->notes = $notes;
+}
 
 
 

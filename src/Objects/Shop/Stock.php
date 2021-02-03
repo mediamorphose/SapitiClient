@@ -18,6 +18,8 @@ class Stock extends ApiObject
 
 	protected $hasPromoCodes=false;
 
+	protected $notes = '';
+
 	static function getFromArray($data = null, ApiObject $existingObject = null)
 	{
 		/** @var Stock $result */
@@ -29,6 +31,7 @@ class Stock extends ApiObject
 		if (isset($data['capacity_free'])) $result->setCapacityFree($data['capacity_free']);
 		if (isset($data['shop_url'])) $result->setShopUrl($data['shop_url']);
 		if (isset($data['haspromocodes'])) $result->setHasPromoCodes($data['haspromocodes']);
+		if (isset($data['notes'])) $result->setNotes($data['notes']);
 		if (isset($data['categories'])) {
 			$result->setProductCategories(ProductCategory::getMultipleFromArray($data['categories']));
 		}
@@ -133,6 +136,21 @@ class Stock extends ApiObject
 	}
 
 
+
+
+	/**
+	 * @return string
+	 */
+	public function getNotes(): string
+	{
+		return $this->notes;
+	}/**
+ * @param string $notes
+ */
+	public function setNotes(string $notes): void
+	{
+		$this->notes = $notes;
+	}
 
 
 

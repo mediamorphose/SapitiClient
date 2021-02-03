@@ -68,9 +68,7 @@ class Event extends ApiObject
 			$result->setStatus(Status::getFromArray($data['status']));
 		}
 
-		if(isset($data['notes'])) {
-			$result->setNotes($data['notes']);
-		}
+		if(isset($data['notes'])) $result->setNotes($data['notes']);
 
 		if(isset($data['venue']))
 				$result->setVenue(Venue::getFromArray($data['venue']));
@@ -208,7 +206,10 @@ class Event extends ApiObject
 	public function setHasTimeSlots(bool $hasTimeSlots): void
 	{
 		$this->hasTimeSlots = $hasTimeSlots;
-	}/**
+	}
+
+
+	/**
  * @return string
  */
 public function getNotes(): string

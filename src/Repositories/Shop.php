@@ -6,6 +6,7 @@ use Sapiti\Exceptions\CurlException;
 use Sapiti\Exceptions\InvalidHTTPMethodException;
 use Sapiti\Exceptions\JsonException;
 use Sapiti\Objects\Catalogue\Stream;
+use Sapiti\Objects\Shop\Order;
 use Sapiti\Objects\Shop\Payment;
 use Sapiti\Objects\Shop\PromoCode;
 use Sapiti\Objects\Shop\Stock;
@@ -42,17 +43,19 @@ class Shop extends Repository
 	}
 
 	public function confirmOrder(string $orderId, string $contactId) {
-		$apiResponse = $this->getAPIResponse('shop/orders/'.$orderId,['contactid'=>$contactId,'statusid'=>1],'PATCH');
+		$apiResponse = $this->getAPIResponse('shop/orders/'.$orderId,['contactid'=>$contactId,'statusid'=>Order::STATUS_CONFIRMED],'PATCH');
 		return \Sapiti\Objects\Shop\Order::getFromArray($apiResponse->getResponse());
 	}
 
+	public function changeOrderStatus(string $orderId, int $statusId) {
+		$apiResponse = $this->getAPIResponse('shop/orders/'.$orderId,['statusid'=>$statusId],'PATCH');
+		return \Sapiti\Objects\Shop\Order::getFromArray($apiResponse->getResponse());
+	}
 
 	public function clearOrder(string $orderId) {
 		$apiResponse = $this->getAPIResponse('shop/orders/'.$orderId,[],'DELETE');
 		return \Sapiti\Objects\Shop\Order::getFromArray($apiResponse->getResponse());
 	}
-
-
 
 	/**
 	 * @param array $params

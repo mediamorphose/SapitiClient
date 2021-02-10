@@ -21,7 +21,8 @@ class Order extends ApiObject
 	/** @var Status|null */
 	protected $status = null;
 
-	protected $created = false;
+	protected $created = null;
+	protected $expires = null;
 
 
 	static function getFromArray($data = null, ApiObject $existingObject = null)
@@ -34,6 +35,11 @@ class Order extends ApiObject
 		if(isset($data['created']))  {
 			$date = \DateTime::createFromFormat(\DateTime::ISO8601, $data['created']);
 			$result->setCreated($date);
+		}
+
+		if(isset($data['expires']))  {
+			$date = \DateTime::createFromFormat(\DateTime::ISO8601, $data['expires']);
+			$result->setExpires($date);
 		}
 
 		if(isset($data['status'])) {
@@ -102,12 +108,29 @@ class Order extends ApiObject
 	}
 
 	/**
-	 * @return \DateTime|false
+	 * @return \DateTime|null
 	 */
 	public function getCreated()
 	{
 		return $this->created;
 	}
+
+	/**
+	 * @param \DateTime|null $expires
+	 */
+	public function setExpires(\DateTime $expires=null)
+	{
+		$this->expires = $expires;
+	}
+
+	/**
+	 * @return \DateTime|null
+	 */
+	public function getExpires()
+	{
+		return $this->expires;
+	}
+
 
 
 

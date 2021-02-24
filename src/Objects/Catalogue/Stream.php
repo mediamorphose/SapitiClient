@@ -22,6 +22,7 @@ class Stream extends ApiObject
 
 	protected $startTime = false;
 	protected $endTime = false;
+	protected $accessEndTime = false;
 
 	/** @var Client|null */
 	protected $client = null;
@@ -67,6 +68,10 @@ class Stream extends ApiObject
 		if (isset($data['endtime'])) {
 			$date = \DateTime::createFromFormat(\DateTime::ISO8601, $data['endtime']);
 			$result->setEndTime($date);
+		}
+		if (isset($data['accessendtime'])) {
+			$date = \DateTime::createFromFormat(\DateTime::ISO8601, $data['accessendtime']);
+			$result->setAccessEndTime($date);
 		}
 
 		if (isset($data['status'])) {
@@ -114,6 +119,22 @@ class Stream extends ApiObject
 	public function setEndTime(\DateTime $endTime = null)
 	{
 		$this->endTime = $endTime;
+	}
+
+	/**
+	 * @return \DateTime|false
+	 */
+	public function getAccessEndTime()
+	{
+		return $this->accessEndTime;
+	}
+
+	/**
+	 * @param \DateTime $endTime
+	 */
+	public function setAccessEndTime(\DateTime $endTime = null)
+	{
+		$this->accessEndTime = $endTime;
 	}
 
 	/**

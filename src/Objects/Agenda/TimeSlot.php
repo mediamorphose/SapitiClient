@@ -12,6 +12,7 @@ class TimeSlot extends ApiObject
 	protected $startTime = null;
 	protected $eventId = '';
 	protected $capacity=0;
+	protected $notes = '';
 
 	
 	static function getFromArray($data = null, ApiObject $existingObject=null) {
@@ -20,6 +21,7 @@ class TimeSlot extends ApiObject
 
 		if(isset($data['capacity'])) $result->setCapacity($data['capacity']);
 		if(isset($data['eventid'])) $result->setEventId($data['eventid']);
+		if(isset($data['notes'])) $result->setNotes($data['notes']);
 		if(isset($data['starttime']))  {
 			$date = \DateTime::createFromFormat(\DateTime::ISO8601, $data['starttime']);
 			$result->setStartTime($date);
@@ -77,6 +79,24 @@ class TimeSlot extends ApiObject
 	{
 		$this->eventId = $eventId;
 	}
+
+	/**
+	 * @return string
+	 */
+	public function getNotes(): string
+	{
+		return $this->notes;
+	}
+
+	/**
+	 * @param string $notes
+	 */
+	public function setNotes(string $notes): void
+	{
+		$this->notes = $notes;
+	}
+
+
 
 
 

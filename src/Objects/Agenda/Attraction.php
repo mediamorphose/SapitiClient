@@ -10,6 +10,10 @@ class Attraction extends ApiObject
 {
 
 	protected $description='';
+	protected $additionalDescription='';
+	protected $cast='';
+	protected $ageLimit='';
+	protected $duration='';
 	protected $categories=[];
 	protected $imageURL='';
 	protected $smallImageURL='';
@@ -29,6 +33,10 @@ class Attraction extends ApiObject
 		/** @var Attraction $result */
 		$result = parent::getFromArray($data, $existingObject);
 		if(isset($data['description'])) $result->setDescription($data['description']);
+		if(isset($data['additionaldescription'])) $result->setAdditionalDescription($data['additionaldescription']);
+		if(isset($data['duration'])) $result->setDuration($data['duration']);
+		if(isset($data['cast'])) $result->setCast($data['cast']);
+		if(isset($data['agelimit'])) $result->setAgeLimit($data['agelimit']);
 		if(isset($data['externalid'])) $result->setExternalId($data['externalid']);
 		if(isset($data['image_url'])) $result->setImageURL($data['image_url']);
 		if(isset($data['image_url_small'])) $result->setSmallImageURL($data['image_url_small']);
@@ -176,6 +184,71 @@ class Attraction extends ApiObject
 	{
 		$this->externalId = $externalId;
 	}
+
+	/**
+	 * @return string
+	 */
+	public function getAdditionalDescription()
+	{
+		return $this->additionalDescription;
+	}
+
+	/**
+	 * @param string $additionalDescription
+	 */
+	public function setAdditionalDescription($additionalDescription): void
+	{
+		$this->additionalDescription = $additionalDescription;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getCast()
+	{
+		return $this->cast;
+	}
+
+	/**
+	 * @param string $cast
+	 */
+	public function setCast($cast): void
+	{
+		$this->cast = $cast;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getAgeLimit()
+	{
+		return $this->ageLimit;
+	}
+
+	/**
+	 * @param string $ageLimit
+	 */
+	public function setAgeLimit($ageLimit)
+	{
+		$this->ageLimit = $ageLimit;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getDuration()
+	{
+		return $this->duration;
+	}
+
+	/**
+	 * @param string $duration
+	 */
+	public function setDuration($duration): void
+	{
+		$this->duration = $duration;
+	}
+
 
 
 

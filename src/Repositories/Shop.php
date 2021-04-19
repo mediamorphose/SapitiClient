@@ -6,6 +6,7 @@ use Sapiti\Exceptions\CurlException;
 use Sapiti\Exceptions\InvalidHTTPMethodException;
 use Sapiti\Exceptions\JsonException;
 use Sapiti\Objects\Catalogue\Stream;
+use Sapiti\Objects\Shop\Counter;
 use Sapiti\Objects\Shop\Order;
 use Sapiti\Objects\Shop\Payment;
 use Sapiti\Objects\Shop\PromoCode;
@@ -257,6 +258,40 @@ class Shop extends Repository
 	public function createOrUpdateMolliePaymentFromId(string $orderId, string $molliePaymentId) {
 		$apiResponse = $this->getAPIResponse('shop/orders/payments/',['orderid'=>$orderId,'molliepaymentid'=>$molliePaymentId],'PATCH');
 		return \Sapiti\Objects\Shop\Payment::getFromArray($apiResponse->getResponse());
+	}
+
+	public function getCounters(array $params=[]) {
+		$apiResponse = $this->getAPIResponse('shop/counters',$params,'GET');
+		return \Sapiti\Objects\Shop\Counter::getMultipleFromArray($apiResponse->getResponse());
+	}
+
+	public function getCounter(string $id) {
+		$apiResponse = $this->getAPIResponse('shop/counters/'.$id,[],'GET');
+		return Counter::getFromArray($apiResponse->getResponse());
+	}
+
+	public function getCounterSessions($counterId, array $params=[]) {
+		$params['counterid']=$counterId;
+		$apiResponse = $this->getAPIResponse('shop/counters/sessions',$params,'GET');
+		return \Sapiti\Objects\Shop\CounterSession::getMultipleFromArray($apiResponse->getResponse());
+	}
+
+
+	public function startCounterSession($counterId, $startAmountCents=0,$userLabel='') {
+		$params['counterid']=$counterId;
+		$params['starttime']=date("c");
+		$params['startamount']=$startAmountCents;
+		$params['userlabel']=$userLabel;
+		$apiResponse = $this->getAPIResponse('shop/counters/sessions',$params,'POST');
+		return \Sapiti\Objects\Shop\CounterSession::getFromArray($apiResponse->getResponse());
+	}
+
+	public function stopCounterSession($sessionId, $endAmountCents=0,$notes='') {
+		$params['endtime']=date("c");
+		$params['endamount']=$endAmountCents;
+		$params['notes']=$notes;
+		$apiResponse = $this->getAPIResponse('shop/counters/sessions/'.$sessionId,$params,'PATCH');
+		return \Sapiti\Objects\Shop\CounterSession::getFromArray($apiResponse->getResponse());
 	}
 
 

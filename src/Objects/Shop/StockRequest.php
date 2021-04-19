@@ -13,6 +13,7 @@ class StockRequest extends ApiObject
 	protected $categoryId='';
 	protected $priceId='';
 	protected $orderId='';
+	protected $counterId='';
 	protected $promocodesIds=[];
 
 
@@ -30,6 +31,8 @@ class StockRequest extends ApiObject
 		$data['promocodeids']=$existingObject->getPromocodesIds();
 		if($existingObject->getOrderId())
 			$data['orderid']=$existingObject->getOrderId();
+		if($existingObject->getCounterId())
+			$data['counterid']=$existingObject->getCounterId();
 		return $data;
 	}
 
@@ -127,6 +130,22 @@ class StockRequest extends ApiObject
 	public function setPromocodesIds(array $promocodesIds): void
 	{
 		$this->promocodesIds = $promocodesIds;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getCounterId(): string
+	{
+		return $this->counterId;
+	}
+
+	/**
+	 * @param string $counterId
+	 */
+	public function setCounterId(string $counterId): void
+	{
+		$this->counterId = $counterId;
 	}
 
 

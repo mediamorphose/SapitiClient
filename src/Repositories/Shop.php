@@ -277,11 +277,12 @@ class Shop extends Repository
 	}
 
 
-	public function startCounterSession($counterId, $startAmountCents=0,$userLabel='') {
+	public function startCounterSession($counterId, $startAmountCents=0,$userLabel='', $externalUserId='') {
 		$params['counterid']=$counterId;
 		$params['starttime']=date("c");
 		$params['startamount']=$startAmountCents;
 		$params['userlabel']=$userLabel;
+		$params['externaluserid']=$externalUserId;
 		$apiResponse = $this->getAPIResponse('shop/counters/sessions',$params,'POST');
 		return \Sapiti\Objects\Shop\CounterSession::getFromArray($apiResponse->getResponse());
 	}

@@ -32,6 +32,7 @@ class Event extends ApiObject
 
 	protected $notes = '';
 
+	protected $metaData=[];
 
 	/** @var Venue  */
 	protected $venue=null;
@@ -63,6 +64,9 @@ class Event extends ApiObject
 			$date = \DateTime::createFromFormat(\DateTime::ISO8601, $data['endtime']);
 			$result->setEndTime($date);
 		}
+
+		if(isset($data['metadata']) && is_array($data['metadata']))
+			$result->setMetaData($data['metadata']);
 
 		if(isset($data['status'])) {
 			$result->setStatus(Status::getFromArray($data['status']));
@@ -224,6 +228,23 @@ public function setNotes(string $notes): void
 }
 
 
+	/**
+	 * @return array
+	 */
+	public function getMetaData()
+	{
+		if(!is_array($this->metaData))
+			$this->metaData=[];
+		return $this->metaData;
+	}
+
+	/**
+	 * @param array $metaData
+	 */
+	public function setMetaData($metaData): void
+	{
+		$this->metaData = $metaData;
+	}
 
 
 

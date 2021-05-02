@@ -22,6 +22,8 @@ class Attraction extends ApiObject
 	protected $lastEvent_date = null;
 	protected $nbEvents = 0;
 
+	protected $metaData=[];
+
 	protected $externalId = null;
 
 	/**
@@ -42,6 +44,9 @@ class Attraction extends ApiObject
 		if(isset($data['image_url_small'])) $result->setSmallImageURL($data['image_url_small']);
 		if(isset($data['categories']))
 			$result->setCategories(Category::getMultipleFromArray($data['categories']));
+
+		if(isset($data['metadata']) && is_array($data['metadata']))
+			$result->setMetaData($data['metadata']);
 
 		if(isset($data['firstevent_date']))  {
 			$date = \DateTime::createFromFormat(\DateTime::ISO8601, $data['firstevent_date']);
@@ -247,6 +252,24 @@ class Attraction extends ApiObject
 	public function setDuration($duration): void
 	{
 		$this->duration = $duration;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getMetaData()
+	{
+		if(!is_array($this->metaData))
+			$this->metaData=[];
+		return $this->metaData;
+	}
+
+	/**
+	 * @param array $metaData
+	 */
+	public function setMetaData($metaData): void
+	{
+		$this->metaData = $metaData;
 	}
 
 

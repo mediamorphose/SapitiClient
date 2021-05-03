@@ -5,6 +5,8 @@ use Sapiti\Exceptions\ApiException;
 use Sapiti\Exceptions\CurlException;
 use Sapiti\Exceptions\InvalidHTTPMethodException;
 use Sapiti\Exceptions\JsonException;
+use Sapiti\Objects\Agenda\Category;
+use Sapiti\Objects\Catalogue\Merchandising;
 use Sapiti\Objects\Catalogue\Stream;
 
 class Catalogue extends Repository
@@ -63,6 +65,57 @@ class Catalogue extends Repository
 		return  $apiResponse->getResponse();
 	}
 
+	/**
+	 * @param array $params
+	 * @return array
+	 * @throws ApiException
+	 * @throws CurlException
+	 * @throws InvalidHTTPMethodException
+	 * @throws JsonException
+	 */
+	public function getMerchandisings(array $params=[]) {
+		$apiResponse = $this->getAPIResponse('catalogue/merchandising',$params,'GET');
+		return Merchandising::getMultipleFromArray($apiResponse->getResponse());
+	}
+
+	/**
+	 * @param string $id
+	 * @return Merchandising|null
+	 * @throws ApiException
+	 * @throws CurlException
+	 * @throws InvalidHTTPMethodException
+	 * @throws JsonException
+	 */
+	public function getMerchandising(string $id) {
+		$apiResponse = $this->getAPIResponse('catalogue/merchandising/'.$id,[],'GET');
+		return Merchandising::getFromArray($apiResponse->getResponse());
+	}
+
+	/**
+	 * @param array $params
+	 * @return array
+	 * @throws ApiException
+	 * @throws CurlException
+	 * @throws InvalidHTTPMethodException
+	 * @throws JsonException
+	 */
+	public function getMerchandisingCategories(array $params=[]) {
+		$apiResponse = $this->getAPIResponse('catalogue/merchandising/categories',$params,'GET');
+		return Category::getMultipleFromArray($apiResponse->getResponse());
+	}
+
+	/**
+	 * @param string $id
+	 * @return Category|null
+	 * @throws ApiException
+	 * @throws CurlException
+	 * @throws InvalidHTTPMethodException
+	 * @throws JsonException
+	 */
+	public function getMerchandisingCategory(string $id) {
+		$apiResponse = $this->getAPIResponse('catalogue/merchandising/categories/'.$id,[],'GET');
+		return Category::getFromArray($apiResponse->getResponse());
+	}
 
 
 

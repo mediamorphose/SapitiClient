@@ -9,6 +9,7 @@ use Sapiti\Objects\ApiObject;
 class Category extends ApiObject
 {
 	protected $description='';
+	protected $imageUrl = '';
 
 	/**
 	 * @param array $data
@@ -19,6 +20,7 @@ class Category extends ApiObject
 		/** @var Category $result */
 		$result = parent::getFromArray($data, $existingObject);
 		if(isset($data['description'])) $result->setDescription($data['description']);
+		if(isset($data['image_url'])) $result->setImageUrl($data['image_url']);
 		return $result;
 	}
 
@@ -37,6 +39,23 @@ class Category extends ApiObject
 	{
 		$this->description = $description;
 	}
+
+	/**
+	 * @return string
+	 */
+	public function getImageUrl(): string
+	{
+		return $this->imageUrl;
+	}
+
+	/**
+	 * @param string $imageUrl
+	 */
+	public function setImageUrl(string $imageUrl): void
+	{
+		$this->imageUrl = $imageUrl;
+	}
+
 
 
 

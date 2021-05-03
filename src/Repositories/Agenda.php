@@ -147,15 +147,15 @@ class Agenda extends Repository
 
 	/**
 	 * @param string $id
-	 * @return Attraction|null
+	 * @return Category|null
 	 * @throws ApiException
 	 * @throws CurlException
 	 * @throws InvalidHTTPMethodException
 	 * @throws JsonException
 	 */
-	public function getCategorie(string $id) {
+	public function getCategory(string $id) {
 		$apiResponse = $this->getAPIResponse('agenda/attractions/categories/'.$id,[],'GET');
-		return Attraction::getFromArray($apiResponse->getResponse());
+		return Category::getFromArray($apiResponse->getResponse());
 	}
 
 

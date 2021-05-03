@@ -28,6 +28,7 @@ foreach($events as $event) {
 	echo 'The event shopping link is : '.$event->getShopUrl()."\n";
 	echo 'The event image url is : '.$event->getAttraction()->getImageURL()."\n";
 	echo 'The event description is : '.substr($event->getAttraction()->getDescription(),0,255)."...\n";
+	echo 'The other stuff is : '.$event->getAttraction()->getDuration().'/'.$event->getAttraction()->getAdditionalDescription()."\n";
 	echo 'The event notes are : '.$event->getNotes()."\n";
 	$i++;
 
@@ -85,5 +86,5 @@ foreach($categories as $category) {
 	echo $i.') '.$category->getLabel()."\n";
 	$i++;
 }
-if($lastId) echo 'The last one is  : '.$client->Agenda()->getCategorie($lastId)->getLabel()."...\n";
+if($lastId) echo 'The last one is  : '.$client->Agenda()->getCategory($lastId)->getLabel()."...\n";
 //endregion

@@ -38,6 +38,8 @@ class Stock extends ApiObject
 			$result->setProductCategories(ProductCategory::getMultipleFromArray($data['categories']));
 		}
 
+		$result->setCapacityOrdered(max($result->getCapacityTotal()-$result->getCapacityFree(),0));
+
 		return $result;
 	}
 

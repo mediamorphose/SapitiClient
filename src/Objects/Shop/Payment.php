@@ -10,17 +10,19 @@ use Sapiti\Objects\Business\Status;
 class Payment extends ApiObject
 {
 
-	CONST METHOD_UNKNOWN=0;
-	CONST METHOD_MOLLIE=1;
-	CONST METHOD_STRIPE=2;
-	CONST METHOD_CASH=10;
 
 	protected $orderId = '';
 	protected $paymentMethodId = '';
+	protected $counterId = '';
 	protected $externalId = '';
 	protected $amount=-1;
 	protected $currency='EUR';
 
+	/** @var PaymentMethod  */
+	protected $paymentMethod=null;
+
+	/** @var Counter  */
+	protected $counter=null;
 
 	/** @var Status|null */
 	protected $status = null;
@@ -47,6 +49,12 @@ class Payment extends ApiObject
 			$result->setStatus(Status::getFromArray($data['status']));
 		}
 
+		if(isset($data['paymentmethod']))
+			$result->setPaymentMethod(PaymentMethod::getFromArray($data['paymentmethod']));
+
+		if(isset($data['counter']))
+			$result->setCounter(Counter::getFromArray($data['counter']));
+
 		return $result;
 	}
 
@@ -55,11 +63,13 @@ class Payment extends ApiObject
 		$data=[];
 		$data['orderid']=$existingObject->getOrderId();
 		$data['paymentmethodid']=$existingObject->getPaymentMethodId();
+		$data['counterid']=$existingObject->getCounterId();
 		$data['externalid']=$existingObject->getExternalId();
 		$data['value']['amount']=$existingObject->getAmount();
 		$data['value']['currency']=$existingObject->getCurrency();
 
-		$data['status']=Status::toArray($existingObject->getStatus());
+		if($existingObject->getStatus())
+			$data['status']=Status::toArray($existingObject->getStatus());
 		$data['paymentdate']=null;
 		if($existingObject->getPaymentDate())
 			$data['paymentdate']=$existingObject->getPaymentDate()->format('c');
@@ -184,6 +194,58 @@ class Payment extends ApiObject
 	{
 		$this->status = $status;
 	}
+
+	/**
+	 * @return string
+	 */
+	public function getCounterId(): string
+	{
+		return $this->counterId;
+	}
+
+	/**
+	 * @param string $counterId
+	 */
+	public function setCounterId(string $counterId): void
+	{
+		$this->counterId = $counterId;
+	}
+
+	/**
+	 * @return PaymentMethod|null
+	 */
+	public function getPaymentMethod(): ?PaymentMethod
+	{
+		return $this->paymentMethod;
+	}
+
+	/**
+	 * @param PaymentMethod $paymentMethod
+	 */
+	public function setPaymentMethod(?PaymentMethod $paymentMethod): void
+	{
+		$this->paymentMethod = $paymentMethod;
+	}
+
+	/**
+	 * @return Counter
+	 */
+	public function getCounter(): ?Counter
+	{
+		return $this->counter;
+	}
+
+	/**
+	 * @param Counter $counter
+	 */
+	public function setCounter(?Counter $counter): void
+	{
+		$this->counter = $counter;
+	}
+
+
+
+
 
 
 }

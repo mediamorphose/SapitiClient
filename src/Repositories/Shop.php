@@ -9,6 +9,7 @@ use Sapiti\Objects\Catalogue\Stream;
 use Sapiti\Objects\Shop\Counter;
 use Sapiti\Objects\Shop\Order;
 use Sapiti\Objects\Shop\Payment;
+use Sapiti\Objects\Shop\PaymentMethod;
 use Sapiti\Objects\Shop\PromoCode;
 use Sapiti\Objects\Shop\Stock;
 use Sapiti\Objects\Shop\StockRequest;
@@ -213,6 +214,12 @@ class Shop extends Repository
 		return $apiResponse->getResponse();
 	}
 
+	public function getPaymentMethods(array $params=[]): array
+	{
+		$apiResponse = $this->getAPIResponse('shop/paymentmethods/',$params,'GET');
+		return PaymentMethod::getMultipleFromArray($apiResponse->getResponse());
+	}
+
 	/**
 	 * @param array $params
 	 * @return array
@@ -252,6 +259,20 @@ class Shop extends Repository
 	{
 		$dataArray = Payment::toArray($payment);
 		$apiResponse = $this->getAPIResponse('shop/orders/payments/'.$payment->getId(),$dataArray,'PATCH');
+		return $payment::getFromArray($apiResponse->getResponse());
+	}
+
+	/**
+	 * @param Payment $payment
+	 * @return Payment|null
+	 * @throws ApiException
+	 * @throws CurlException
+	 * @throws InvalidHTTPMethodException
+	 * @throws JsonException
+	 */
+	public function createPayment(Payment $payment) : ?Payment {
+		$dataArray = Payment::toArray($payment);
+		$apiResponse = $this->getAPIResponse('shop/orders/payments',$dataArray,'POST');
 		return $payment::getFromArray($apiResponse->getResponse());
 	}
 

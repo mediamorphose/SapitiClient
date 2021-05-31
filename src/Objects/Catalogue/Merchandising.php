@@ -15,7 +15,7 @@ class Merchandising extends ApiObject
 	protected $imageUrl = '';
 	protected $categories=[];
 	protected $metaData=[];
-	protected $barCode = null;
+	protected $externalId = '';
 
 	/**
 	 * @param array $data
@@ -31,6 +31,7 @@ class Merchandising extends ApiObject
 		if (isset($data['description'])) $result->setDescription($data['description']);
 		if (isset($data['image_url'])) $result->setImageUrl($data['image_url']);
 		if (isset($data['shop_url'])) $result->setShopUrl($data['shop_url']);
+		if (isset($data['externalid'])) $result->setExternalId($data['externalid']);
 
 		if(isset($data['categories']))
 			$result->setCategories(Category::getMultipleFromArray($data['categories']));
@@ -126,7 +127,7 @@ class Merchandising extends ApiObject
 	 */
 	public function getBarCode()
 	{
-		return $this->barCode;
+		return $this->getExternalId();
 	}
 
 	/**
@@ -134,8 +135,25 @@ class Merchandising extends ApiObject
 	 */
 	public function setBarCode($barCode): void
 	{
-		$this->barCode = $barCode;
+		$this->setExternalId($barCode);
 	}
+
+	/**
+	 * @return string
+	 */
+	public function getExternalId(): string
+	{
+		return $this->externalId;
+	}
+
+	/**
+	 * @param string $externalId
+	 */
+	public function setExternalId(string $externalId): void
+	{
+		$this->externalId = $externalId;
+	}
+
 
 
 

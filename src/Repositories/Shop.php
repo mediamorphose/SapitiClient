@@ -10,6 +10,7 @@ use Sapiti\Objects\Shop\Counter;
 use Sapiti\Objects\Shop\Order;
 use Sapiti\Objects\Shop\Payment;
 use Sapiti\Objects\Shop\PaymentMethod;
+use Sapiti\Objects\Shop\Product;
 use Sapiti\Objects\Shop\PromoCode;
 use Sapiti\Objects\Shop\Stock;
 use Sapiti\Objects\Shop\StockRequest;
@@ -83,6 +84,12 @@ class Shop extends Repository
 	public function getProduct(string $id) {
 		$apiResponse = $this->getAPIResponse('shop/products/'.$id,[],'GET');
 		return \Sapiti\Objects\Shop\Product::getFromArray($apiResponse->getResponse());
+	}
+
+	public function updateProduct(Product $product, $params=[]): ?Product
+	{
+		$apiResponse = $this->getAPIResponse('shop/products/'.$product->getId(),$params,'PATCH');
+		return Product::getFromArray($apiResponse->getResponse());
 	}
 
 	/**

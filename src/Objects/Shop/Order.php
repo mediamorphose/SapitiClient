@@ -16,6 +16,7 @@ class Order extends ApiObject
 	const STATUS_PAID = 15;
 	const STATUS_COMPLETED = 30;
 
+	protected $name = '';
 	protected $contactId = '';
 	protected $infoUrl = '';
 	/** @var Status|null */
@@ -29,6 +30,7 @@ class Order extends ApiObject
 	{
 		/** @var Order $result */
 		$result = parent::getFromArray($data, $existingObject);
+		if (isset($data['name'])) $result->setName($data['name']);
 		if (isset($data['contactid'])) $result->setContactId($data['contactid']);
 		if (isset($data['info_url'])) $result->setInfoUrl($data['info_url']);
 
@@ -129,6 +131,22 @@ class Order extends ApiObject
 	public function getExpires()
 	{
 		return $this->expires;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getName(): string
+	{
+		return $this->name;
+	}
+
+	/**
+	 * @param string $name
+	 */
+	public function setName(string $name): void
+	{
+		$this->name = $name;
 	}
 
 

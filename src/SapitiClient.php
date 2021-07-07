@@ -6,6 +6,7 @@ use Sapiti\Exceptions\CurlException;
 use Sapiti\Exceptions\InvalidHTTPMethodException;
 use Sapiti\Exceptions\JsonException;
 use Sapiti\Objects\System\ApiResponse;
+use Sapiti\Repositories\AccessControl;
 use Sapiti\Repositories\Agenda;
 use Sapiti\Repositories\Catalogue;
 use Sapiti\Repositories\Contact;
@@ -57,6 +58,7 @@ class SapitiClient
 		$this->newsletterRepository= new Newsletter($this);
 		$this->catalogueRepository= new Catalogue($this);
 		$this->shopRepository= new Shop($this);
+		$this->controlRepository= new AccessControl($this);
 		$this->setMode($mode);
 	}
 
@@ -231,6 +233,19 @@ class SapitiClient
 	public function Catalogue()
 	{
 		return $this->catalogueRepository;
+	}
+
+	/**
+	 * @var AccessControl
+	 */
+	protected $controlRepository=null;
+
+	/**
+	 * @return AccessControl
+	 */
+	public function AccessControl()
+	{
+		return $this->controlRepository;
 	}
 
 

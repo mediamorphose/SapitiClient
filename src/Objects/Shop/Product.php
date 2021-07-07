@@ -38,7 +38,10 @@ class Product extends ApiObject
 		if (isset($data['usage'])) {
 			if (isset($data['usage']['statusid'])) $result->setUsageId($data['usage']['statusid']);
 			if (isset($data['usage']['by'])) $result->setUsageLabel($data['usage']['by']);
-			if (isset($data['usage']['date'])) $result->setUsageDate($data['usage']['date']);
+			if (isset($data['usage']['date'])) {
+				$date = \DateTime::createFromFormat(\DateTime::ISO8601, $data['usage']['date']);
+				$result->setUsageDate($date);
+			}
 		}
 
 

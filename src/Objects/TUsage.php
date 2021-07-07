@@ -6,7 +6,7 @@ trait TUsage
 
 	protected $usageId=-1;
 	protected $usageLabel='';
-	protected $usageDate = false;
+	protected $usageDate = null;
 
 	/**
 	 * @return \DateTime|false

@@ -7,6 +7,7 @@ use Sapiti\Exceptions\InvalidHTTPMethodException;
 use Sapiti\Exceptions\JsonException;
 use Sapiti\Objects\Agenda\Category;
 use Sapiti\Objects\Catalogue\Merchandising;
+use Sapiti\Objects\Catalogue\Pack;
 use Sapiti\Objects\Catalogue\Stream;
 
 class Catalogue extends Repository
@@ -115,6 +116,33 @@ class Catalogue extends Repository
 	public function getMerchandisingCategory(string $id) {
 		$apiResponse = $this->getAPIResponse('catalogue/merchandising/categories/'.$id,[],'GET');
 		return Category::getFromArray($apiResponse->getResponse());
+	}
+
+
+	/**
+	 * @param array $params
+	 * @return array
+	 * @throws ApiException
+	 * @throws CurlException
+	 * @throws InvalidHTTPMethodException
+	 * @throws JsonException
+	 */
+	public function getPacks(array $params=[]) {
+		$apiResponse = $this->getAPIResponse('catalogue/packs',$params,'GET');
+		return Pack::getMultipleFromArray($apiResponse->getResponse());
+	}
+
+	/**
+	 * @param string $id
+	 * @return Pack|null
+	 * @throws ApiException
+	 * @throws CurlException
+	 * @throws InvalidHTTPMethodException
+	 * @throws JsonException
+	 */
+	public function getPack(string $id) {
+		$apiResponse = $this->getAPIResponse('catalogue/packs/'.$id,[],'GET');
+		return Pack::getFromArray($apiResponse->getResponse());
 	}
 
 

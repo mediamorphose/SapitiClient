@@ -16,6 +16,7 @@ class Stock extends ApiObject
 	protected $timeSlotId='';
 	protected $streamId='';
 	protected $merchandisingId='';
+	protected $packId='';
 	protected $productCategories=[];
 
 	protected $hasPromoCodes=false;
@@ -31,6 +32,7 @@ class Stock extends ApiObject
 		if (isset($data['timeslotid'])) $result->setTimeSlotId($data['timeslotid']);
 		if (isset($data['streamid'])) $result->setStreamId($data['streamid']);
 		if (isset($data['merchandisingid'])) $result->setMerchandisingId($data['merchandisingid']);
+		if (isset($data['packid'])) $result->setPackId($data['packid']);
 		if (isset($data['capacity_total'])) $result->setCapacityTotal($data['capacity_total']);
 		if (isset($data['capacity_free'])) $result->setCapacityFree($data['capacity_free']);
 		if (isset($data['shop_url'])) $result->setShopUrl($data['shop_url']);
@@ -188,6 +190,22 @@ class Stock extends ApiObject
 	public function setMerchandisingId(string $merchandisingId): void
 	{
 		$this->merchandisingId = $merchandisingId;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getPackId(): string
+	{
+		return $this->packId;
+	}
+
+	/**
+	 * @param string $packId
+	 */
+	public function setPackId(string $packId): void
+	{
+		$this->packId = $packId;
 	}
 
 

@@ -13,6 +13,7 @@ class Product extends ApiObject
 	protected $orderId='';
 	protected $stockId='';
 	protected $quantity=1;
+	protected $packProductId='';
 	protected $price=null;
 	protected $ticket=null;
 	protected $category=null;
@@ -25,6 +26,7 @@ class Product extends ApiObject
 		if (isset($data['orderid'])) $result->setOrderId($data['orderid']);
 		if (isset($data['stockid'])) $result->setStockId($data['stockid']);
 		if (isset($data['quantity'])) $result->setQuantity($data['quantity']);
+		if (isset($data['packproductid'])) $result->setPackProductId($data['packproductid']);
 
 		if (isset($data['category'])) {
 			$result->setCategory(ProductCategory::getFromArray($data['category']));
@@ -143,6 +145,23 @@ class Product extends ApiObject
 	{
 		$this->category = $category;
 	}
+
+	/**
+	 * @return string
+	 */
+	public function getPackProductId(): string
+	{
+		return $this->packProductId;
+	}
+
+	/**
+	 * @param string $packProductId
+	 */
+	public function setPackProductId(string $packProductId): void
+	{
+		$this->packProductId = $packProductId;
+	}
+
 
 
 

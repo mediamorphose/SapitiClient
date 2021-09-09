@@ -92,6 +92,13 @@ class Shop extends Repository
 		return Product::getFromArray($apiResponse->getResponse());
 	}
 
+	public function attachProductToMainProduct(Product $product, Product $mainProduct, $params=[]): ?Product
+	{
+		$params['mainproductid']=$mainProduct->getId();
+		$apiResponse = $this->getAPIResponse('shop/products/'.$product->getId().'/attach',$params,'PATCH');
+		return Product::getFromArray($apiResponse->getResponse());
+	}
+
 	/**
 	 * @param string $id
 	 * @return bool

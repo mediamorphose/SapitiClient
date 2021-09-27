@@ -29,6 +29,9 @@ class Ticket extends ApiObject
 
 	protected $price = null;
 
+	protected $typeId= '';
+	protected $validityDate = null;
+
 	protected $metaData=[];
 
 
@@ -38,6 +41,7 @@ class Ticket extends ApiObject
 		/** @var Ticket $result */
 		$result = parent::getFromArray($data, $existingObject);
 		if (isset($data['spectatorlabel'])) $result->setSpectatorLabel($data['spectatorlabel']);
+		if (isset($data['typeid'])) $result->setTypeId($data['typeid']);
 		if (isset($data['positionlabel'])) $result->setPositionLabel($data['positionlabel']);
 		if (isset($data['categorylabel'])) $result->setCategoryLabel($data['categorylabel']);
 		if (isset($data['entrycount'])) $result->setEntryCount($data['entrycount']);
@@ -53,6 +57,10 @@ class Ticket extends ApiObject
 		if(isset($data['eventendtime']))  {
 			$date = \DateTime::createFromFormat(\DateTime::ISO8601, $data['eventendtime']);
 			$result->setEndTime($date);
+		}
+		if(isset($data['validitydate']))  {
+			$date = \DateTime::createFromFormat(\DateTime::ISO8601, $data['validitydate']);
+			$result->setValidityDate($date);
 		}
 		if (isset($data['presentinglabel'])) $result->setPresentingLabel($data['presentinglabel']);
 		if (isset($data['notes'])) $result->setNotes($data['notes']);
@@ -350,6 +358,38 @@ class Ticket extends ApiObject
 	public function setMetaData(array $metaData): void
 	{
 		$this->metaData = $metaData;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getTypeId(): string
+	{
+		return $this->typeId;
+	}
+
+	/**
+	 * @param string $typeId
+	 */
+	public function setTypeId(string $typeId): void
+	{
+		$this->typeId = $typeId;
+	}
+
+	/**
+	 * @return null
+	 */
+	public function getValidityDate()
+	{
+		return $this->validityDate;
+	}
+
+	/**
+	 * @param null $validityDate
+	 */
+	public function setValidityDate($validityDate): void
+	{
+		$this->validityDate = $validityDate;
 	}
 
 

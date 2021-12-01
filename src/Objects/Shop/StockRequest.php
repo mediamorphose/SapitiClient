@@ -14,6 +14,7 @@ class StockRequest extends ApiObject
 	protected $priceId='';
 	protected $orderId='';
 	protected $counterId='';
+	protected $requestedPrice=null;
 	protected $promocodesIds=[];
 
 
@@ -28,6 +29,7 @@ class StockRequest extends ApiObject
 		$data['stockid']=$existingObject->getStockId();
 		$data['categoryid']=$existingObject->getCategoryId();
 		$data['priceid']=$existingObject->getPriceId();
+		$data['requestedprice']=$existingObject->getRequestedPrice();
 		$data['promocodeids']=$existingObject->getPromocodesIds();
 		if($existingObject->getOrderId())
 			$data['orderid']=$existingObject->getOrderId();
@@ -147,6 +149,19 @@ class StockRequest extends ApiObject
 	{
 		$this->counterId = $counterId;
 	}
+
+
+	public function getRequestedPrice()
+	{
+		return $this->requestedPrice;
+	}
+
+
+	public function setRequestedPrice($requestedPrice): void
+	{
+		$this->requestedPrice = $requestedPrice;
+	}
+
 
 
 

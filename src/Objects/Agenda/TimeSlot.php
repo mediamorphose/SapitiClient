@@ -10,6 +10,7 @@ class TimeSlot extends ApiObject
 {
 
 	protected $startTime = null;
+	protected $endTime = null;
 	protected $eventId = '';
 	protected $capacity=0;
 	protected $notes = '';
@@ -25,6 +26,10 @@ class TimeSlot extends ApiObject
 		if(isset($data['starttime']))  {
 			$date = \DateTime::createFromFormat(\DateTime::ISO8601, $data['starttime']);
 			$result->setStartTime($date);
+		}
+		if(isset($data['endtime']))  {
+			$date = \DateTime::createFromFormat(\DateTime::ISO8601, $data['endtime']);
+			$result->setEndTime($date);
 		}
 
 		return $result;
@@ -45,6 +50,22 @@ class TimeSlot extends ApiObject
 	public function setStartTime(\DateTime $startTime=null)
 	{
 		$this->startTime = $startTime;
+	}
+
+	/**
+	 * @return \DateTime|null
+	 */
+	public function getEndTime()
+	{
+		return $this->endTime;
+	}
+
+	/**
+	 * @param \DateTime $endTime
+	 */
+	public function setEndTime(\DateTime $endTime=null)
+	{
+		$this->endTime = $endTime;
 	}
 
 
@@ -95,12 +116,5 @@ class TimeSlot extends ApiObject
 	{
 		$this->notes = $notes;
 	}
-
-
-
-
-
-
-
 
 }

@@ -22,10 +22,11 @@ class AccessControl extends Repository
 	}
 
 	public function controlCodesForDeviceAndEventId(array $codesToControl, $deviceId, $eventId, $confirmedByOperator=false, $exitMode=false) {
-		$apiResponse = $this->getAPIResponse('/accesscontrol/events/'.$eventId.'/control',['deviceid'=>$deviceId,'codes'=>$codesToControl, 'confirmedbyoperator'=>$confirmedByOperator],'PATCH');
+		$method='PATCH';
+		if($exitMode) $method='DELETE';
+		$apiResponse = $this->getAPIResponse('/accesscontrol/events/'.$eventId.'/control',['deviceid'=>$deviceId,'codes'=>$codesToControl, 'confirmedbyoperator'=>$confirmedByOperator],$method);
 		return AccessCode::getMultipleFromArray($apiResponse->getResponse());
 	}
-
 
 
 }

@@ -18,6 +18,6 @@
       "ext-curl": "*",
       "ext-readline": "*",
         "ext-json": "*",
-        "tedivm/stash": "v0.15.*"
+        "tedivm/stash": "v0.*"
     }
 }

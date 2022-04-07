@@ -13,7 +13,7 @@ class Product extends ApiObject
 	protected $orderId='';
 	protected $stockId='';
 	protected $quantity=1;
-	protected $packProductId='';
+	protected $mainProductId='';
 	protected $price=null;
 	protected $ticket=null;
 	protected $category=null;
@@ -26,7 +26,7 @@ class Product extends ApiObject
 		if (isset($data['orderid'])) $result->setOrderId($data['orderid']);
 		if (isset($data['stockid'])) $result->setStockId($data['stockid']);
 		if (isset($data['quantity'])) $result->setQuantity($data['quantity']);
-		if (isset($data['packproductid'])) $result->setPackProductId($data['packproductid']);
+		if (isset($data['mainproductid'])) $result->setMainProductId($data['mainproductid']);
 
 		if (isset($data['category'])) {
 			$result->setCategory(ProductCategory::getFromArray($data['category']));
@@ -151,7 +151,7 @@ class Product extends ApiObject
 	 */
 	public function getPackProductId(): string
 	{
-		return $this->packProductId;
+		return $this->getMainProductId();
 	}
 
 	/**
@@ -159,8 +159,25 @@ class Product extends ApiObject
 	 */
 	public function setPackProductId(string $packProductId): void
 	{
-		$this->packProductId = $packProductId;
+		$this->setMainProductId($packProductId);
 	}
+
+	/**
+	 * @return string
+	 */
+	public function getMainProductId(): string
+	{
+		return $this->mainProductId;
+	}
+
+	/**
+	 * @param string $mainProductId
+	 */
+	public function setMainProductId(string $mainProductId): void
+	{
+		$this->mainProductId = $mainProductId;
+	}
+
 
 
 

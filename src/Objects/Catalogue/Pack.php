@@ -17,6 +17,8 @@ class Pack extends ApiObject
 	protected $imageUrl = '';
 	protected $metaData=[];
 
+    protected $sets=[];
+
 	/**
 	 * @param array $data
 	 * @param ApiObject|null $existingObject
@@ -37,6 +39,11 @@ class Pack extends ApiObject
 
 		if(isset($data['metadata']) && is_array($data['metadata']))
 			$result->setMetaData($data['metadata']);
+
+
+        if (isset($data['sets'])) {
+            $result->setSets(PackSet::getMultipleFromArray($data['sets']));
+        }
 
 		return $result;
 	}
@@ -152,6 +159,22 @@ class Pack extends ApiObject
 	{
 		$this->metaData = $metaData;
 	}
+
+    /**
+     * @return array
+     */
+    public function getSets(): array
+    {
+        return $this->sets;
+    }
+
+    /**
+     * @param array $sets
+     */
+    public function setSets(array $sets): void
+    {
+        $this->sets = $sets;
+    }
 
 
 

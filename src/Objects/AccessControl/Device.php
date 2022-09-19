@@ -5,12 +5,16 @@ namespace Sapiti\Objects\AccessControl;
 
 
 use Sapiti\Objects\ApiObject;
+use Sapiti\Objects\Business\Client;
 
 class Device extends ApiObject
 {
 
 	protected $lastContact=null;
 	protected $keys='';
+
+	/** @var ?Client  */
+	protected $client=null;
 
 
 	static function getFromArray($data = null, ApiObject $existingObject=null) {
@@ -21,6 +25,8 @@ class Device extends ApiObject
 			$date = \DateTime::createFromFormat(\DateTime::ISO8601, $data['lastcontact']);
 			$result->setLastContact($date);
 		}
+		if(isset($data['client']))
+			$result->setClient(Client::getFromArray($data['client']));
 		return $result;
 	}
 
@@ -55,6 +61,24 @@ class Device extends ApiObject
 	{
 		$this->keys = $keys;
 	}
+
+	/**
+	 * @return Client|null
+	 */
+	public function getClient(): ?Client
+	{
+		return $this->client;
+	}
+
+	/**
+	 * @param Client|null $client
+	 */
+	public function setClient(?Client $client): void
+	{
+		$this->client = $client;
+	}
+
+
 
 
 

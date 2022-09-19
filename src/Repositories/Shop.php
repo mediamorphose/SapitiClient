@@ -152,6 +152,11 @@ class Shop extends Repository
 		return \Sapiti\Objects\Shop\Stock::getFromArray($apiResponse->getResponse());
 	}
 
+    public function getSuggestedStocks(string $id, array $params=[]) {
+        $apiResponse = $this->getAPIResponse('shop/products/stocks/suggestions/'.$id,$params,'GET');
+        return \Sapiti\Objects\Shop\Stock::getMultipleFromArray($apiResponse->getResponse());
+    }
+
 
 	public function requestStock(array $requests=[]) {
 		$apiResponse = $this->getAPIResponse('shop/products/',['requests'=>StockRequest::getMultipleToArray($requests)],'POST');

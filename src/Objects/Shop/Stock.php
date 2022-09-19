@@ -12,6 +12,7 @@ class Stock extends ApiObject
 
 	protected $shopUrl='';
 	protected $typeId=1;
+    protected $productTypeId=1;
 	protected $eventId='';
 	protected $timeSlotId='';
 	protected $streamId='';
@@ -28,6 +29,7 @@ class Stock extends ApiObject
 		/** @var Stock $result */
 		$result = parent::getFromArray($data, $existingObject);
 		if (isset($data['typeid'])) $result->setTypeId($data['typeid']);
+        if (isset($data['producttypeid'])) $result->setProductTypeId($data['producttypeid']);
 		if (isset($data['eventid'])) $result->setEventId($data['eventid']);
 		if (isset($data['timeslotid'])) $result->setTimeSlotId($data['timeslotid']);
 		if (isset($data['streamid'])) $result->setStreamId($data['streamid']);
@@ -208,7 +210,21 @@ class Stock extends ApiObject
 		$this->packId = $packId;
 	}
 
+    /**
+     * @return int
+     */
+    public function getProductTypeId(): int
+    {
+        return $this->productTypeId;
+    }
 
+    /**
+     * @param int $productTypeId
+     */
+    public function setProductTypeId(int $productTypeId): void
+    {
+        $this->productTypeId = $productTypeId;
+    }
 
 
 

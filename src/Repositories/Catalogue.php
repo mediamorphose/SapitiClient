@@ -140,8 +140,11 @@ class Catalogue extends Repository
 	 * @throws InvalidHTTPMethodException
 	 * @throws JsonException
 	 */
-	public function getPack(string $id) {
-		$apiResponse = $this->getAPIResponse('catalogue/packs/'.$id,[],'GET');
+	public function getPack(string $id, $widthContent=false) {
+		if($widthContent)
+            $apiResponse = $this->getAPIResponse('catalogue/packs/details/'.$id,[],'GET');
+        else
+            $apiResponse = $this->getAPIResponse('catalogue/packs/'.$id,[],'GET');
 		return Pack::getFromArray($apiResponse->getResponse());
 	}
 

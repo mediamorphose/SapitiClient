@@ -1,7 +1,6 @@
 <?php
 namespace Sapiti;
 
-use Psr\Cache\CacheItemPoolInterface;
 use Sapiti\Exceptions\CurlException;
 use Sapiti\Exceptions\InvalidHTTPMethodException;
 use Sapiti\Exceptions\JsonException;
@@ -26,20 +25,18 @@ class SapitiClient
 	const MODE_PROD = 0;
 	const MODE_TEST = 1;
 
-	protected $apiVersion = 'v1';
-	protected $mode = self::MODE_TEST;
-	protected $publicKey='';
-	protected $privateKey='';
-	protected $language='fr';
+	protected string $apiVersion = 'v1';
+	protected int $mode = self::MODE_TEST;
+	protected string $publicKey='';
+	protected string $privateKey='';
+	protected string $language='fr';
 
-	/** @var APIResponse */
-	protected $lastResponse= null;
+	protected ?ApiResponse $lastResponse= null;
 
-	protected $lastRequestJSONParam= '';
-	protected $lastRequestURL= '';
+	protected string $lastRequestJSONParam= '';
+	protected string $lastRequestURL= '';
 
 
-	/** @var CacheItemPoolInterface|null $cachePool  */
 	protected $cachePool = null;
 
 	/**
@@ -62,7 +59,8 @@ class SapitiClient
 		$this->setMode($mode);
 	}
 
-	public function getAuthenticationParams() {
+	public function getAuthenticationParams(): array
+    {
 		$timeStamp= date('c');
 		$publicKey = $this->publicKey;
 		$privateKey = $this->privateKey;
@@ -80,7 +78,8 @@ class SapitiClient
 		return $params;
 	}
 
-	public function addListLimitParams(array $data=null,$size=0, $startPosition=0) {
+	public function addListLimitParams(array $data=null,$size=0, $startPosition=0): ?array
+    {
 		if($size>0) {
 			$data['entry_count']=$size;
 			$data['entry_start']=$startPosition;
@@ -100,8 +99,8 @@ class SapitiClient
 	 * @throws InvalidHTTPMethodException
 	 * @throws JsonException
 	 */
-	public function callAPI($functionName, $httpMethod, $body = null)
-	{
+	public function callAPI($functionName, $httpMethod, $body = null): ApiResponse
+    {
 		$httpMethod = strtoupper($httpMethod);
 		if (!in_array($httpMethod, array('GET', 'POST', 'PATCH', 'DELETE'))) throw new InvalidHTTPMethodException();
 		$server_url = $this->getGeneralApiURL();
@@ -156,180 +155,123 @@ class SapitiClient
 		return $result;
 	}
 
-	/**
-	 * @var System
-	 */
-	protected $systemRepository=null;
 
-	/**
-	 * @return System
-	 */
-	public function System()
-	{
+	protected ?System $systemRepository=null;
+
+
+	public function System(): ?System
+    {
 		return $this->systemRepository;
 	}
 
-	/**
-	 * @var Agenda
-	 */
-	protected $agendaRepository=null;
+	protected ?Agenda $agendaRepository=null;
 
-	/**
-	 * @return Agenda
-	 */
-	public function Agenda()
-	{
+	public function Agenda(): ?Agenda
+    {
 		return $this->agendaRepository;
 	}
 
-	/**
-	 * @var Contact
-	 */
-	protected $contactRepository=null;
+	protected ?Contact $contactRepository=null;
 
-	/**
-	 * @return Contact
-	 */
-	public function Contact()
-	{
+
+	public function Contact(): ?Contact
+    {
 		return $this->contactRepository;
 	}
 
-	/**
-	 * @var Newsletter
-	 */
-	protected $newsletterRepository=null;
 
-	/**
-	 * @return Newsletter
-	 */
-	public function Newsletter()
-	{
+	protected ?Newsletter $newsletterRepository=null;
+
+
+	public function Newsletter(): ?Newsletter
+    {
 		return $this->newsletterRepository;
 	}
 
 
-	/**
-	 * @var Shop
-	 */
-	protected $shopRepository=null;
 
-	/**
-	 * @return Shop
-	 */
-	public function Shop()
-	{
+	protected ?Shop $shopRepository=null;
+
+	public function Shop(): ?Shop
+    {
 		return $this->shopRepository;
 	}
 
-	/**
-	 * @var Catalogue
-	 */
-	protected $catalogueRepository=null;
 
-	/**
-	 * @return Catalogue
-	 */
-	public function Catalogue()
-	{
+	protected ?Catalogue $catalogueRepository=null;
+
+
+	public function Catalogue(): ?Catalogue
+    {
 		return $this->catalogueRepository;
 	}
 
-	/**
-	 * @var AccessControl
-	 */
-	protected $controlRepository=null;
 
-	/**
-	 * @return AccessControl
-	 */
-	public function AccessControl()
-	{
+	protected ?AccessControl $controlRepository=null;
+
+
+	public function AccessControl(): ?AccessControl
+    {
 		return $this->controlRepository;
 	}
 
 
-	/**
-	 * @param $value
-	 */
-	public function setMode($value) {
+
+	public function setMode($value): void
+    {
 		$this->mode=$value;
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getGeneralApiURL() {
+
+	protected function getGeneralApiURL(): string
+    {
 		switch ($this->mode) {
-			case self::MODE_TEST:
-				return self::API_TEST_SERVER_URL.$this->apiVersion.'';
-			case self::MODE_DEV:
-				return self::API_DEV_SERVER_URL.$this->apiVersion.'';
+            case self::MODE_DEV:
+				return self::API_DEV_SERVER_URL.$this->apiVersion;
 			case self::MODE_PROD:
-				return self::API_PROD_SERVER_URL.$this->apiVersion.'';
+				return self::API_PROD_SERVER_URL.$this->apiVersion;
 			default:
-				return self::API_TEST_SERVER_URL.$this->apiVersion.'';
+				return self::API_TEST_SERVER_URL.$this->apiVersion;
 		}
 	}
 
-	/**
-	 * Set your access public key
-	 *
-	 * @param string $publicKey
-	 */
-	public function setPublicKey(string $publicKey)
-	{
+
+	public function setPublicKey(string $publicKey): void
+    {
 		$this->publicKey = $publicKey;
 	}
 
-	/**
-	 * Set your access private key
-	 *
-	 * @param string $privateKey
-	 */
-	public function setPrivateKey(string $privateKey)
-	{
+
+	public function setPrivateKey(string $privateKey): void
+    {
 		$this->privateKey = $privateKey;
 	}
 
-	/**
-	 * Set api version
-	 *
-	 * @param string $apiVersion
-	 */
+
 	public function setApiVersion(string $apiVersion)
 	{
 		$this->apiVersion = $apiVersion;
 	}
 
-	/**
-	 * @return APIResponse
-	 */
+
 	public function getLastApiResponse(): APIResponse
 	{
 		return $this->lastResponse;
 	}
 
-	/**
-	 * @return string
-	 */
 	public function getPublicKey(): string
 	{
 		return $this->publicKey;
 	}
 
-	/**
-	 * @return string
-	 */
+
 	public function getPrivateKey(): string
 	{
 		return $this->privateKey;
 	}
 
-	/**
-	 * @return CacheItemPoolInterface
-	 */
-	public function getCachePool(): ?CacheItemPoolInterface
+
+	public function getCachePool()
 	{
 		if(is_null($this->cachePool)) {
 			$driver = new FileSystem(array());
@@ -339,49 +281,37 @@ class SapitiClient
 		return $this->cachePool;
 	}
 
-	/**
-	 * @param CacheItemPoolInterface|null $cachePool
-	 */
-	public function setCachePool(?CacheItemPoolInterface $cachePool): void
+
+	public function setCachePool($cachePool): void
 	{
 		$this->cachePool = $cachePool;
 	}
 
-	/**
-	 * @return string
-	 */
+
 	public function getLanguage(): string
 	{
 		return $this->language;
 	}
 
-	/**
-	 * @param string $language
-	 */
+
 	public function setLanguage(string $language): void
 	{
 		$this->language = $language;
 	}
 
-	/**
-	 * @return string
-	 */
+
 	public function getLastRequestJSONParam(): string
 	{
 		return $this->lastRequestJSONParam;
 	}
 
-	/**
-	 * @return string
-	 */
+
 	public function getLastRequestURL(): string
 	{
 		return $this->lastRequestURL;
 	}
 
-	/**
-	 * @return int
-	 */
+
 	public function getMode(): int
 	{
 		return $this->mode;

@@ -53,7 +53,7 @@ class Repository
 
 			/** @var ApiResponse $cacheInfo */
 			$cacheInfo = $cacheItem->get();
-			if ($cacheItem->isHit() && $cacheInfo) {
+			if (!$cacheItem->isMiss() && $cacheInfo) {
 				$cacheInfo->setCached(true);
 				$this->lastAPIResponse = $cacheInfo;
 				return $cacheInfo;

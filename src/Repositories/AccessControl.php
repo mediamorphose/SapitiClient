@@ -4,6 +4,7 @@ namespace Sapiti\Repositories;
 
 use Sapiti\Objects\AccessControl\AccessCode;
 use Sapiti\Objects\AccessControl\Device;
+use Sapiti\Objects\Agenda\Event;
 
 class AccessControl extends Repository
 {
@@ -28,5 +29,10 @@ class AccessControl extends Repository
 		return AccessCode::getMultipleFromArray($apiResponse->getResponse());
 	}
 
+    public function getEvents(string $id, array $params=[]) {
+        $params['deviceid']=$id;
+        $apiResponse = $this->getAPIResponse('accesscontrol/events',$params,'GET');
+        return Event::getMultipleFromArray($apiResponse->getResponse());
+    }
 
 }

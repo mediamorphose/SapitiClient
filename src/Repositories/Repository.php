@@ -46,6 +46,7 @@ class Repository
 		$stringId=$url.$method.json_encode($params).$this->getClient()->getMode().$this->getClient()->getPublicKey().$this->getClient()->getLanguage();
 		$key = md5($stringId);
 
+        $cacheItem=null;
 
 		if($this->getCacheDuration()>0) {
 
@@ -53,7 +54,7 @@ class Repository
 
 			/** @var ApiResponse $cacheInfo */
 			$cacheInfo = $cacheItem->get();
-			if ($cacheInfo) {
+			if ($cacheItem->isHit() && $cacheInfo) {
 				$cacheInfo->setCached(true);
 				$this->lastAPIResponse = $cacheInfo;
 				return $cacheInfo;
@@ -68,7 +69,7 @@ class Repository
 		$apiResponse = $this->getClient()->callAPI($url,$method,$data);
 		$apiError = $apiResponse->getApiError();
 		if ($apiError) throw new ApiException($apiError, null);
-		if($this->cacheDuration>0 && $method=='GET') {
+		if($cacheItem && $method=='GET') {
 			$cacheItem->expiresAfter($this->getCacheDuration());
 			$cache->save($cacheItem->set($apiResponse));
 		}

@@ -1,6 +1,8 @@
 <?php
 namespace Sapiti;
 
+use Psr\Cache\CacheItemInterface;
+use Psr\Cache\CacheItemPoolInterface;
 use Sapiti\Exceptions\CurlException;
 use Sapiti\Exceptions\InvalidHTTPMethodException;
 use Sapiti\Exceptions\JsonException;
@@ -271,7 +273,7 @@ class SapitiClient
 	}
 
 
-	public function getCachePool()
+	public function getCachePool(): ?CacheItemPoolInterface
 	{
 		if(is_null($this->cachePool)) {
 			$driver = new FileSystem(array());
@@ -282,7 +284,7 @@ class SapitiClient
 	}
 
 
-	public function setCachePool($cachePool): void
+	public function setCachePool(?CacheItemPoolInterface $cachePool): void
 	{
 		$this->cachePool = $cachePool;
 	}

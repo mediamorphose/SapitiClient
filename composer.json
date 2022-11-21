@@ -17,7 +17,7 @@
     "require": {
       "ext-curl": "*",
       "ext-readline": "*",
-        "ext-json": "*",
-        "tedivm/stash": "v0.*"
+       "ext-json": "*",
+      "tedivm/stash": "0.*"
     }
 }

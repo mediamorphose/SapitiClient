@@ -1,0 +1,7 @@
+version: '2.4'
+
+services:
+  php:
+    build: docker
+    volumes:
+      - '.:/var/www'

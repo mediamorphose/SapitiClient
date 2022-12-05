@@ -15,6 +15,9 @@ class Price extends ApiObject
 	protected $quantityMin=-1;
 	protected $quantityMax=-1;
 
+    protected $promoDescription='';
+    protected $promoInitialPrice=-1;
+
 	static function getFromArray($data = null, ApiObject $existingObject = null)
 	{
 		/** @var Price $result */
@@ -24,6 +27,8 @@ class Price extends ApiObject
 		if (isset($data['quantity_max'])) $result->setQuantityMax($data['quantity_max']);
 		if (isset($data['value']['amount'])) $result->setAmount($data['value']['amount']);
 		if (isset($data['value']['currency'])) $result->setCurrency($data['value']['currency']);
+        if (isset($data['promo']['description'])) $result->setPromoDescription($data['promo']['description']);
+        if (isset($data['promo']['initalprice'])) $result->setPromoInitialPrice($data['promo']['initalprice']);
 		return $result;
 	}
 
@@ -106,6 +111,38 @@ class Price extends ApiObject
 	{
 		$this->quantityMax = $quantityMax;
 	}
+
+    /**
+     * @return string
+     */
+    public function getPromoDescription(): string
+    {
+        return $this->promoDescription;
+    }
+
+    /**
+     * @param string $promoDescription
+     */
+    public function setPromoDescription(string $promoDescription): void
+    {
+        $this->promoDescription = $promoDescription;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPromoInitialPrice(): int
+    {
+        return $this->promoInitialPrice;
+    }
+
+    /**
+     * @param int $promoInitialPrice
+     */
+    public function setPromoInitialPrice(int $promoInitialPrice): void
+    {
+        $this->promoInitialPrice = $promoInitialPrice;
+    }
 
 
 

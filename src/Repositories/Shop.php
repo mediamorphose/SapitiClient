@@ -239,6 +239,11 @@ class Shop extends Repository
 		return PaymentMethod::getMultipleFromArray($apiResponse->getResponse());
 	}
 
+    public function getPaymentMethod(string $id): ?PaymentMethod {
+        $apiResponse = $this->getAPIResponse('shop/paymentmethods/'.$id,[],'GET');
+        return PaymentMethod::getFromArray($apiResponse->getResponse());
+    }
+
 	/**
 	 * @param array $params
 	 * @return array

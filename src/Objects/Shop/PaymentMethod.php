@@ -19,11 +19,16 @@ class PaymentMethod extends ApiObject
 
 	protected $typeId = '';
 
+    protected $metaData=[];
+
 	static function getFromArray($data = null, ApiObject $existingObject = null)
 	{
 		/** @var PaymentMethod $result */
 		$result = parent::getFromArray($data, $existingObject);
 		if (isset($data['typeid'])) $result->setTypeId($data['typeid']);
+        if(isset($data['metadata']) && is_array($data['metadata']))
+            $result->setMetaData($data['metadata']);
+
 		return $result;
 	}
 
@@ -50,6 +55,23 @@ class PaymentMethod extends ApiObject
 		$this->typeId = $typeId;
 	}
 
+    /**
+     * @return array
+     */
+    public function getMetaData()
+    {
+        if(!is_array($this->metaData))
+            $this->metaData=[];
+        return $this->metaData;
+    }
+
+    /**
+     * @param array $metaData
+     */
+    public function setMetaData($metaData): void
+    {
+        $this->metaData = $metaData;
+    }
 
 
 

@@ -164,18 +164,14 @@ class StockRequest extends ApiObject
 		$this->requestedPrice = $requestedPrice;
 	}
 
-    /**
-     * @return int
-     */
-    public function getForcedPriceValue(): int
+
+    public function getForcedPriceValue()
     {
         return $this->forcedPriceValue;
     }
 
-    /**
-     * @param int $forcedPriceValue
-     */
-    public function setForcedPriceValue(int $forcedPriceValue): void
+
+    public function setForcedPriceValue($forcedPriceValue): void
     {
         $this->forcedPriceValue = $forcedPriceValue;
     }

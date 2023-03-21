@@ -6,6 +6,7 @@ use Sapiti\Exceptions\CurlException;
 use Sapiti\Exceptions\InvalidHTTPMethodException;
 use Sapiti\Exceptions\JsonException;
 use Sapiti\Objects\Agenda\Category;
+use Sapiti\Objects\Catalogue\FinanceItem;
 use Sapiti\Objects\Catalogue\Merchandising;
 use Sapiti\Objects\Catalogue\Pack;
 use Sapiti\Objects\Catalogue\Stream;
@@ -147,6 +148,36 @@ class Catalogue extends Repository
             $apiResponse = $this->getAPIResponse('catalogue/packs/'.$id,[],'GET');
 		return Pack::getFromArray($apiResponse->getResponse());
 	}
+
+
+    /**
+     * @param array $params
+     * @return array
+     * @throws ApiException
+     * @throws CurlException
+     * @throws InvalidHTTPMethodException
+     * @throws JsonException
+     */
+    public function getFinanceItems(array $params=[]) {
+        $apiResponse = $this->getAPIResponse('catalogue/financeitems',$params,'GET');
+        return FinanceItem::getMultipleFromArray($apiResponse->getResponse());
+    }
+
+    /**
+     * @param string $id
+     * @return FinanceItem|null
+     * @throws ApiException
+     * @throws CurlException
+     * @throws InvalidHTTPMethodException
+     * @throws JsonException
+     */
+    public function getFinanceItem(string $id, $widthContent=false) {
+        if($widthContent)
+            $apiResponse = $this->getAPIResponse('catalogue/financeitems/details/'.$id,[],'GET');
+        else
+            $apiResponse = $this->getAPIResponse('catalogue/financeitems/'.$id,[],'GET');
+        return FinanceItem::getFromArray($apiResponse->getResponse());
+    }
 
 
 

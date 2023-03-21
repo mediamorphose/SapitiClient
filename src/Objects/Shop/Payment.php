@@ -15,8 +15,10 @@ class Payment extends ApiObject
 	protected $paymentMethodId = '';
 	protected $counterId = '';
 	protected $externalId = '';
-	protected $amount=-1;
+	protected $amount=0;
 	protected $currency='EUR';
+
+    protected $couponCode='';
 
 	/** @var PaymentMethod  */
 	protected $paymentMethod=null;
@@ -37,6 +39,7 @@ class Payment extends ApiObject
 		if (isset($data['orderid'])) $result->setOrderId($data['orderid']);
 		if (isset($data['paymentmethodid'])) $result->setPaymentMethodId($data['paymentmethodid']);
 		if (isset($data['externalid'])) $result->setExternalId($data['externalid']);
+        if (isset($data['couponcode'])) $result->setCouponCode($data['couponcode']);
 		if (isset($data['value']['amount'])) $result->setAmount($data['value']['amount']);
 		if (isset($data['value']['currency'])) $result->setCurrency($data['value']['currency']);
 
@@ -65,6 +68,7 @@ class Payment extends ApiObject
 		$data['paymentmethodid']=$existingObject->getPaymentMethodId();
 		$data['counterid']=$existingObject->getCounterId();
 		$data['externalid']=$existingObject->getExternalId();
+        $data['couponcode']=$existingObject->getCouponCode();
 		$data['value']['amount']=$existingObject->getAmount();
 		$data['value']['currency']=$existingObject->getCurrency();
 
@@ -242,6 +246,22 @@ class Payment extends ApiObject
 	{
 		$this->counter = $counter;
 	}
+
+    /**
+     * @return string
+     */
+    public function getCouponCode(): string
+    {
+        return $this->couponCode;
+    }
+
+    /**
+     * @param string $couponCode
+     */
+    public function setCouponCode(string $couponCode): void
+    {
+        $this->couponCode = $couponCode;
+    }
 
 
 

@@ -12,6 +12,7 @@ class StockRequest extends ApiObject
 	protected $stockId='';
 	protected $categoryId='';
 	protected $priceId='';
+    protected $forcedPriceValue='';
 	protected $orderId='';
 	protected $counterId='';
 	protected $requestedPrice=null;
@@ -29,6 +30,7 @@ class StockRequest extends ApiObject
 		$data['stockid']=$existingObject->getStockId();
 		$data['categoryid']=$existingObject->getCategoryId();
 		$data['priceid']=$existingObject->getPriceId();
+        $data['forcedpricevalue']=$existingObject->getForcedPriceValue();
 		$data['requestedprice']=$existingObject->getRequestedPrice();
 		$data['promocodeids']=$existingObject->getPromocodesIds();
 		if($existingObject->getOrderId())
@@ -161,6 +163,22 @@ class StockRequest extends ApiObject
 	{
 		$this->requestedPrice = $requestedPrice;
 	}
+
+    /**
+     * @return int
+     */
+    public function getForcedPriceValue(): int
+    {
+        return $this->forcedPriceValue;
+    }
+
+    /**
+     * @param int $forcedPriceValue
+     */
+    public function setForcedPriceValue(int $forcedPriceValue): void
+    {
+        $this->forcedPriceValue = $forcedPriceValue;
+    }
 
 
 

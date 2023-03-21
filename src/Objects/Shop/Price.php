@@ -11,6 +11,8 @@ class Price extends ApiObject
 
 	protected $description='';
 	protected $amount=-1;
+    protected $maxamount=-1;
+    protected $step=1;
 	protected $currency='EUR';
 	protected $quantityMin=-1;
 	protected $quantityMax=-1;
@@ -26,11 +28,18 @@ class Price extends ApiObject
 		if (isset($data['quantity_min'])) $result->setQuantityMin($data['quantity_min']);
 		if (isset($data['quantity_max'])) $result->setQuantityMax($data['quantity_max']);
 		if (isset($data['value']['amount'])) $result->setAmount($data['value']['amount']);
+        if (isset($data['value']['maxamount'])) $result->setMaxamount($data['value']['maxamount']);
+        if (isset($data['value']['step'])) $result->setStep($data['value']['step']);
 		if (isset($data['value']['currency'])) $result->setCurrency($data['value']['currency']);
         if (isset($data['promo']['description'])) $result->setPromoDescription($data['promo']['description']);
         if (isset($data['promo']['initalprice'])) $result->setPromoInitialPrice($data['promo']['initalprice']);
 		return $result;
 	}
+
+
+    public function isARange() : bool {
+        return $this->getMaxamount()>0;
+    }
 
 	/**
 	 * @return string
@@ -142,6 +151,38 @@ class Price extends ApiObject
     public function setPromoInitialPrice(int $promoInitialPrice): void
     {
         $this->promoInitialPrice = $promoInitialPrice;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMaxamount(): int
+    {
+        return $this->maxamount;
+    }
+
+    /**
+     * @param int $maxamount
+     */
+    public function setMaxamount(int $maxamount): void
+    {
+        $this->maxamount = $maxamount;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStep(): int
+    {
+        return $this->step;
+    }
+
+    /**
+     * @param int $step
+     */
+    public function setStep(int $step): void
+    {
+        $this->step = $step;
     }
 
 

@@ -57,8 +57,9 @@ class Contact extends Repository
 	 * @throws InvalidHTTPMethodException
 	 * @throws JsonException
 	 */
-	public function createContact(\Sapiti\Objects\Contact\Contact $contact) {
+	public function createContact(\Sapiti\Objects\Contact\Contact $contact, $stockId=null) {
 		$dataArray = \Sapiti\Objects\Contact\Contact::toArray($contact);
+        if($stockId) $dataArray['stockid']=$stockId;
 		$apiResponse = $this->getAPIResponse('contacts',$dataArray,'POST');
 		return \Sapiti\Objects\Contact\Contact::getFromArray($apiResponse->getResponse());
 	}

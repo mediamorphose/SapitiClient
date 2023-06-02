@@ -39,6 +39,11 @@ class Agenda extends Repository
 		return Event::getFromArray($apiResponse->getResponse());
 	}
 
+    public function duplicateEvent(string $id, $params=[]) {
+        $apiResponse = $this->getAPIResponse('agenda/events/duplicate/'.$id,$params,'POST');
+        return Event::getFromArray($apiResponse->getResponse());
+    }
+
 	/**
 	 * @param array $params
 	 * @return array

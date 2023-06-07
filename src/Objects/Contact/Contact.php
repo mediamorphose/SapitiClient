@@ -18,6 +18,8 @@ class Contact extends ApiObject
 	protected $addressPostalCode='';
 	protected $addressCity='';
 	protected $addressCountry='';
+    protected $companyName='';
+    protected $companyFunction='';
 
 
 	static function getFromArray($data = null, ApiObject $existingObject=null) {
@@ -32,6 +34,8 @@ class Contact extends ApiObject
 		if(isset($data['postalcode'])) $result->setAddressPostalCode($data['postalcode']);
 		if(isset($data['city'])) $result->setAddressCity($data['city']);
 		if(isset($data['country'])) $result->setAddressCountry($data['country']);
+        if(isset($data['companyfunction'])) $result->setCompanyFunction($data['companyfunction']);
+        if(isset($data['companyname'])) $result->setCompanyName($data['companyname']);
 		return $result;
 	}
 
@@ -47,6 +51,8 @@ class Contact extends ApiObject
 		$data['postalcode']=$existingObject->getAddressPostalCode();
 		$data['city']=$existingObject->getAddressCity();
 		$data['country']=$existingObject->getAddressCountry();
+        $data['companyfunction']=$existingObject->getCompanyFunction();
+        $data['companyname']=$existingObject->getCompanyName();
 		return $data;
 	}
 
@@ -193,6 +199,38 @@ class Contact extends ApiObject
 	{
 		$this->mobilePhone = $mobilePhone;
 	}
+
+    /**
+     * @return string
+     */
+    public function getCompanyName(): string
+    {
+        return $this->companyName;
+    }
+
+    /**
+     * @param string $companyName
+     */
+    public function setCompanyName(string $companyName): void
+    {
+        $this->companyName = $companyName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCompanyFunction(): string
+    {
+        return $this->companyFunction;
+    }
+
+    /**
+     * @param string $companyFunction
+     */
+    public function setCompanyFunction(string $companyFunction): void
+    {
+        $this->companyFunction = $companyFunction;
+    }
 
 
 

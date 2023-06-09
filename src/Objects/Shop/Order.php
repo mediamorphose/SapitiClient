@@ -13,7 +13,10 @@ class Order extends ApiObject
 	const STATUS_CANCELLED = -10;
 	const STATUS_CREATING = 0;
 	const STATUS_CONFIRMED = 1;
-	const STATUS_PAID = 15;
+	const STATUS_TOPAY = 10;
+    const STATUS_PARTIALLY_PAID = 12;
+    const STATUS_PAID = 15;
+    const STATUS_OVERPAID = 18;
 	const STATUS_COMPLETED = 30;
 
 	protected $name = '';

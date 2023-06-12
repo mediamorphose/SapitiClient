@@ -28,14 +28,18 @@ class Order extends ApiObject
 	protected $created = null;
 	protected $expires = null;
 
+    protected $notes = '';
+    protected $metaData=[];
 
-	static function getFromArray($data = null, ApiObject $existingObject = null)
+
+    static function getFromArray($data = null, ApiObject $existingObject = null)
 	{
 		/** @var Order $result */
 		$result = parent::getFromArray($data, $existingObject);
 		if (isset($data['name'])) $result->setName($data['name']);
 		if (isset($data['contactid'])) $result->setContactId($data['contactid']);
 		if (isset($data['info_url'])) $result->setInfoUrl($data['info_url']);
+        if (isset($data['notes'])) $result->setNotes($data['notes']);
 
 		if(isset($data['created']))  {
 			$date = \DateTime::createFromFormat(\DateTime::ISO8601, $data['created']);
@@ -50,6 +54,9 @@ class Order extends ApiObject
 		if(isset($data['status'])) {
 			$result->setStatus(Status::getFromArray($data['status']));
 		}
+
+        if(isset($data['metadata']) && is_array($data['metadata']))
+            $result->setMetaData($data['metadata']);
 
 		return $result;
 	}
@@ -151,6 +158,38 @@ class Order extends ApiObject
 	{
 		$this->name = $name;
 	}
+
+    /**
+     * @return string
+     */
+    public function getNotes(): string
+    {
+        return $this->notes;
+    }
+
+    /**
+     * @param string $notes
+     */
+    public function setNotes(string $notes): void
+    {
+        $this->notes = $notes;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMetaData(): array
+    {
+        return $this->metaData;
+    }
+
+    /**
+     * @param array $metaData
+     */
+    public function setMetaData(array $metaData): void
+    {
+        $this->metaData = $metaData;
+    }
 
 
 

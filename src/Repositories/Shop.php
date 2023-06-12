@@ -50,6 +50,18 @@ class Shop extends Repository
 		return \Sapiti\Objects\Shop\Order::getFromArray($apiResponse->getResponse());
 	}
 
+    public function setMetadataToOrder(string $orderId, array $metaData=[]): Order
+    {
+        $apiResponse = $this->getAPIResponse('shop/orders/'.$orderId,['metadata'=>json_encode($metaData, true)],'PATCH');
+        return \Sapiti\Objects\Shop\Order::getFromArray($apiResponse->getResponse());
+    }
+
+    public function setNotesToOrder(string $orderId, string $notes=''): Order
+    {
+        $apiResponse = $this->getAPIResponse('shop/orders/'.$orderId,['notes'=>$notes],'PATCH');
+        return \Sapiti\Objects\Shop\Order::getFromArray($apiResponse->getResponse());
+    }
+
 	public function changeOrderStatus(string $orderId, int $statusId) {
 		$apiResponse = $this->getAPIResponse('shop/orders/'.$orderId,['statusid'=>$statusId],'PATCH');
 		return \Sapiti\Objects\Shop\Order::getFromArray($apiResponse->getResponse());

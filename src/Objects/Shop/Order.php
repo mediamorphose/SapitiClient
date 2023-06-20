@@ -20,6 +20,7 @@ class Order extends ApiObject
 	const STATUS_COMPLETED = 30;
 
 	protected $name = '';
+    protected $language = '';
 	protected $contactId = '';
 	protected $infoUrl = '';
 	/** @var Status|null */
@@ -37,6 +38,7 @@ class Order extends ApiObject
 		/** @var Order $result */
 		$result = parent::getFromArray($data, $existingObject);
 		if (isset($data['name'])) $result->setName($data['name']);
+        if (isset($data['language'])) $result->setLanguage($data['language']);
 		if (isset($data['contactid'])) $result->setContactId($data['contactid']);
 		if (isset($data['info_url'])) $result->setInfoUrl($data['info_url']);
         if (isset($data['notes'])) $result->setNotes($data['notes']);
@@ -189,6 +191,22 @@ class Order extends ApiObject
     public function setMetaData(array $metaData): void
     {
         $this->metaData = $metaData;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLanguage(): string
+    {
+        return $this->language;
+    }
+
+    /**
+     * @param string $language
+     */
+    public function setLanguage(string $language): void
+    {
+        $this->language = $language;
     }
 
 

@@ -15,6 +15,7 @@ class Stock extends ApiObject
     protected $productTypeId=1;
 	protected $eventId='';
 	protected $timeSlotId='';
+    protected $priceconfigid='';
 	protected $streamId='';
 	protected $merchandisingId='';
 	protected $packId='';
@@ -32,6 +33,7 @@ class Stock extends ApiObject
         if (isset($data['producttypeid'])) $result->setProductTypeId($data['producttypeid']);
 		if (isset($data['eventid'])) $result->setEventId($data['eventid']);
 		if (isset($data['timeslotid'])) $result->setTimeSlotId($data['timeslotid']);
+        if (isset($data['priceconfigid'])) $result->setPriceConfigId($data['priceconfigid']);
 		if (isset($data['streamid'])) $result->setStreamId($data['streamid']);
 		if (isset($data['merchandisingid'])) $result->setMerchandisingId($data['merchandisingid']);
 		if (isset($data['packid'])) $result->setPackId($data['packid']);
@@ -224,6 +226,22 @@ class Stock extends ApiObject
     public function setProductTypeId(int $productTypeId): void
     {
         $this->productTypeId = $productTypeId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPriceConfigId(): string
+    {
+        return $this->priceconfigid;
+    }
+
+    /**
+     * @param string $priceconfigid
+     */
+    public function setPriceConfigId(string $priceconfigid): void
+    {
+        $this->priceconfigid = $priceconfigid;
     }
 
 

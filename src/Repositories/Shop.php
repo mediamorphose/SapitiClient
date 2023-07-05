@@ -56,6 +56,12 @@ class Shop extends Repository
         return \Sapiti\Objects\Shop\Order::getFromArray($apiResponse->getResponse());
     }
 
+    public function setLanguageToOrder(string $orderId, $language='fr'): Order
+    {
+        $apiResponse = $this->getAPIResponse('shop/orders/'.$orderId,['language'=>$language],'PATCH');
+        return \Sapiti\Objects\Shop\Order::getFromArray($apiResponse->getResponse());
+    }
+
     public function setNotesToOrder(string $orderId, string $notes=''): Order
     {
         $apiResponse = $this->getAPIResponse('shop/orders/'.$orderId,['notes'=>$notes],'PATCH');

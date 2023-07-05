@@ -26,6 +26,8 @@ class Order extends ApiObject
 	/** @var Status|null */
 	protected $status = null;
 
+    protected $hasPromoCodes=false;
+
 	protected $created = null;
 	protected $expires = null;
 
@@ -42,6 +44,7 @@ class Order extends ApiObject
 		if (isset($data['contactid'])) $result->setContactId($data['contactid']);
 		if (isset($data['info_url'])) $result->setInfoUrl($data['info_url']);
         if (isset($data['notes'])) $result->setNotes($data['notes']);
+        if (isset($data['haspromocodes'])) $result->setHasPromoCodes($data['haspromocodes']);
 
 		if(isset($data['created']))  {
 			$date = \DateTime::createFromFormat(\DateTime::ISO8601, $data['created']);
@@ -207,6 +210,22 @@ class Order extends ApiObject
     public function setLanguage(string $language): void
     {
         $this->language = $language;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isHasPromoCodes(): bool
+    {
+        return $this->hasPromoCodes;
+    }
+
+    /**
+     * @param bool $hasPromoCodes
+     */
+    public function setHasPromoCodes(bool $hasPromoCodes): void
+    {
+        $this->hasPromoCodes = $hasPromoCodes;
     }
 
 

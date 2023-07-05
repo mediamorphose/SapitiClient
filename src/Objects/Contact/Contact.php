@@ -21,6 +21,7 @@ class Contact extends ApiObject
 	protected $addressCountry='';
     protected $companyName='';
     protected $companyFunction='';
+    protected $vatNumber='';
 
 
 	static function getFromArray($data = null, ApiObject $existingObject=null) {
@@ -38,6 +39,7 @@ class Contact extends ApiObject
 		if(isset($data['country'])) $result->setAddressCountry($data['country']);
         if(isset($data['companyfunction'])) $result->setCompanyFunction($data['companyfunction']);
         if(isset($data['companyname'])) $result->setCompanyName($data['companyname']);
+        if(isset($data['vatnumber'])) $result->setVatNumber($data['vatnumber']);
 		return $result;
 	}
 
@@ -56,6 +58,7 @@ class Contact extends ApiObject
 		$data['country']=$existingObject->getAddressCountry();
         $data['companyfunction']=$existingObject->getCompanyFunction();
         $data['companyname']=$existingObject->getCompanyName();
+        $data['vatnumber']=$existingObject->getVatNumber();
 		return $data;
 	}
 
@@ -249,6 +252,22 @@ class Contact extends ApiObject
     public function setLanguage(string $language): void
     {
         $this->language = $language;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVatNumber(): string
+    {
+        return $this->vatNumber;
+    }
+
+    /**
+     * @param string $vatNumber
+     */
+    public function setVatNumber(string $vatNumber): void
+    {
+        $this->vatNumber = $vatNumber;
     }
 
 

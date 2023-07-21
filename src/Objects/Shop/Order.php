@@ -10,7 +10,8 @@ use Sapiti\Objects\Business\Status;
 class Order extends ApiObject
 {
 
-	const STATUS_CANCELLED = -10;
+    const STATUS_ABANDONED = -20;
+    const STATUS_CANCELLED = -10;
 	const STATUS_CREATING = 0;
 	const STATUS_CONFIRMED = 1;
 	const STATUS_TOPAY = 10;

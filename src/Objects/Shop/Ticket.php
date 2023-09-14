@@ -3,17 +3,23 @@
 
 namespace Sapiti\Objects\Shop;
 
+use DateTimeInterface;
 use Sapiti\Objects\ApiObject;
 
 class Ticket extends ApiObject
 {
 
 	protected $spectatorLabel='';
+    protected $spectatorFirstName='';
+    protected $spectatorLastName='';
+    protected $spectatorEmail='';
+    protected $spectatorId='';
 	protected $positionLabel='';
 	protected $categoryLabel='';
 	protected $entryCount=1;
 	protected $pricelabel='';
 	protected $orderreference='';
+    protected $orderDate=null;
 	protected $qrcode='';
 
 	protected $language='fr';
@@ -41,6 +47,10 @@ class Ticket extends ApiObject
 		/** @var Ticket $result */
 		$result = parent::getFromArray($data, $existingObject);
 		if (isset($data['spectatorlabel'])) $result->setSpectatorLabel($data['spectatorlabel']);
+        if (isset($data['spectatorfirstname'])) $result->setSpectatorFirstName($data['spectatorfirstname']);
+        if (isset($data['spectatorlastname'])) $result->setSpectatorLastName($data['spectatorlastname']);
+        if (isset($data['spectatoremail'])) $result->setSpectatorEmail($data['spectatoremail']);
+        if (isset($data['spectatorid'])) $result->setSpectatorId($data['spectatorid']);
 		if (isset($data['typeid'])) $result->setTypeId($data['typeid']);
 		if (isset($data['positionlabel'])) $result->setPositionLabel($data['positionlabel']);
 		if (isset($data['categorylabel'])) $result->setCategoryLabel($data['categorylabel']);
@@ -51,17 +61,21 @@ class Ticket extends ApiObject
 
 		if (isset($data['attractionlabel'])) $result->setAttractionLabel($data['attractionlabel']);
 		if(isset($data['eventstarttime']))  {
-			$date = \DateTime::createFromFormat(\DateTime::ISO8601, $data['eventstarttime']);
+			$date = \DateTime::createFromFormat(DateTimeInterface::ATOM, $data['eventstarttime']);
 			$result->setStartTime($date);
 		}
 		if(isset($data['eventendtime']))  {
-			$date = \DateTime::createFromFormat(\DateTime::ISO8601, $data['eventendtime']);
+			$date = \DateTime::createFromFormat(DateTimeInterface::ATOM, $data['eventendtime']);
 			$result->setEndTime($date);
 		}
 		if(isset($data['validitydate']))  {
-			$date = \DateTime::createFromFormat(\DateTime::ISO8601, $data['validitydate']);
+			$date = \DateTime::createFromFormat(DateTimeInterface::ATOM, $data['validitydate']);
 			$result->setValidityDate($date);
 		}
+        if(isset($data['orderdate']))  {
+            $date = \DateTime::createFromFormat(DateTimeInterface::ATOM, $data['orderdate']);
+            $result->setOrderDate($date);
+        }
 		if (isset($data['presentinglabel'])) $result->setPresentingLabel($data['presentinglabel']);
 		if (isset($data['notes'])) $result->setNotes($data['notes']);
 		if (isset($data['venuelabel'])) $result->setVenueLabel($data['venuelabel']);
@@ -392,7 +406,85 @@ class Ticket extends ApiObject
 		$this->validityDate = $validityDate;
 	}
 
+    /**
+     * @return string
+     */
+    public function getSpectatorFirstName(): string
+    {
+        return $this->spectatorFirstName;
+    }
 
+    /**
+     * @param string $spectatorFirstName
+     */
+    public function setSpectatorFirstName(string $spectatorFirstName): void
+    {
+        $this->spectatorFirstName = $spectatorFirstName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSpectatorLastName(): string
+    {
+        return $this->spectatorLastName;
+    }
+
+    /**
+     * @param string $spectatorLastName
+     */
+    public function setSpectatorLastName(string $spectatorLastName): void
+    {
+        $this->spectatorLastName = $spectatorLastName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSpectatorEmail(): string
+    {
+        return $this->spectatorEmail;
+    }
+
+    /**
+     * @param string $spectatorEmail
+     */
+    public function setSpectatorEmail(string $spectatorEmail): void
+    {
+        $this->spectatorEmail = $spectatorEmail;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSpectatorId(): string
+    {
+        return $this->spectatorId;
+    }
+
+    /**
+     * @param string $spectatorId
+     */
+    public function setSpectatorId(string $spectatorId): void
+    {
+        $this->spectatorId = $spectatorId;
+    }
+
+    /**
+     * @return null
+     */
+    public function getOrderDate()
+    {
+        return $this->orderDate;
+    }
+
+    /**
+     * @param null $orderDate
+     */
+    public function setOrderDate($orderDate): void
+    {
+        $this->orderDate = $orderDate;
+    }
 
 
 

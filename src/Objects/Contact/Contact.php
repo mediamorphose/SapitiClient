@@ -3,7 +3,6 @@
 
 namespace Sapiti\Objects\Contact;
 
-
 use Sapiti\Objects\ApiObject;
 
 class Contact extends ApiObject
@@ -13,6 +12,7 @@ class Contact extends ApiObject
 	protected $lastName='';
 	protected $email='';
     protected $language='';
+    protected $nationality='';
 	protected $mobilePhone='';
 	protected $addressL1='';
 	protected $addressL2='';
@@ -23,6 +23,8 @@ class Contact extends ApiObject
     protected $companyFunction='';
     protected $vatNumber='';
 
+    protected $birthDate = null;
+
 
 	static function getFromArray($data = null, ApiObject $existingObject=null) {
 		/** @var Contact $result */
@@ -31,6 +33,7 @@ class Contact extends ApiObject
 		if(isset($data['lastname'])) $result->setLastName($data['lastname']);
 		if(isset($data['email'])) $result->setEmail($data['email']);
         if(isset($data['language'])) $result->setLanguage($data['language']);
+        if(isset($data['nationality'])) $result->setNationality($data['nationality']);
 		if(isset($data['mobilephone'])) $result->setMobilePhone($data['mobilephone']);
 		if(isset($data['addressl1'])) $result->setAddressL1($data['addressl1']);
 		if(isset($data['addressl2'])) $result->setAddressL2($data['addressl2']);
@@ -40,6 +43,10 @@ class Contact extends ApiObject
         if(isset($data['companyfunction'])) $result->setCompanyFunction($data['companyfunction']);
         if(isset($data['companyname'])) $result->setCompanyName($data['companyname']);
         if(isset($data['vatnumber'])) $result->setVatNumber($data['vatnumber']);
+        if(isset($data['birthdate']))  {
+            $date = \DateTime::createFromFormat(\DateTime::ISO8601, $data['birthdate']);
+            $result->setBirthDate($date);
+        }
 		return $result;
 	}
 
@@ -49,6 +56,7 @@ class Contact extends ApiObject
 		$data['firstname']=$existingObject->getFirstName();
 		$data['lastname']=$existingObject->getLastName();
 		$data['email']=$existingObject->getEmail();
+        $data['nationality']=$existingObject->getNationality();
         $data['language']=$existingObject->getLanguage();
 		$data['mobilephone']=$existingObject->getMobilePhone();
 		$data['addressl1']=$existingObject->getAddressL1();
@@ -59,6 +67,9 @@ class Contact extends ApiObject
         $data['companyfunction']=$existingObject->getCompanyFunction();
         $data['companyname']=$existingObject->getCompanyName();
         $data['vatnumber']=$existingObject->getVatNumber();
+        $data['birthdate']=null;
+        if($existingObject->getBirthDate())
+            $data['birthdate']=$existingObject->getBirthDate()->format('c');
 		return $data;
 	}
 
@@ -272,7 +283,37 @@ class Contact extends ApiObject
 
 
 
+    /**
+     * @return \DateTime|null
+     */
+    public function getBirthDate()
+    {
+        return $this->birthDate;
+    }
 
+    /**
+     * @param \DateTime|null $birthDate
+     */
+    public function setBirthDate(\DateTime $birthDate=null)
+    {
+        $this->birthDate = $birthDate;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNationality(): string
+    {
+        return $this->nationality;
+    }
+
+    /**
+     * @param string $nationality
+     */
+    public function setNationality(string $nationality): void
+    {
+        $this->nationality = $nationality;
+    }
 
 
 

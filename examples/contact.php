@@ -14,7 +14,12 @@ $lastName = 'Do'.microtime(true);
 $newContact->setFirstName('John');
 $newContact->setLastName($lastName);
 $newContact->setEmail($lastName.'@'.$lastName.'.com');
-$newContact->setMobilePhone('1-555-99 99 99');
+$newContact->setMobilePhone('1-555-99 99 98');
+$newContact->setLanguage('en');
+$newContact->setAddressCountry('lu');
+$newContact->setNationality('be');
+$birthDate = new DateTime(); $birthDate->modify('-50 year');
+$newContact->setBirthDate($birthDate);
 $newContact = $client->Contact()->createContact($newContact);
 echo $newContact->getLabel().' created'."\n";
 

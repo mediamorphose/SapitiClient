@@ -26,8 +26,8 @@ class FinanceItem extends ApiObject
     protected $validityDate = null;
     protected $amountLeft = 0;
     protected $couponCode = '';
-
-
+    protected $orderId = '';
+    protected $productId = '';
 
 
 	/**
@@ -56,9 +56,10 @@ class FinanceItem extends ApiObject
         }
         if (isset($data['amountleft'])) $result->setAmountLeft($data['amountleft']);
         if (isset($data['couponcode'])) $result->setCouponCode($data['couponcode']);
+        if (isset($data['orderid'])) $result->setOrderId($data['orderid']);
+        if (isset($data['productid'])) $result->setProductId($data['productid']);
 
-
-   		return $result;
+        return $result;
 	}
 
 	/**
@@ -203,6 +204,38 @@ class FinanceItem extends ApiObject
     public function setCouponCode(string $couponCode): void
     {
         $this->couponCode = $couponCode;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrderId(): string
+    {
+        return $this->orderId;
+    }
+
+    /**
+     * @param string $orderId
+     */
+    public function setOrderId(string $orderId): void
+    {
+        $this->orderId = $orderId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProductId(): string
+    {
+        return $this->productId;
+    }
+
+    /**
+     * @param string $productId
+     */
+    public function setProductId(string $productId): void
+    {
+        $this->productId = $productId;
     }
 
 

@@ -38,6 +38,8 @@ class SapitiClient
 	protected string $lastRequestJSONParam= '';
 	protected string $lastRequestURL= '';
 
+    protected string $customAPIURL='';
+
 
 	protected $cachePool = null;
 
@@ -106,7 +108,7 @@ class SapitiClient
 		$httpMethod = strtoupper($httpMethod);
 		if (!in_array($httpMethod, array('GET', 'POST', 'PATCH', 'DELETE'))) throw new InvalidHTTPMethodException();
 		$server_url = $this->getGeneralApiURL();
-		$full_url = implode('/', array($server_url, ltrim($functionName, '/')));
+		$full_url = implode('/', array($server_url, ltrim($functionName, '/'))).'/';
 
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $full_url);
@@ -227,6 +229,7 @@ class SapitiClient
 
 	protected function getGeneralApiURL(): string
     {
+        if($this->getCustomGeneralApi()) return $this->getCustomGeneralApi().$this->apiVersion;
 		switch ($this->mode) {
             case self::MODE_DEV:
 				return self::API_DEV_SERVER_URL.$this->apiVersion;
@@ -318,6 +321,22 @@ class SapitiClient
 	{
 		return $this->mode;
 	}
+
+    /**
+     * @return string
+     */
+    public function getCustomGeneralApi(): string
+    {
+        return $this->customAPIURL;
+    }
+
+    /**
+     * @param string $customAPIURL
+     */
+    public function setCustomGeneralApi(string $customAPIURL): void
+    {
+        $this->customAPIURL = $customAPIURL;
+    }
 
 
 

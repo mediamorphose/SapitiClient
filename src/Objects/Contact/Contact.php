@@ -108,7 +108,7 @@ class Contact extends ApiObject
 	/**
 	 * @return string
 	 */
-	public function getEmail(): ?string
+	public function getEmail(): string
 	{
 		return $this->email;
 	}
@@ -118,6 +118,7 @@ class Contact extends ApiObject
 	 */
 	public function setEmail(?string $email): void
 	{
+        if(is_null($email)) $email='';
 		$this->email = $email;
 	}
 

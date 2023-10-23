@@ -309,7 +309,7 @@ class Shop extends Repository
 		return $payment::getFromArray($apiResponse->getResponse());
 	}
 
-    public function deletePayment(Payment $payment): ?Payment
+    public function deletePayment(Payment $payment): bool
     {
         $dataArray = Payment::toArray($payment);
         $apiResponse = $this->getAPIResponse('shop/orders/payments/'.$payment->getId(),$dataArray,'DELETE');

@@ -309,6 +309,13 @@ class Shop extends Repository
 		return $payment::getFromArray($apiResponse->getResponse());
 	}
 
+    public function deletePayment(Payment $payment): ?Payment
+    {
+        $dataArray = Payment::toArray($payment);
+        $apiResponse = $this->getAPIResponse('shop/orders/payments/'.$payment->getId(),$dataArray,'DELETE');
+        return $apiResponse->isSuccess();
+    }
+
 	/**
 	 * @param Payment $payment
 	 * @return Payment|null

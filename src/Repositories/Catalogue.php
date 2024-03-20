@@ -9,6 +9,7 @@ use Sapiti\Objects\Agenda\Category;
 use Sapiti\Objects\Catalogue\FinanceItem;
 use Sapiti\Objects\Catalogue\Merchandising;
 use Sapiti\Objects\Catalogue\Pack;
+use Sapiti\Objects\Catalogue\Plan;
 use Sapiti\Objects\Catalogue\Stream;
 
 class Catalogue extends Repository
@@ -179,6 +180,10 @@ class Catalogue extends Repository
         return FinanceItem::getFromArray($apiResponse->getResponse());
     }
 
+    public function getPlan(string $id) : Plan {
+        $apiResponse = $this->getAPIResponse('catalogue/plans/'.$id,[],'GET');
+        return Plan::getFromArray($apiResponse->getResponse());
+    }
 
 
 

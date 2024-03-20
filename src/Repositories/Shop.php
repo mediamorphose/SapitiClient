@@ -10,6 +10,7 @@ use Sapiti\Objects\Shop\Counter;
 use Sapiti\Objects\Shop\Order;
 use Sapiti\Objects\Shop\Payment;
 use Sapiti\Objects\Shop\PaymentMethod;
+use Sapiti\Objects\Shop\PlanCategory;
 use Sapiti\Objects\Shop\Product;
 use Sapiti\Objects\Shop\PromoCode;
 use Sapiti\Objects\Shop\Stock;
@@ -169,6 +170,12 @@ class Shop extends Repository
 		$apiResponse = $this->getAPIResponse('shop/products/stocks/'.$id,$params,'GET');
 		return \Sapiti\Objects\Shop\Stock::getFromArray($apiResponse->getResponse());
 	}
+
+    public function getStockPlanCategories(string $id, array $params=[])
+    {
+        $apiResponse = $this->getAPIResponse('shop/products/stocks/plancategories/'.$id,$params,'GET');
+        return PlanCategory::getMultipleFromArray($apiResponse->getResponse());
+    }
 
     public function getSuggestedStocks(string $id, array $params=[]) {
         $apiResponse = $this->getAPIResponse('shop/products/stocks/suggestions/'.$id,$params,'GET');

@@ -11,6 +11,7 @@ class ProductCategory extends ApiObject
 	use TCapacity;
 
 	protected $description='';
+    protected $color='';
 	protected $prices=[];
 
 
@@ -20,6 +21,7 @@ class ProductCategory extends ApiObject
 		/** @var ProductCategory $result */
 		$result = parent::getFromArray($data, $existingObject);
 		if (isset($data['description'])) $result->setDescription($data['description']);
+        if (isset($data['color'])) $result->setColor($data['color']);
 		if (isset($data['capacity_total'])) $result->setCapacityTotal($data['capacity_total']);
 		if (isset($data['capacity_free'])) $result->setCapacityFree($data['capacity_free']);
 
@@ -61,6 +63,16 @@ class ProductCategory extends ApiObject
 	{
 		$this->prices = $prices;
 	}
+
+    public function getColor(): string
+    {
+        return $this->color;
+    }
+
+    public function setColor(string $color): void
+    {
+        $this->color = $color;
+    }
 
 
 

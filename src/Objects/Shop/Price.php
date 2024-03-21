@@ -27,9 +27,9 @@ class Price extends ApiObject
 		if (isset($data['description'])) $result->setDescription($data['description']);
 		if (isset($data['quantity_min'])) $result->setQuantityMin($data['quantity_min']);
 		if (isset($data['quantity_max'])) $result->setQuantityMax($data['quantity_max']);
+        if (isset($data['quantity_step'])) $result->setStep($data['quantity_step']);
 		if (isset($data['value']['amount'])) $result->setAmount($data['value']['amount']);
         if (isset($data['value']['maxamount'])) $result->setMaxamount($data['value']['maxamount']);
-        if (isset($data['value']['step'])) $result->setStep($data['value']['step']);
 		if (isset($data['value']['currency'])) $result->setCurrency($data['value']['currency']);
         if (isset($data['promo']['description'])) $result->setPromoDescription($data['promo']['description']);
         if (isset($data['promo']['initalprice'])) $result->setPromoInitialPrice($data['promo']['initalprice']);

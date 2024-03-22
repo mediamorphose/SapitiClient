@@ -56,6 +56,7 @@ class Ticket extends ApiObject
 		if (isset($data['categorylabel'])) $result->setCategoryLabel($data['categorylabel']);
 		if (isset($data['entrycount'])) $result->setEntryCount($data['entrycount']);
 		if (isset($data['pricelabel'])) $result->setPricelabel($data['pricelabel']);
+        if (isset($data['price'])) $result->setPrice($data['price']);
 		if (isset($data['orderreference'])) $result->setOrderreference($data['orderreference']);
 		if (isset($data['qrcode'])) $result->setQrcode($data['qrcode']);
 

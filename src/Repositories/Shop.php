@@ -139,8 +139,9 @@ class Shop extends Repository
 	 * @throws InvalidHTTPMethodException
 	 * @throws JsonException
 	 */
-	public function removeAllProductsFromOrder(string $orderId) {
-		$apiResponse = $this->getAPIResponse('shop/products/',["orderid"=>$orderId],'DELETE');
+	public function removeAllProductsFromOrder(string $orderId,array $params=[]) {
+        $params["orderid"]=$orderId;
+		$apiResponse = $this->getAPIResponse('shop/products/',$params,'DELETE');
 		return $apiResponse->isSuccess();
 	}
 

@@ -34,6 +34,7 @@ class Order extends ApiObject
 
     protected $notes = '';
     protected $metaData=[];
+    protected $products=[];
 
 
     static function getFromArray($data = null, ApiObject $existingObject = null)
@@ -227,6 +228,16 @@ class Order extends ApiObject
     public function setHasPromoCodes(bool $hasPromoCodes): void
     {
         $this->hasPromoCodes = $hasPromoCodes;
+    }
+
+    public function getProducts(): array
+    {
+        return $this->products;
+    }
+
+    public function setProducts(array $products): void
+    {
+        $this->products = $products;
     }
 
 

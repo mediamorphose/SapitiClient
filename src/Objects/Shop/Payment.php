@@ -70,7 +70,6 @@ class Payment extends ApiObject
 		$data['counterid']=$existingObject->getCounterId();
 		$data['externalid']=$existingObject->getExternalId();
         $data['couponcode']=$existingObject->getCouponCode();
-        $data['intended']=$existingObject->isIntended();
 		$data['value']['amount']=$existingObject->getAmount();
         $data['value']['expectedamount']=$existingObject->getExpectedAmount();
 		$data['value']['currency']=$existingObject->getCurrency();

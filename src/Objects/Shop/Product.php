@@ -13,6 +13,7 @@ class Product extends ApiObject
 	protected $orderId='';
 	protected $stockId='';
     protected $typeId='';
+    protected $positionId='';
 	protected $quantity=1;
 	protected $mainProductId='';
 	protected $price=null;
@@ -27,6 +28,7 @@ class Product extends ApiObject
 		if (isset($data['orderid'])) $result->setOrderId($data['orderid']);
 		if (isset($data['stockid'])) $result->setStockId($data['stockid']);
         if (isset($data['typeid'])) $result->setTypeId($data['typeid']);
+        if (isset($data['positionid'])) $result->setPositionId($data['positionid']);
 		if (isset($data['quantity'])) $result->setQuantity($data['quantity']);
 		if (isset($data['mainproductid'])) $result->setMainProductId($data['mainproductid']);
 
@@ -195,6 +197,17 @@ class Product extends ApiObject
     {
         $this->typeId = $typeId;
     }
+
+    public function getPositionId(): string
+    {
+        return $this->positionId;
+    }
+
+    public function setPositionId(string $positionId): void
+    {
+        $this->positionId = $positionId;
+    }
+
 
 
 }

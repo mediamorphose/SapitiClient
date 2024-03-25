@@ -20,7 +20,7 @@ class PlanCategory extends ApiObject
 		$result = parent::getFromArray($data, $existingObject);
 		if (isset($data['description'])) $result->setDescription($data['description']);
 		if (isset($data['color'])) $result->setColor($data['color']);
-		if (is_array($data['seatids'])) $result->setSeatIds($data['seatids']);
+        if (isset($data['seatids']) && is_array($data['seatids'])) $result->setSeatIds($data['seatids']);
 
 		return $result;
 	}

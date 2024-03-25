@@ -172,10 +172,18 @@ class Shop extends Repository
 		return \Sapiti\Objects\Shop\Stock::getFromArray($apiResponse->getResponse());
 	}
 
-    public function getStockPlanCategories(string $id, array $params=[])
+    public function getStockPlanCategories(string $stockId, array $params=[])
     {
-        $apiResponse = $this->getAPIResponse('shop/products/stocks/plancategories/'.$id,$params,'GET');
+        $apiResponse = $this->getAPIResponse('shop/products/stocks/plancategories/'.$stockId,$params,'GET');
         return PlanCategory::getMultipleFromArray($apiResponse->getResponse());
+    }
+
+    public function setStockPlanSeatIdForOrder(string $stockId, string $orderId, string $planSeatId, array $params=[])
+    {
+        $params['orderid']=$orderId;
+        $params['planseatid']=$planSeatId;
+        $apiResponse = $this->getAPIResponse('shop/products/stocks/plancategories/'.$stockId,$params,'PATCH');
+        return PlanCategory::getFromArray($apiResponse->getResponse());
     }
 
     public function getSuggestedStocks(string $id, array $params=[]) {

@@ -32,6 +32,7 @@ class SapitiClient
 	protected string $publicKey='';
 	protected string $privateKey='';
 	protected string $language='fr';
+    protected string $userLabel='';
 
 	protected ?ApiResponse $lastResponse= null;
 
@@ -76,6 +77,7 @@ class SapitiClient
 			'publickey'=>$publicKey,
 			'timestamp'=>$timeStamp,
 			'signature'=>$signature,
+            'username'=>$this->userLabel,
 			'language'=>strtolower($this->language)
 		];
 
@@ -336,6 +338,16 @@ class SapitiClient
     public function setCustomGeneralApi(string $customAPIURL): void
     {
         $this->customAPIURL = $customAPIURL;
+    }
+
+    public function getUserLabel(): string
+    {
+        return $this->userLabel;
+    }
+
+    public function setUserLabel(string $userLabel): void
+    {
+        $this->userLabel = $userLabel;
     }
 
 

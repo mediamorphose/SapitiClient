@@ -22,12 +22,15 @@ class Order extends ApiObject
 
 	protected $name = '';
     protected $language = '';
+    protected $postalCode = '';
+    protected $country = '';
 	protected $contactId = '';
 	protected $infoUrl = '';
 	/** @var Status|null */
 	protected $status = null;
 
     protected $hasPromoCodes=false;
+    protected $isAutomaticCancel=false;
 
 	protected $created = null;
 	protected $expires = null;
@@ -43,6 +46,9 @@ class Order extends ApiObject
 		$result = parent::getFromArray($data, $existingObject);
 		if (isset($data['name'])) $result->setName($data['name']);
         if (isset($data['language'])) $result->setLanguage($data['language']);
+        if (isset($data['country'])) $result->setCountry($data['country']);
+        if (isset($data['postalcode'])) $result->setPostalCode($data['postalcode']);
+        if (isset($data['automaticcancel'])) $result->setIsAutomaticCancel($data['automaticcancel']);
 		if (isset($data['contactid'])) $result->setContactId($data['contactid']);
 		if (isset($data['info_url'])) $result->setInfoUrl($data['info_url']);
         if (isset($data['notes'])) $result->setNotes($data['notes']);
@@ -68,6 +74,22 @@ class Order extends ApiObject
 		return $result;
 	}
 
+
+    static function toArray(ApiObject $existingObject) {
+        /** @var Order $existingObject */
+        $data=[];
+        $data['id']=$existingObject->getId();
+        $data['name']=$existingObject->getName();
+        $data['language']=$existingObject->getLanguage();
+        $data['country']=$existingObject->getCountry();
+        $data['postalcode']=$existingObject->getPostalCode();
+        $data['automaticcancel']=$existingObject->isAutomaticCancel();
+        $data['contactid']=$existingObject->getContactId();
+        $data['notes']=$existingObject->getNotes();
+        $data['metadata']=$existingObject->getMetaData();
+
+        return $data;
+    }
 
 	/**
 	 * @return string
@@ -238,6 +260,36 @@ class Order extends ApiObject
     public function setProducts(array $products): void
     {
         $this->products = $products;
+    }
+
+    public function getPostalCode(): string
+    {
+        return $this->postalCode;
+    }
+
+    public function setPostalCode( $postalCode): void
+    {
+        $this->postalCode = $postalCode;
+    }
+
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    public function setCountry( $country): void
+    {
+        $this->country = $country;
+    }
+
+    public function isAutomaticCancel(): bool
+    {
+        return $this->isAutomaticCancel;
+    }
+
+    public function setIsAutomaticCancel(bool $isAutomaticCancel): void
+    {
+        $this->isAutomaticCancel = $isAutomaticCancel;
     }
 
 

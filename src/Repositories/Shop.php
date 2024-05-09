@@ -46,6 +46,19 @@ class Shop extends Repository
 		return \Sapiti\Objects\Shop\Order::getFromArray($apiResponse->getResponse());
 	}
 
+    public function createOrder(Order $order) : ?Order {
+        $dataArray = Order::toArray($order);
+        $apiResponse = $this->getAPIResponse('shop/orders',$dataArray,'POST');
+        return \Sapiti\Objects\Shop\Order::getFromArray($apiResponse->getResponse());
+    }
+
+    public function updateOrder(Order $order): ?Order
+    {
+        $dataArray = Order::toArray($order);
+        $apiResponse = $this->getAPIResponse('shop/orders/'.$order->getId(),$dataArray,'PATCH');
+        return \Sapiti\Objects\Shop\Order::getFromArray($apiResponse->getResponse());
+    }
+
 	public function confirmOrder(string $orderId, string $contactId) {
 		$apiResponse = $this->getAPIResponse('shop/orders/'.$orderId,['contactid'=>$contactId,'statusid'=>Order::STATUS_CONFIRMED],'PATCH');
 		return \Sapiti\Objects\Shop\Order::getFromArray($apiResponse->getResponse());

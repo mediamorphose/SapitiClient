@@ -22,7 +22,7 @@ class Agenda extends Repository
 	 * @throws JsonException
 	 */
 	public function getEvents(array $params=[]) {
-		$apiResponse = $this->getAPIResponse('agenda/events',$params,'GET');
+		$apiResponse = $this->getAPIResponse('agenda/events/',$params,'GET');
 		return Event::getMultipleFromArray($apiResponse->getResponse());
 	}
 
@@ -61,7 +61,7 @@ class Agenda extends Repository
 	 * @throws JsonException
 	 */
 	public function getTimeSlots(array $params=[]) {
-		$apiResponse = $this->getAPIResponse('agenda/timeslots',$params,'GET');
+		$apiResponse = $this->getAPIResponse('agenda/timeslots/',$params,'GET');
 		return TimeSlot::getMultipleFromArray($apiResponse->getResponse());
 	}
 
@@ -87,7 +87,7 @@ class Agenda extends Repository
 	 * @throws JsonException
 	 */
 	public function getVenues(array $params=[]) {
-		$apiResponse = $this->getAPIResponse('agenda/venues',$params,'GET');
+		$apiResponse = $this->getAPIResponse('agenda/venues/',$params,'GET');
 		return Venue::getMultipleFromArray($apiResponse->getResponse());
 	}
 
@@ -113,7 +113,7 @@ class Agenda extends Repository
 	 * @throws JsonException
 	 */
 	public function getAttractions(array $params=[]) {
-		$apiResponse = $this->getAPIResponse('agenda/attractions',$params,'GET');
+		$apiResponse = $this->getAPIResponse('agenda/attractions/',$params,'GET');
 		return Attraction::getMultipleFromArray($apiResponse->getResponse());
 	}
 
@@ -154,7 +154,7 @@ class Agenda extends Repository
 	 * @throws JsonException
 	 */
 	public function getCategories(array $params=[]) {
-		$apiResponse = $this->getAPIResponse('agenda/attractions/categories',$params,'GET');
+		$apiResponse = $this->getAPIResponse('agenda/attractions/categories/',$params,'GET');
 		return Category::getMultipleFromArray($apiResponse->getResponse());
 	}
 

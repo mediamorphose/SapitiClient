@@ -18,7 +18,7 @@ class Contact extends Repository
 	 * @throws JsonException
 	 */
 	public function getContacts(array $params=[]) {
-		$apiResponse = $this->getAPIResponse('contacts',$params,'GET');
+		$apiResponse = $this->getAPIResponse('contacts/',$params,'GET');
 		return \Sapiti\Objects\Contact\Contact::getMultipleFromArray($apiResponse->getResponse());
 	}
 
@@ -60,7 +60,7 @@ class Contact extends Repository
 	public function createContact(\Sapiti\Objects\Contact\Contact $contact, $stockId=null) {
 		$dataArray = \Sapiti\Objects\Contact\Contact::toArray($contact);
         if($stockId) $dataArray['stockid']=$stockId;
-		$apiResponse = $this->getAPIResponse('contacts',$dataArray,'POST');
+		$apiResponse = $this->getAPIResponse('contacts/',$dataArray,'POST');
 		return \Sapiti\Objects\Contact\Contact::getFromArray($apiResponse->getResponse());
 	}
 

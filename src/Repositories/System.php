@@ -18,7 +18,7 @@ class System extends Repository
 	 * @throws JsonException
 	 */
 	public function ping() {
-		$apiResponse = $this->getClient()->callAPI('ping','GET', ['language'=>$this->getClient()->getLanguage()]);
+		$apiResponse = $this->getClient()->callAPI('ping/','GET', ['language'=>$this->getClient()->getLanguage()]);
 		$responseArray = $apiResponse->getResponse();
 		if(isset($responseArray['message']))
 			return $responseArray['message'];
@@ -36,7 +36,7 @@ class System extends Repository
 	 */
 	public function pingParams($data = []) {
 		if (sizeof($data)==0) return $data;
-		$apiResponse = $this->getClient()->callAPI('ping','GET',$data);
+		$apiResponse = $this->getClient()->callAPI('ping/','GET',$data);
 		$responseArray = $apiResponse->getResponse();
 		if(isset($responseArray['params']))
 			return $responseArray['params'];
@@ -52,7 +52,7 @@ class System extends Repository
 	 */
 	public function authenticate() {
 		$data = $this->getClient()->getAuthenticationParams();
-		$apiResponse = $this->getClient()->callAPI('system/authenticate','GET',$data);
+		$apiResponse = $this->getClient()->callAPI('system/authenticate/','GET',$data);
 		$apiError = $apiResponse->getApiError();
 		if ($apiError) throw new ApiException($apiError, null);
 		return Application::getFromArray($apiResponse->getResponse());

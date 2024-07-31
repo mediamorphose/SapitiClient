@@ -23,7 +23,7 @@ class Catalogue extends Repository
 	 * @throws JsonException
 	 */
 	public function getStreams(array $params=[]) {
-		$apiResponse = $this->getAPIResponse('catalogue/streams',$params,'GET');
+		$apiResponse = $this->getAPIResponse('catalogue/streams/',$params,'GET');
 		return Stream::getMultipleFromArray($apiResponse->getResponse());
 	}
 
@@ -50,7 +50,7 @@ class Catalogue extends Repository
 	 * @throws JsonException
 	 */
 	public function getControlStreamAccessWithContactId(string $id, string $contactId) {
-		$apiResponse = $this->getAPIResponse('catalogue/streams/'.$id.'/control',['contactid'=>$contactId],'GET');
+		$apiResponse = $this->getAPIResponse('catalogue/streams/'.$id.'/control/',['contactid'=>$contactId],'GET');
 		return $apiResponse->getResponse();
 	}
 
@@ -64,7 +64,7 @@ class Catalogue extends Repository
 	 * @throws JsonException
 	 */
 	public function getControlStreamAccessWithAccessCode(string $id, string $accessCode) {
-		$apiResponse = $this->getAPIResponse('catalogue/streams/'.$id.'/control',['accesscode'=>$accessCode],'GET');
+		$apiResponse = $this->getAPIResponse('catalogue/streams/'.$id.'/control/',['accesscode'=>$accessCode],'GET');
 		return  $apiResponse->getResponse();
 	}
 
@@ -77,7 +77,7 @@ class Catalogue extends Repository
 	 * @throws JsonException
 	 */
 	public function getMerchandisings(array $params=[]) {
-		$apiResponse = $this->getAPIResponse('catalogue/merchandising',$params,'GET');
+		$apiResponse = $this->getAPIResponse('catalogue/merchandising/',$params,'GET');
 		return Merchandising::getMultipleFromArray($apiResponse->getResponse());
 	}
 
@@ -103,7 +103,7 @@ class Catalogue extends Repository
 	 * @throws JsonException
 	 */
 	public function getMerchandisingCategories(array $params=[]) {
-		$apiResponse = $this->getAPIResponse('catalogue/merchandising/categories',$params,'GET');
+		$apiResponse = $this->getAPIResponse('catalogue/merchandising/categories/',$params,'GET');
 		return Category::getMultipleFromArray($apiResponse->getResponse());
 	}
 
@@ -130,7 +130,7 @@ class Catalogue extends Repository
 	 * @throws JsonException
 	 */
 	public function getPacks(array $params=[]) {
-		$apiResponse = $this->getAPIResponse('catalogue/packs',$params,'GET');
+		$apiResponse = $this->getAPIResponse('catalogue/packs/',$params,'GET');
 		return Pack::getMultipleFromArray($apiResponse->getResponse());
 	}
 
@@ -160,7 +160,7 @@ class Catalogue extends Repository
      * @throws JsonException
      */
     public function getFinanceItems(array $params=[]) {
-        $apiResponse = $this->getAPIResponse('catalogue/financeitems',$params,'GET');
+        $apiResponse = $this->getAPIResponse('catalogue/financeitems/',$params,'GET');
         return FinanceItem::getMultipleFromArray($apiResponse->getResponse());
     }
 

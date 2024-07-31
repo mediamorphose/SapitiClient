@@ -29,7 +29,7 @@ class Shop extends Repository
 	 * @throws JsonException
 	 */
 	public function getOrders(array $params=[]) {
-		$apiResponse = $this->getAPIResponse('shop/orders',$params,'GET');
+		$apiResponse = $this->getAPIResponse('shop/orders/',$params,'GET');
 		return \Sapiti\Objects\Shop\Order::getMultipleFromArray($apiResponse->getResponse());
 	}
 
@@ -48,7 +48,7 @@ class Shop extends Repository
 
     public function createOrder(Order $order) : ?Order {
         $dataArray = Order::toArray($order);
-        $apiResponse = $this->getAPIResponse('shop/orders',$dataArray,'POST');
+        $apiResponse = $this->getAPIResponse('shop/orders/',$dataArray,'POST');
         return \Sapiti\Objects\Shop\Order::getFromArray($apiResponse->getResponse());
     }
 
@@ -101,7 +101,7 @@ class Shop extends Repository
 	 * @throws JsonException
 	 */
 	public function getProducts(array $params=[]) {
-		$apiResponse = $this->getAPIResponse('shop/products',$params,'GET');
+		$apiResponse = $this->getAPIResponse('shop/products/',$params,'GET');
 		return \Sapiti\Objects\Shop\Product::getMultipleFromArray($apiResponse->getResponse());
 	}
 
@@ -167,7 +167,7 @@ class Shop extends Repository
 	 * @throws JsonException
 	 */
 	public function getStocks(array $params=[]) {
-		$apiResponse = $this->getAPIResponse('shop/products/stocks',$params,'GET');
+		$apiResponse = $this->getAPIResponse('shop/products/stocks/',$params,'GET');
 		return \Sapiti\Objects\Shop\Stock::getMultipleFromArray($apiResponse->getResponse());
 	}
 
@@ -225,7 +225,7 @@ class Shop extends Repository
 	 * @throws JsonException
 	 */
 	public function getPromoCodes(array $params=[]) {
-		$apiResponse = $this->getAPIResponse('shop/promocodes',$params,'GET');
+		$apiResponse = $this->getAPIResponse('shop/promocodes/',$params,'GET');
 		return PromoCode::getMultipleFromArray($apiResponse->getResponse());
 	}
 
@@ -355,7 +355,7 @@ class Shop extends Repository
 	 */
 	public function createPayment(Payment $payment) : ?Payment {
 		$dataArray = Payment::toArray($payment);
-		$apiResponse = $this->getAPIResponse('shop/orders/payments',$dataArray,'POST');
+		$apiResponse = $this->getAPIResponse('shop/orders/payments/',$dataArray,'POST');
 		return $payment::getFromArray($apiResponse->getResponse());
 	}
 
@@ -365,7 +365,7 @@ class Shop extends Repository
 	}
 
 	public function getCounters(array $params=[]) {
-		$apiResponse = $this->getAPIResponse('shop/counters',$params,'GET');
+		$apiResponse = $this->getAPIResponse('shop/counters/',$params,'GET');
 		return \Sapiti\Objects\Shop\Counter::getMultipleFromArray($apiResponse->getResponse());
 	}
 
@@ -376,7 +376,7 @@ class Shop extends Repository
 
 	public function getCounterSessions($counterId, array $params=[]) {
 		$params['counterid']=$counterId;
-		$apiResponse = $this->getAPIResponse('shop/counters/sessions',$params,'GET');
+		$apiResponse = $this->getAPIResponse('shop/counters/sessions/',$params,'GET');
 		return \Sapiti\Objects\Shop\CounterSession::getMultipleFromArray($apiResponse->getResponse());
 	}
 
@@ -387,7 +387,7 @@ class Shop extends Repository
 		$params['startamount']=$startAmountCents;
 		$params['userlabel']=$userLabel;
 		$params['externaluserid']=$externalUserId;
-		$apiResponse = $this->getAPIResponse('shop/counters/sessions',$params,'POST');
+		$apiResponse = $this->getAPIResponse('shop/counters/sessions/',$params,'POST');
 		return \Sapiti\Objects\Shop\CounterSession::getFromArray($apiResponse->getResponse());
 	}
 

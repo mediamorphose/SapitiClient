@@ -18,7 +18,7 @@ class Newsletter extends Repository
 	 * @throws JsonException
 	 */
 	public function getNewsletters(array $params=[]) {
-		$apiResponse = $this->getAPIResponse('contacts/newsletters',$params,'GET');
+		$apiResponse = $this->getAPIResponse('contacts/newsletters/',$params,'GET');
 		return \Sapiti\Objects\Contact\Newsletter::getMultipleFromArray($apiResponse->getResponse());
 	}
 

@@ -36,6 +36,7 @@ class Pack extends ApiObject
 		if (isset($data['itemnb_min'])) $result->setItemNbMin($data['itemnb_min']);
 
 		if (isset($data['image_url'])) $result->setImageUrl($data['image_url']);
+        if (isset($data['shop_url'])) $result->setShopUrl($data['shop_url']);
 
 		if(isset($data['metadata']) && is_array($data['metadata']))
 			$result->setMetaData($data['metadata']);

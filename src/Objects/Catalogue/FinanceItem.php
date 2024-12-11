@@ -15,6 +15,9 @@ class FinanceItem extends ApiObject
     const VALIDITY_UNPAID = -4;
     const VALIDITY_VALID = 1;
 
+    const TYPE_COUPON = 1401;
+    const TYPE_CONTRIBUTION = 1402;
+
 	protected $description = '';
 	protected $shopUrl = '';
     protected $imageUrl = '';

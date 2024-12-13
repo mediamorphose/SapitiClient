@@ -12,7 +12,7 @@ class Price extends ApiObject
 	protected $description='';
 	protected $amount=-1;
     protected $maxamount=-1;
-    protected $amontStep=1;
+    protected $amountStep=1;
     protected $step=1;
 	protected $currency='EUR';
 	protected $quantityMin=-1;
@@ -34,7 +34,7 @@ class Price extends ApiObject
 		if (isset($data['value']['amount'])) $result->setAmount($data['value']['amount']);
         if (isset($data['value']['maxamount'])) $result->setMaxamount($data['value']['maxamount']);
 		if (isset($data['value']['currency'])) $result->setCurrency($data['value']['currency']);
-        if (isset($data['value']['step'])) $result->setAmontStep($data['value']['step']);
+        if (isset($data['value']['step'])) $result->setAmountStep($data['value']['step']);
         if (isset($data['promo']['description'])) $result->setPromoDescription($data['promo']['description']);
         if (isset($data['promo']['initalprice'])) $result->setPromoInitialPrice($data['promo']['initalprice']);
 		return $result;
@@ -205,14 +205,14 @@ class Price extends ApiObject
         $this->step = $step;
     }
 
-    public function getAmontStep(): int
+    public function getAmountStep(): int
     {
-        return $this->amontStep;
+        return $this->amountStep;
     }
 
-    public function setAmontStep(int $amontStep): void
+    public function setAmountStep(int $amountStep): void
     {
-        $this->amontStep = $amontStep;
+        $this->amountStep = $amountStep;
     }
 
     public function isQuantityByWeight(): bool

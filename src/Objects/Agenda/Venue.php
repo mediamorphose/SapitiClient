@@ -16,6 +16,7 @@ class Venue extends ApiObject
 	protected $addressCountry='';
 	protected $mapURL='';
 
+    protected $metaData=[];
 
 	/**
 	 * @param array $data
@@ -31,7 +32,11 @@ class Venue extends ApiObject
 		if(isset($data['city'])) $result->setAddressCity($data['city']);
 		if(isset($data['country'])) $result->setAddressCountry($data['country']);
 		if(isset($data['map_url'])) $result->setMapURL($data['map_url']);
-		return $result;
+
+        if(isset($data['metadata']) && is_array($data['metadata']))
+            $result->setMetaData($data['metadata']);
+
+        return $result;
 	}
 
 	/**
@@ -129,6 +134,24 @@ class Venue extends ApiObject
 	{
 		$this->mapURL = $mapURL;
 	}
+
+    /**
+     * @return array
+     */
+    public function getMetaData(): array
+    {
+        if(!is_array($this->metaData))
+            $this->metaData=[];
+        return $this->metaData;
+    }
+
+    /**
+     * @param array $metaData
+     */
+    public function setMetaData($metaData): void
+    {
+        $this->metaData = $metaData;
+    }
 
 
 }

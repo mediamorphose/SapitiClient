@@ -10,6 +10,7 @@ use Sapiti\Objects\System\ApiResponse;
 use Sapiti\Repositories\AccessControl;
 use Sapiti\Repositories\Agenda;
 use Sapiti\Repositories\Catalogue;
+use Sapiti\Repositories\Cineville;
 use Sapiti\Repositories\Contact;
 use Sapiti\Repositories\Newsletter;
 use Sapiti\Repositories\Shop;
@@ -61,6 +62,7 @@ class SapitiClient
 		$this->catalogueRepository= new Catalogue($this);
 		$this->shopRepository= new Shop($this);
 		$this->controlRepository= new AccessControl($this);
+        $this->cinevilleRepository= new Cineville($this);
 		$this->setMode($mode);
 	}
 
@@ -202,6 +204,13 @@ class SapitiClient
     {
 		return $this->shopRepository;
 	}
+
+    protected ?Cineville $cinevilleRepository=null;
+
+    public function Cineville(): ?Cineville
+    {
+        return $this->cinevilleRepository;
+    }
 
 
 	protected ?Catalogue $catalogueRepository=null;

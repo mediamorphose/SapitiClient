@@ -26,6 +26,11 @@ class Attraction extends ApiObject
 
 	protected $externalId = null;
 
+    /** @var Company  */
+    protected $organizer=null;
+    /** @var Company  */
+    protected $distributor=null;
+
 	/**
 	 * @param array $data
 	 * @param ApiObject|null $existingObject
@@ -57,7 +62,14 @@ class Attraction extends ApiObject
 			$date = \DateTime::createFromFormat(\DateTime::ISO8601, $data['lastevent_date']);
 			$result->setLastEventDate($date);
 		}
+
 		if(isset($data['nb_events'])) $result->setNbEvents($data['nb_events']);
+
+        if(isset($data['organizer']))
+            $result->setOrganizer(Company::getFromArray($data['organizer']));
+
+        if(isset($data['distributor']))
+            $result->setDistributor(Company::getFromArray($data['distributor']));
 
 		return $result;
 	}
@@ -271,6 +283,26 @@ class Attraction extends ApiObject
 	{
 		$this->metaData = $metaData;
 	}
+
+    public function getOrganizer(): ?Company
+    {
+        return $this->organizer;
+    }
+
+    public function setOrganizer(?Company $organizer): void
+    {
+        $this->organizer = $organizer;
+    }
+
+    public function getDistributor(): ?Company
+    {
+        return $this->distributor;
+    }
+
+    public function setDistributor(?Company $distributor): void
+    {
+        $this->distributor = $distributor;
+    }
 
 
 

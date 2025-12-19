@@ -14,6 +14,7 @@ class Payment extends ApiObject
 	protected $orderId = '';
 	protected $paymentMethodId = '';
 	protected $counterId = '';
+    protected $notes = '';
 	protected $externalId = '';
 	protected $amount=0;
     protected $expectedAmount=0;
@@ -40,6 +41,7 @@ class Payment extends ApiObject
 		if (isset($data['paymentmethodid'])) $result->setPaymentMethodId($data['paymentmethodid']);
 		if (isset($data['externalid'])) $result->setExternalId($data['externalid']);
         if (isset($data['couponcode'])) $result->setCouponCode($data['couponcode']);
+        if (isset($data['notes'])) $result->setNotes($data['notes']);
 		if (isset($data['value']['amount'])) $result->setAmount($data['value']['amount']);
         if (isset($data['value']['expectedamount'])) $result->setExpectedAmount($data['value']['expectedamount']);
 		if (isset($data['value']['currency'])) $result->setCurrency($data['value']['currency']);
@@ -69,6 +71,7 @@ class Payment extends ApiObject
 		$data['paymentmethodid']=$existingObject->getPaymentMethodId();
 		$data['counterid']=$existingObject->getCounterId();
 		$data['externalid']=$existingObject->getExternalId();
+        $data['notes']=$existingObject->getNotes();
         $data['couponcode']=$existingObject->getCouponCode();
 		$data['value']['amount']=$existingObject->getAmount();
         $data['value']['expectedamount']=$existingObject->getExpectedAmount();
@@ -273,6 +276,16 @@ class Payment extends ApiObject
     public function setExpectedAmount(int $expectedAmount): void
     {
         $this->expectedAmount = $expectedAmount;
+    }
+
+    public function getNotes(): string
+    {
+        return $this->notes;
+    }
+
+    public function setNotes(string $notes): void
+    {
+        $this->notes = $notes;
     }
 
 

@@ -3,6 +3,7 @@
 
 namespace Sapiti\Objects\Shop;
 
+use Sapiti\Objects\Agenda\Attraction;
 use Sapiti\Objects\ApiObject;
 use Sapiti\Objects\TCapacity;
 
@@ -22,6 +23,8 @@ class Price extends ApiObject
     protected $promoDescription='';
     protected $promoInitialPrice=-1;
 
+    protected $suggestedPayments = [];
+
 	static function getFromArray($data = null, ApiObject $existingObject = null)
 	{
 		/** @var Price $result */
@@ -37,6 +40,10 @@ class Price extends ApiObject
         if (isset($data['value']['step'])) $result->setAmountStep($data['value']['step']);
         if (isset($data['promo']['description'])) $result->setPromoDescription($data['promo']['description']);
         if (isset($data['promo']['initalprice'])) $result->setPromoInitialPrice($data['promo']['initalprice']);
+
+        if(isset($data['suggested_payments']))
+            $result->setSuggestedPayments(Payment::getMultipleFromArray( $data['suggested_payments']));
+
 		return $result;
 	}
 
@@ -223,6 +230,16 @@ class Price extends ApiObject
     public function setQuantityByWeight(bool $quantityByWeight): void
     {
         $this->quantityByWeight = $quantityByWeight;
+    }
+
+    public function getSuggestedPayments(): array
+    {
+        return $this->suggestedPayments;
+    }
+
+    public function setSuggestedPayments(array $suggestedPayments): void
+    {
+        $this->suggestedPayments = $suggestedPayments;
     }
 
 

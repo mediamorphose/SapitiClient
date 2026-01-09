@@ -229,6 +229,38 @@ class Shop extends Repository
 		return PromoCode::getMultipleFromArray($apiResponse->getResponse());
 	}
 
+
+    /**
+     * @param $label
+     * @param Order $order
+     * @return array
+     * @throws ApiException
+     * @throws CurlException
+     * @throws InvalidHTTPMethodException
+     * @throws JsonException
+     */
+    public function getPromoCodesForLabelAndOrder($label, Order $order) {
+        $apiResponse = $this->getAPIResponse('shop/promocodes/',['label'=>$label,"orderid"=>$order->getId()],'GET');
+        return PromoCode::getMultipleFromArray($apiResponse->getResponse());
+    }
+
+    /**
+     * @param PromoCode $promoCode
+     * @param Order $order
+     * @param array $params
+     * @return array
+     * @throws ApiException
+     * @throws CurlException
+     * @throws InvalidHTTPMethodException
+     * @throws JsonException
+     */
+    public function attachPromoCodeToOrder(PromoCode $promoCode, Order $order, array $params=[]): array
+    {
+        $params['orderid']=$order->getId();
+        $apiResponse = $this->getAPIResponse('shop/promocodes/'.$promoCode->getId(),$params,'POST');
+        return Product::getMultipleFromArray($apiResponse->getResponse());
+    }
+
 	/**
 	 * @param string $id
 	 * @return PromoCode|null

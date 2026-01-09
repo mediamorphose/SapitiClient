@@ -14,6 +14,7 @@ class PromoCode extends ApiObject
 	const TYPE_RELEAVE = 300;
 
 	protected $description = '';
+    protected $message = '';
 	protected $startTime = false;
 	protected $endTime = false;
 	protected $typeId = 100;
@@ -26,6 +27,7 @@ class PromoCode extends ApiObject
 		/** @var PromoCode $result */
 		$result = parent::getFromArray($data, $existingObject);
 		if (isset($data['description'])) $result->setDescription($data['description']);
+        if (isset($data['message'])) $result->setMessage($data['message']);
 		if(isset($data['starttime']))  {
 			$date = \DateTime::createFromFormat(\DateTime::ISO8601, $data['starttime']);
 			$result->setStartTime($date);
@@ -143,6 +145,16 @@ class PromoCode extends ApiObject
 	{
 		$this->productCategory = $productCategory;
 	}
+
+    public function getMessage(): string
+    {
+        return $this->message;
+    }
+
+    public function setMessage(string $message): void
+    {
+        $this->message = $message;
+    }
 
 
 

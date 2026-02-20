@@ -20,6 +20,8 @@ class Product extends ApiObject
 	protected $ticket=null;
 	protected $category=null;
 
+    protected $metaData=[];
+
 
 	static function getFromArray($data = null, ApiObject $existingObject = null)
 	{
@@ -41,6 +43,10 @@ class Product extends ApiObject
 		if (isset($data['ticket'])) {
 			$result->setTicket(Ticket::getFromArray($data['ticket']));
 		}
+
+        if(isset($data['metadata']) && is_array($data['metadata']))
+            $result->setMetaData($data['metadata']);
+
 		if (isset($data['usage'])) {
 			if (isset($data['usage']['statusid'])) $result->setUsageId($data['usage']['statusid']);
 			if (isset($data['usage']['by'])) $result->setUsageLabel($data['usage']['by']);
@@ -206,6 +212,24 @@ class Product extends ApiObject
     public function setPositionId(string $positionId): void
     {
         $this->positionId = $positionId;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMetaData()
+    {
+        if(!is_array($this->metaData))
+            $this->metaData=[];
+        return $this->metaData;
+    }
+
+    /**
+     * @param array $metaData
+     */
+    public function setMetaData($metaData): void
+    {
+        $this->metaData = $metaData;
     }
 
 

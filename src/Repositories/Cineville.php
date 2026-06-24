@@ -9,7 +9,8 @@ class Cineville extends Repository
 
     public function getPackProductFromCustomerId(string $customerId, array $params=[]): ?Product
     {
-        $apiResponse = $this->getAPIResponse('cineville/packproducts/',['customerid'=>$customerId],'GET');
+        $params['customerid']=$customerId;
+        $apiResponse = $this->getAPIResponse('cineville/packproducts/',$params,'GET');
         return \Sapiti\Objects\Shop\Product::getFromArray($apiResponse->getResponse());
     }
 

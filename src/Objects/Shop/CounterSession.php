@@ -17,6 +17,7 @@ class CounterSession extends ApiObject
 	protected $endAmount=0;
 
 	protected $notes='';
+    protected $reportURL='';
 	protected $userLabel='';
 
 	protected $counterId='';
@@ -31,6 +32,7 @@ class CounterSession extends ApiObject
 		if(isset($data['endamount'])) $result->setEndAmount($data['endamount']);
 		if(isset($data['userlabel'])) $result->setUserLabel($data['userlabel']);
 		if(isset($data['notes'])) $result->setNotes($data['notes']);
+        if(isset($data['report_url'])) $result->setReportURL($data['report_url']);
 		if(isset($data['starttime']))  {
 			$date = \DateTime::createFromFormat(\DateTime::ISO8601, $data['starttime']);
 			$result->setStartTime($date);
@@ -51,6 +53,7 @@ class CounterSession extends ApiObject
 		$data['endamount']=$existingObject->getEndAmount();
 		$data['userlabel']=$existingObject->getUserLabel();
 		$data['notes']=$existingObject->getNotes();
+        $data['report_url']=$existingObject->getReportURL();
 		$data['starttime']=null;
 		$data['endtime']=null;
 
@@ -176,6 +179,16 @@ class CounterSession extends ApiObject
 	{
 		$this->userLabel = $userLabel;
 	}
+
+    public function getReportURL(): string
+    {
+        return $this->reportURL;
+    }
+
+    public function setReportURL(string $reportURL): void
+    {
+        $this->reportURL = $reportURL;
+    }
 
 
 

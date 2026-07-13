@@ -5,7 +5,6 @@ use Sapiti\Exceptions\ApiException;
 use Sapiti\Exceptions\CurlException;
 use Sapiti\Exceptions\InvalidHTTPMethodException;
 use Sapiti\Exceptions\JsonException;
-use Sapiti\Objects\Catalogue\Stream;
 use Sapiti\Objects\Shop\Counter;
 use Sapiti\Objects\Shop\Order;
 use Sapiti\Objects\Shop\Payment;
@@ -416,6 +415,11 @@ class Shop extends Repository
 		$apiResponse = $this->getAPIResponse('shop/counters/sessions/',$params,'GET');
 		return \Sapiti\Objects\Shop\CounterSession::getMultipleFromArray($apiResponse->getResponse());
 	}
+
+    public function getCounterSession(string $id) {
+        $apiResponse = $this->getAPIResponse('shop/counters/sessions/'.$id,[],'GET');
+        return  \Sapiti\Objects\Shop\CounterSession::getFromArray($apiResponse->getResponse());
+    }
 
 
 	public function startCounterSession($counterId, $startAmountCents=0,$userLabel='', $externalUserId='') {
